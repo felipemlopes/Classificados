@@ -5,7 +5,7 @@
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
 @stop
 
-@section('title', trans('app.dashboard'))
+@section('page-title', 'Dashboard')
 
 @section('body_class', 'skin-'. config('adminlte.skin', 'blue') .' sidebar-mini')
 
@@ -41,13 +41,13 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>1{{--$cupons->count()--}}</h3>
+                <h3>{{$advertisements->count()}}</h3>
                 <p>Total de Anúncios</p>
             </div>
             <div class="icon">
                 <i class="fa fa-link"></i>
             </div>
-            <a href="{{-- route('dashboard.coupon.list') --}}" class="small-box-footer">
+            <a href="{{ route('dashboard.advertisement.list') }}" class="small-box-footer">
                 Ver todos anúncios <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>

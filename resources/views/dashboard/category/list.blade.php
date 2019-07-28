@@ -55,6 +55,7 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Pai</th>
+                                <th>Anúncios</th>
                                 <th class="text-center">Ações</th>
                             </tr>
                             @if (count($categories))
@@ -62,6 +63,7 @@
                             <tr>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->parent_id != null ? $category->parent->name: ''}}</td>
+                                <td>{{ $category->parent_id==null?$category->professionals->count():$category->subprofessionals->count() }}</td>
                                 <td class="text-center">
                                     @can('Editar categorias')
                                     <a href="{{ route('dashboard.category.edit', $category->id) }}" class="btn btn-primary btn-circle edit" title="Editar categoria"

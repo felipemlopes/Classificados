@@ -57,6 +57,7 @@
                                 <th>Nome</th>
                                 <th>Sobrenome</th>
                                 <th>Email</th>
+                                <th>Anúncios</th>
                                 <th>Último login</th>
                                 <th class="text-center">Ações</th>
                             </tr>
@@ -66,7 +67,8 @@
                                 <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->last_login != null ? date('d/m/Y', strtotime($user->last_login)):'' }}</td>
+                                <td>{{ $user->advertisements->count() }}</td>
+                                <td>{{ $user->last_login != null ? date('d/m/Y H:i:s', strtotime($user->last_login)):'' }}</td>
                                 <td class="text-center">
                                     @can('Editar usuário')
                                     <a href="{{ route('dashboard.user.edit', $user->id) }}" class="btn btn-primary btn-circle edit" title="Editar usuário"

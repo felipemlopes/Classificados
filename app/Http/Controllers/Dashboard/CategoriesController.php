@@ -74,7 +74,7 @@ class CategoriesController extends Controller
         $category->parent_id = $request->parent_id;
         $category->save();
 
-        return redirect()->route('dashboard.category.list')->withSuccess('Estilo musical criado com sucesso!');
+        return redirect()->route('dashboard.category.list')->withSuccess('Categoria criada com sucesso!');
     }
 
     /**

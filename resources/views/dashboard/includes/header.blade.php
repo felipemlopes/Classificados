@@ -45,17 +45,12 @@
                                Meu Perfil
                             </a>
 
-
-                            <a href="{{ route('logout') }}" class="btn btn-default btn-block"
-                               onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();"
-                                {{ __('Logout') }}>
-                               <i class="fa fa-sign-out"></i>
-                               Sair
+                            <a href="{{ route('logout') }}" class="btn btn-default btn-block">
+                                <i class="fa fa-sign-out"></i>
+                                Sair
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+
+
                         </li>
                     </ul>
                 </li>

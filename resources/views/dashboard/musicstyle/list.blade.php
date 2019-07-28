@@ -54,12 +54,14 @@
                         <tbody>
                             <tr>
                                 <th>Nome</th>
+                                <th>Artistas</th>
                                 <th class="text-center">Ações</th>
                             </tr>
                             @if (count($styles))
                             @foreach ($styles as $style)
                             <tr>
                                 <td>{{ $style->name }}</td>
+                                <td>{{ $style->artists->count() }}</td>
                                 <td class="text-center">
                                     @can('Editar estilos musicais')
                                     <a href="{{ route('dashboard.musicstyle.edit', $style->id) }}" class="btn btn-primary btn-circle edit" title="Editar estilo musical"

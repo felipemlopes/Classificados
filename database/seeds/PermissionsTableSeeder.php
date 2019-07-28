@@ -84,5 +84,13 @@ class PermissionsTableSeeder extends Seeder
         $permission30->syncRoles($admin);
         $permission31->syncRoles($admin);
 
+        $permission32 = Permission::create(['name' => 'Criar anúncios']);
+        $permission33 = Permission::create(['name' => 'Excluir anúncios']);
+        $permission34 = Permission::create(['name' => 'Editar anúncios']);
+        $permission35 = Permission::create(['name' => 'Visualizar anúncios']);
+        $permission32->syncRoles($admin);
+        $permission33->syncRoles($admin);
+        $permission34->syncRoles($admin);
+        $permission35->syncRoles($admin);
     }
 }

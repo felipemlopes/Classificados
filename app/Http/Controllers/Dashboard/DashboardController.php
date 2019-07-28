@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Advertisement;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,15 +19,16 @@ class DashboardController extends Controller
     public function index()
     {
         $users = User::all();
+        $advertisements = Advertisement::all();
         $monthsarray[] = date('m/Y');
         for ($i = 1; $i < 6; $i++) {
             $monthsarray[] = date('m/Y', strtotime("-$i month"));
         }
         $months='';
         foreach ($monthsarray as $m){
-            $months=$months."'".$m."'".",";
+            $months="'".$m."'".",".$months;
         }
-        $result = User::select('id', 'created_at')
+        $result = Advertisement::select('id', 'created_at')
             ->where("created_at",">", Carbon::now()->subMonths(6))
             ->get()
             ->groupBy(function($date) {
@@ -45,7 +47,8 @@ class DashboardController extends Controller
         foreach ($resultarray as $item){
             $resultarraystring=$resultarraystring."'".$item."'".",";
         }
-        return view('dashboard.admin', compact('users','months','resultarraystring'));
+
+        return view('dashboard.admin', compact('users','months','resultarraystring','advertisements'));
     }
 
 }

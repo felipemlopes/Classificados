@@ -4,16 +4,6 @@
         <form action="{{route('dashboard.settings.auth.update')}}" method="post">
             @csrf
             <div class="form-group">
-                <input type="hidden" name="remember_me" value="0">
-                <div class="checkbox">
-                    <label>
-                        <input name="remember_me" type="checkbox" value="1" {!! setting('remember_me') ? 'checked' : '' !!}>
-                        Habilitar a opção lembrar-me
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input name="forgot_password" type="checkbox" value="1" {!! setting('forgot_password') ? 'checked' : '' !!}>

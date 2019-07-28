@@ -21,48 +21,55 @@
         <ul class="sidebar-menu">
             <li class="">
                 <a href="{{ route('dashboard.index') }}">
-                    <i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
             @can('Visualizar usuários')
             <li class="">
                 <a href="{{ route('dashboard.user.list') }}">
-                    <i class="fa fa-users fa-fw"></i> <span>Usuários</span>
+                    <i class="fa fa-users"></i> <span>Usuários</span>
                 </a>
             </li>
+            @endcan
+            @can('Visualizar anúncios')
+                <li class="">
+                    <a href="{{ route('dashboard.advertisement.list') }}">
+                        <i class="fa fa-file"></i> <span>Anúncios</span>
+                    </a>
+                </li>
             @endcan
             @can('Visualizar categorias')
                 <li class="">
                     <a href="{{ route('dashboard.category.list') }}">
-                        <i class="fa fa-tags fa-fw"></i> <span>Categorias</span>
+                        <i class="fa fa-tags"></i> <span>Categorias</span>
                     </a>
                 </li>
             @endcan
             @can('Visualizar estilos musicais')
                 <li class="">
                     <a href="{{ route('dashboard.musicstyle.list') }}">
-                        <i class="fa fa-music fa-fw"></i> <span>Estilos musicais</span>
+                        <i class="fa fa-music"></i> <span>Estilos musicais</span>
                     </a>
                 </li>
             @endcan
             @can('Visualizar papéis')
             <li class="">
                 <a href="{{ route('dashboard.role.index') }}">
-                    <i class="fa fa-user fa-fw"></i> <span>Papéis</span>
+                    <i class="fa fa-user"></i> <span>Papéis</span>
                 </a>
             </li>
             @endcan
             @can('Visualizar permissões')
             <li class="">
                 <a href="{{ route('dashboard.permission.index') }}">
-                    <i class="fa fa-lock fw"></i> <span>Permissões</span>
+                    <i class="fa fa-lock"></i> <span>Permissões</span>
                 </a>
             </li>
             @endcan
             @can('Gerenciar configurações')
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-gear fa-fw"></i>
+                    <i class="fa fa-gear"></i>
                     <span>Configurações</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>

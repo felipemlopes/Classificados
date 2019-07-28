@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('page-title', 'Configurações de auteticação'))
+@section('page-title', 'Configurações de auteticação')
 
 @section('content_header')
     <h1>

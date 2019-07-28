@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
     <link rel="stylesheet"
-          href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'purple') . '.min.css')}} ">
+          href="{{ asset('vendor/adminlte/dist/css/skins/skin-purple.min.css')}} ">
     @yield('css')
 
     <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-{{config('adminlte.skin', 'purple')}} sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini">
 
 
 <div class="wrapper">

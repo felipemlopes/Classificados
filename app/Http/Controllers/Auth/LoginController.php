@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Foundation\Auth\RedirectsUsers;
@@ -159,7 +160,9 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        $user->update([
+            'last_login' => Carbon::now()->toDateTimeString(),
+        ]);
     }
 
     /**

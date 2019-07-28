@@ -16,6 +16,18 @@ class CreateArtistsTable extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
+            $table->string('title');
+            $table->text('description');
+            $table->decimal('cache',11,2)->nullable();
+            $table->string('video')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable();
+
+            $table->string('imagepath');
+            //calendar
+            //review
+
             $table->timestamps();
         });
     }

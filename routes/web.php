@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['as' => 'index','uses' => 'IndexController@index']);
 
 Route::get('login', ['as' => 'login','uses' => 'Auth\LoginController@showLoginForm']);
 Route::post('login', ['as' => 'postlogin','uses' => 'Auth\LoginController@login']);
@@ -25,6 +23,18 @@ Route::post('password/remind', ['as'=>'send.password.remind','uses'=>'Auth\Forgo
 Route::get('password/reset/{token}', ['as'=>'password.reset', 'uses'=>'Auth\ResetPasswordController@showResetForm']);
 Route::post('password/reset', ['as'=>'password.update','uses'=>'Auth\ResetPasswordController@reset']);
 
+Route::get('cidades/{estado_id}', ['as' => 'cidades','uses' => 'CidadesController@index']);
+Route::get('categoria/{categoria_id}', ['as' => 'categoria','uses' => 'CategoriasController@index']);
+
+Route::get('artistas', ['as' => 'artist.index','uses' => 'ArtistsController@index']);
+Route::get('artistas/{id}', ['as' => 'artist.show','uses' => 'ArtistsController@show']);
+Route::get('profissionais', ['as' => 'professional.index','uses' => 'ProfessionalsController@index']);
+Route::get('profissionais/{id}', ['as' => 'professional.show','uses' => 'ProfessionalsController@show']);
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('anunciar', ['as' => 'advertisement.index','uses' => 'AdvertisementController@create']);
+    Route::post('anunciar', ['as' => 'advertisement.store','uses' => 'AdvertisementController@store']);
+    Route::get('minha-conta', ['as' => 'myaccount.index','uses' => 'MyAccountController@index']);
+});
 
 Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'],'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
     Route::get('/', ['as' => 'index','uses' => 'Dashboard\DashboardController@index']);
@@ -42,6 +52,21 @@ Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'
     Route::post('user/{user_id}/update/role', ['as' => 'user.update.role','uses' => 'Dashboard\UsersController@updateRole']);
     Route::post('user/{user_id}/update/permissions', ['as' => 'user.update.permission','uses' => 'Dashboard\UsersController@updatePermissions']);
     Route::delete('user/{user_id}/delete', ['as' => 'user.delete','uses' => 'Dashboard\UsersController@destroy']);
+
+    Route::get('advertisement', ['as' => 'advertisement.list','uses' => 'Dashboard\AdvertisementsController@index']);
+    Route::get('advertisement/create', ['as' => 'advertisement.create','uses' => 'Dashboard\AdvertisementsController@create']);
+    Route::post('advertisement/store', ['as' => 'advertisement.store','uses' => 'Dashboard\AdvertisementsController@store']);
+    Route::get('advertisement/{advertisement_id}/edit', ['as' => 'advertisement.edit','uses' => 'Dashboard\AdvertisementsController@edit']);
+    Route::post('advertisement/{advertisement_id}/update', ['as' => 'advertisement.update','uses' => 'Dashboard\AdvertisementsController@update']);
+    Route::post('advertisement/{advertisement_id}/update-image', ['as' => 'advertisement.updateimage','uses' => 'Dashboard\AdvertisementsController@updateImage']);
+    Route::delete('advertisement/{advertisement_id}/delete', ['as' => 'advertisement.destroy','uses' => 'Dashboard\AdvertisementsController@destroy']);
+
+    Route::get('musicstyle', ['as' => 'musicstyle.list','uses' => 'Dashboard\MusicStylesController@index']);
+    Route::get('musicstyle/create', ['as' => 'musicstyle.create','uses' => 'Dashboard\MusicStylesController@create']);
+    Route::post('musicstyle/store', ['as' => 'musicstyle.store','uses' => 'Dashboard\MusicStylesController@store']);
+    Route::get('musicstyle/{musicstyle_id}/edit', ['as' => 'musicstyle.edit','uses' => 'Dashboard\MusicStylesController@edit']);
+    Route::post('musicstyle/{musicstyle_id}/update', ['as' => 'musicstyle.update','uses' => 'Dashboard\MusicStylesController@update']);
+    Route::delete('musicstyle/{musicstyle_id}/delete', ['as' => 'musicstyle.destroy','uses' => 'Dashboard\MusicStylesController@destroy']);
 
     Route::get('musicstyle', ['as' => 'musicstyle.list','uses' => 'Dashboard\MusicStylesController@index']);
     Route::get('musicstyle/create', ['as' => 'musicstyle.create','uses' => 'Dashboard\MusicStylesController@create']);

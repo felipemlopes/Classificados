@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\dashboard\user\CreateAnuncioRequest;
 use App\Http\Requests\dashboard\user\CreateUserRequest;
 use App\Http\Requests\dashboard\user\UpdateDetailsRequest;
 use App\Http\Requests\dashboard\user\UpdateLoginDetailsRequest;
