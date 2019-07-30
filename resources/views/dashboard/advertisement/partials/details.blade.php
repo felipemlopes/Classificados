@@ -84,7 +84,7 @@
                         </textarea>
                     </div>
 
-                    <div class="form-group" v-show="type==2">
+                    <div class="form-group">
                         <label for="categoria">Categoria:</label>
                         <select class="form-control" id="categoria" name="categoria">
                             <option value="">Selecione</option>
@@ -94,7 +94,7 @@
                         </select>
 
                     </div>
-                    <div class="form-group" v-show="type==2">
+                    <div class="form-group">
                         <label for="subcategoria">Sub categoria:</label>
                         <select class="form-control" id="subcategoria" name="subcategoria">
                             <option value="">Selecione</option>

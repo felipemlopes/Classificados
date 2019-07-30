@@ -53,6 +53,14 @@
             </a>
         </li>
         @endcan
+        @can('Editar usuário')
+        <li role="presentation">
+            <a href="#plan" aria-controls="plan" role="tab" data-toggle="tab">
+                <i class="fa fa-usd"></i>
+                Plano
+            </a>
+        </li>
+        @endcan
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -71,10 +79,12 @@
         <div role="tabpanel" class="tab-pane" id="auth">
             <div class="row">
                 <div class="col-md-8">
-                    <form action="{{route('dashboard.user.update.login-details', $user->id)}}" method="post">
-                    @csrf
-                    @include('dashboard.user.partials.auth')
-                    </form>
+                    @can('Editar usuário')
+                        <form action="{{route('dashboard.user.update.login-details', $user->id)}}" method="post">
+                        @csrf
+                        @include('dashboard.user.partials.auth')
+                        </form>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -99,6 +109,42 @@
                     @include('dashboard.user.partials.permissions')
                     </form>
                 </div>
+            </div>
+        </div>
+        @endcan
+        @can('Editar usuário')
+        <div role="tabpanel" class="tab-pane" id="plan">
+            <div class="row">
+                @if($user->hasActiveSubscription())
+                    @if($user->currentSubscription()->first()->plan_id==2)
+                    <div class="col-md-12">
+                        <p>Plano: {{ $user->currentSubscription()->first()->plan->name }}</p>
+                        <p>Plano expira em: {{ date('d/m/Y H:i:s', strtotime($user->currentSubscription()->first()->expires_on)) }}</p>
+                    </div>
+                    @endif
+                @endif
+                <div class="col-md-6">
+                    <form action="{{route('dashboard.user.update.plan', $user->id)}}" method="post">
+                        @csrf
+                        @include('dashboard.user.partials.plan')
+                    </form>
+                </div>
+                @if($user->hasActiveSubscription())
+                    @if($user->currentSubscription()->first()->plan_id==2)
+                    <div class="col-md-6">
+                        <form action="{{route('dashboard.user.update.plan.days.add', $user->id)}}" method="post">
+                            @csrf
+                            @include('dashboard.user.partials.plandays')
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <form action="{{route('dashboard.user.update.plan.days.remove', $user->id)}}" method="post">
+                            @csrf
+                            @include('dashboard.user.partials.plandaysremove')
+                        </form>
+                    </div>
+                    @endif
+                @endif
             </div>
         </div>
         @endcan

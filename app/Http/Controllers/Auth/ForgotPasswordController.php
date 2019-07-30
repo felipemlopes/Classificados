@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\ResetPassword\ResetPasswordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
@@ -46,9 +47,8 @@ class ForgotPasswordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function sendResetLinkEmail(Request $request)
+    public function sendResetLinkEmail(ResetPasswordRequest $request)
     {
-        $this->validateEmail($request);
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
@@ -62,16 +62,6 @@ class ForgotPasswordController extends Controller
             : $this->sendResetLinkFailedResponse($request, $response);
     }
 
-    /**
-     * Validate the email for the given request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     */
-    protected function validateEmail(Request $request)
-    {
-        $request->validate(['email' => 'required|email']);
-    }
 
     /**
      * Get the needed authentication credentials from the request.
@@ -93,7 +83,7 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        return back()->with('status', trans($response));
+        return back()->with('status', trans($response))->withSuccess('Email foi enviado para redefinição de senha!');
     }
 
     /**

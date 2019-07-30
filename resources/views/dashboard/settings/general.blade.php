@@ -26,9 +26,29 @@
                     <div class="panel-heading">Configurações gerais</div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="name">Nome do site</label>
+                            <label for="app_name">Nome do site</label>
                             <input type="text" class="form-control" id="app_name"
-                                   name="app_name" value="{{ setting('app_name') }}">
+                                   name="app_name" value="{{ setting('app_name')!=""?setting('app_name'):old('app_name') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="home_url">Url da home</label>
+                            <input type="text" class="form-control" id="home_url"
+                                   name="home_url" value="{{ setting('home_url')!=""?setting('home_url'):old('home_url') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="qtd_ads_destaque">Quantidade de anúncios em destaque por página</label>
+                            <input type="text" class="form-control" id="qtd_ads_destaque"
+                                   name="qtd_ads_destaque" value="{{ setting('qtd_ads_destaque')!=""?setting('qtd_ads_destaque'):old('qtd_ads_destaque') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="days_ads_free">Dias que um anúncio gratuito fica no sistema</label>
+                            <input type="text" class="form-control" id="days_ads_free"
+                                   name="days_ads_free" value="{{ setting('days_ads_free')!=""?setting('days_ads_free'):old('days_ads_free') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="days_ads_premium">Dias que um anúncio premium fica no sistema</label>
+                            <input type="text" class="form-control" id="days_ads_premium"
+                                   name="days_ads_premium" value="{{ setting('days_ads_premium')!=""?setting('days_ads_premium'):old('days_ads_premium') }}">
                         </div>
 
                         <button type="submit" class="btn btn-primary">

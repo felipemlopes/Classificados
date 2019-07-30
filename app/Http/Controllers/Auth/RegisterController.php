@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\frontend\user\CreateUserRequest;
+use App\Models\Plan;
+use App\Models\PlanSubscription;
+use App\models\User;
 use App\Support\UserStatus;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
@@ -30,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '';
 
     /**
      * Create a new controller instance.
@@ -44,7 +49,7 @@ class RegisterController extends Controller
 
     public function redirectTo()
     {
-        return '/home';
+        return '/';
     }
 
     /**
@@ -65,9 +70,25 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(CreateUserRequest $request)
     {
 
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+
+        $plan = Plan::find(1);
+        $subscription = $user->subscriptions()->save(new PlanSubscription([
+            'plan_id' => $plan->id,
+            'starts_on' => Carbon::now()->subSeconds(1),
+            'expires_on' => null,
+            'cancelled_on' => null,
+            'is_paid' => (bool) true,
+            'is_recurring' => true,
+        ]));
 
         event(new Registered($user));
 

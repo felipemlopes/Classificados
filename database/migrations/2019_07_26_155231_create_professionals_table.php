@@ -21,17 +21,17 @@ class CreateProfessionalsTable extends Migration
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->
                 references('id')->
-                on('categories');
+                on('categories')->
+                onDelete('set null');
             $table->bigInteger('subcategory_id')->unsigned()->nullable();
             $table->foreign('subcategory_id')->
                 references('id')->
-                on('categories');
+                on('categories')->
+                onDelete('set null');
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
-
             $table->string('imagepath');
-
             $table->timestamps();
         });
     }

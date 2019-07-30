@@ -1,100 +1,74 @@
-@extends('layouts.app')
+@extends('frontend.layouts.master')
+
+@section('page-title', 'Cadastrar')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<div class="row">
+    <div class="col-sm-5 login-box">
+        @include('partials/messages')
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('postregister') }}">
-                        @csrf
+        <div class="panel panel-default">
+            <div class="panel-intro text-center">
+                <h2 class="logo-title">
+                    Cadastre-se
+                </h2>
+            </div>
+            <div class="panel-body">
+                <form method="POST" action="{{ route('postregister') }}">
+                    @csrf
 
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <label class="h6" for="first_name">Nome</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <label class="h6" for="last_name">Sobrenome</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <label class="h6" for="email">E-mail</label>
+                            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <label class="h6" for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                        <div class="form-group">
+                            <label class="h6" for="password_confirmation">Confirmar senha</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}">
+                        </div>
+                    </div>
+                    @if (setting('tos'))
                         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
                             <div class="form-group">
-                                <label class="h6" for="name">{{trans('app.name')}}</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-                                @error('name')
-                                <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value="1" name="tos">Aceitar termos de uso</label>
+                                </div>
                             </div>
                         </div>
+                    @endif
 
+                    <div class="form-group text-center">
                         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-                            <div class="form-group">
-                                <label class="h6" for="email">{{trans('app.email')}}</label>
-                                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
-                                @error('email')
-                                <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Criar conta
+                            </button>
                         </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-                            <div class="form-group">
-                                <label class="h6" for="username">{{trans('app.username')}}</label>
-                                <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}">
-                                @error('username')
-                                <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-                            <div class="form-group">
-                                <label class="h6" for="gender">{{trans('app.gender')}}</label>
-                                <select class="form-control" id="gender" name="gender">
-                                    <option></option>
-                                    <option value="1">{{trans('app.genderlist.1')}}</option>
-                                    <option value="2">{{trans('app.genderlist.2')}}</option>
-                                    <option value="3">{{trans('app.genderlist.3')}}</option>
-                                    <option value="4">{{trans('app.genderlist.4')}}</option>
-                                    <option value="5">{{trans('app.genderlist.5')}}</option>
-                                    <option value="6">{{trans('app.genderlist.6')}}</option>
-                                </select>
-                                @error('gender')
-                                <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-                            <div class="form-group">
-                                <label class="h6" for="civil_status">{{trans('app.civilstatus')}}</label>
-                                <select class="form-control" id="civil_status" name="civil_status">
-                                    <option></option>
-                                    <option value="1">{{trans('app.civilstatuslist.1')}}</option>
-                                    <option value="2">{{trans('app.civilstatuslist.2')}}</option>
-                                    <option value="3">{{trans('app.civilstatuslist.3')}}</option>
-                                    <option value="4">{{trans('app.civilstatuslist.4')}}</option>
-                                    <option value="5">{{trans('app.civilstatuslist.5')}}</option>
-                                </select>
-                                @error('civil_status')
-                                <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ trans('app.next') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\dashboard\user\CreateAnuncioRequest;
 use App\Http\Requests\dashboard\user\CreateUserRequest;
+use App\Http\Requests\dashboard\user\UpdateDaysPlanRequest;
 use App\Http\Requests\dashboard\user\UpdateDetailsRequest;
 use App\Http\Requests\dashboard\user\UpdateLoginDetailsRequest;
+use App\Models\Plan;
+use App\Models\PlanSubscription;
 use App\Models\User;
 use App\Support\UserStatus;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -79,6 +83,15 @@ class UsersController extends Controller
         $user->syncRoles($role->name);
         $user->save();
 
+        $plan = Plan::find(1);
+        $subscription = $user->subscriptions()->save(new PlanSubscription([
+            'plan_id' => $plan->id,
+            'starts_on' => Carbon::now()->subSeconds(1),
+            'expires_on' => Carbon::now()->addDays(100),
+            'cancelled_on' => null,
+            'is_paid' => (bool) true,
+            'is_recurring' => true,
+        ]));
 
         return redirect()->route('dashboard.user.list')->withSuccess('Usuário criado com sucesso!');
     }
@@ -99,8 +112,9 @@ class UsersController extends Controller
         $user = User::find($user_id);
         $roles = Role::pluck('name','id');
         $permissions = Permission::all();
+        $plans = Plan::all();
 
-        return view('dashboard.user.edit',compact('edit', 'user', 'roles', 'permissions','statuses','ongs'));
+        return view('dashboard.user.edit',compact('edit', 'user', 'roles', 'permissions','plans'));
     }
 
     /**
@@ -186,6 +200,82 @@ class UsersController extends Controller
         $user->save();
 
         return redirect()->back()->withSuccess('Usuário atualizado com sucesso!');
+    }
+
+    public function updatePlan(Request $request, $user_id)
+    {
+        if(!Auth::user()->can('Editar usuário')){
+            return redirect()->back()->withErrors('Você não esta autorizado a executar esta ação');
+        }
+
+        $user = User::find($user_id);
+        if($user->hasActiveSubscription()){
+            if($user->currentSubscription()->first()->plan_id==2){
+                if($request->plan_id==1) {
+                    $user->currentSubscription()->first()->update([
+                        'plan_id' => $request->plan_id,
+                        'starts_on' => Carbon::now()->subSeconds(1),
+                        'expires_on' => Carbon::now()->addDays(7),
+                    ]);
+                }
+            }else{
+                if($request->plan_id==2){
+                    $user->currentSubscription()->first()->update([
+                        'plan_id' => $request->plan_id,
+                        'starts_on' => Carbon::now()->subSeconds(1),
+                        'expires_on' => Carbon::now()->addDays(7),
+                    ]);
+                }
+            }
+        }else{
+            $plan = Plan::find($request->plan_id);
+            $subscription = $user->subscriptions()->save(new PlanSubscription([
+                'plan_id' => $plan->id,
+                'starts_on' => Carbon::now()->subSeconds(1),
+                'expires_on' => Carbon::now()->addDays(7),
+                'cancelled_on' => null,
+                'is_paid' => (bool) true,
+                'is_recurring' => true,
+            ]));
+        }
+
+        return redirect()->route('dashboard.user.edit',$user->id)->withSuccess('Plano do usuário atualizado com sucesso!');
+    }
+
+    public function updatePlanDaysAdd(UpdateDaysPlanRequest $request, $user_id)
+    {
+        if(!Auth::user()->can('Editar usuário')){
+            return redirect()->back()->withErrors('Você não esta autorizado a executar esta ação');
+        }
+
+        $user = User::find($user_id);
+        if($user->hasActiveSubscription()){
+            if($user->currentSubscription()->first()->plan_id==2){
+                $user->extendCurrentSubscriptionWith($request->days);
+                return redirect()->back()->withSuccess('Plano do usuário atualizado com sucesso!');
+            }
+            return redirect()->back()->withErrors('Antes de adicionar dias altere para o plano pago');
+        }else{
+            return redirect()->back()->withErrors('Antes de adicionar dias altere para o plano pago');
+        }
+    }
+
+    public function updatePlanDaysRemove(UpdateDaysPlanRequest $request, $user_id)
+    {
+        if(!Auth::user()->can('Editar usuário')){
+            return redirect()->back()->withErrors('Você não esta autorizado a executar esta ação');
+        }
+
+        $user = User::find($user_id);
+        if($user->hasActiveSubscription()){
+            if($user->currentSubscription()->first()->plan_id==2){
+                $user->unextendCurrentSubscriptionWith($request->days);
+                return redirect()->back()->withSuccess('Plano do usuário atualizado com sucesso!');
+            }
+            return redirect()->back()->withErrors('Antes de remover dias altere para o plano pago');
+        }else{
+            return redirect()->back()->withErrors('Antes de remover dias altere para o plano pago');
+        }
     }
 
     /**

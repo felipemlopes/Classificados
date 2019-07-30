@@ -52,6 +52,13 @@
                     </a>
                 </li>
             @endcan
+            @can('Visualizar planos')
+                <li class="">
+                    <a href="{{ route('dashboard.plan.list') }}">
+                        <i class="fa fa-usd"></i> <span>Planos</span>
+                    </a>
+                </li>
+            @endcan
             @can('Visualizar papéis')
             <li class="">
                 <a href="{{ route('dashboard.role.index') }}">
@@ -84,12 +91,6 @@
                         <a href="{{ route('dashboard.settings.auth') }}">
                             <i class="fa fa-circle-o"></i>
                             Autenticação e registro
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="{{ route('dashboard.settings.plans') }}">
-                            <i class="fa fa-circle-o"></i>
-                            Planos
                         </a>
                     </li>
                 </ul>

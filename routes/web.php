@@ -51,6 +51,9 @@ Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'
     Route::post('user/{user_id}/update/login-details', ['as' => 'user.update.login-details','uses' => 'Dashboard\UsersController@updateLoginDetails']);      //----------testar
     Route::post('user/{user_id}/update/role', ['as' => 'user.update.role','uses' => 'Dashboard\UsersController@updateRole']);
     Route::post('user/{user_id}/update/permissions', ['as' => 'user.update.permission','uses' => 'Dashboard\UsersController@updatePermissions']);
+    Route::post('user/{user_id}/update/plan', ['as' => 'user.update.plan','uses' => 'Dashboard\UsersController@updatePlan']);
+    Route::post('user/{user_id}/update/plan/days/add', ['as' => 'user.update.plan.days.add','uses' => 'Dashboard\UsersController@updatePlanDaysAdd']);
+    Route::post('user/{user_id}/update/plan/days/remove', ['as' => 'user.update.plan.days.remove','uses' => 'Dashboard\UsersController@updatePlanDaysRemove']);
     Route::delete('user/{user_id}/delete', ['as' => 'user.delete','uses' => 'Dashboard\UsersController@destroy']);
 
     Route::get('advertisement', ['as' => 'advertisement.list','uses' => 'Dashboard\AdvertisementsController@index']);
@@ -82,6 +85,10 @@ Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'
     Route::post('category/{category_id}/update', ['as' => 'category.update','uses' => 'Dashboard\CategoriesController@update']);
     Route::delete('category/{category_id}/delete', ['as' => 'category.destroy','uses' => 'Dashboard\CategoriesController@destroy']);
 
+    Route::get('plan', ['as' => 'plan.list','uses' => 'Dashboard\PlansController@index']);
+    Route::get('plan/{plan_id}/edit', ['as' => 'plan.edit','uses' => 'Dashboard\PlansController@edit']);
+    Route::post('plan/{plan_id}/update', ['as' => 'plan.update','uses' => 'Dashboard\PlansController@update']);
+
     Route::get('role', ['as' => 'role.index','uses' => 'Dashboard\RolesController@index']);
     Route::get('role/create', ['as' => 'role.create','uses' => 'Dashboard\RolesController@create']);
     Route::post('role/store', ['as' => 'role.store','uses' => 'Dashboard\RolesController@store']);
@@ -97,11 +104,11 @@ Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'
     Route::delete('permission/{permission_id}/delete', ['as' => 'permission.destroy','uses' => 'Dashboard\PermissionsController@destroy']);
 
     Route::get('settings', ['as' => 'settings.general','uses' => 'Dashboard\SettingsController@general']);
-    Route::post('settings/general', ['as' => 'settings.general.update','uses' => 'Dashboard\SettingsController@update']);
+    Route::post('settings/general', ['as' => 'settings.general.update','uses' => 'Dashboard\SettingsController@updategeneral']);
     Route::get('settings/auth', ['as' => 'settings.auth','uses' => 'Dashboard\SettingsController@auth']);
-    Route::post('settings/auth', ['as' => 'settings.auth.update','uses' => 'Dashboard\SettingsController@update']);
-    Route::post('settings/auth/registration/captcha/enable', ['as' => 'settings.registration.captcha.enable','uses' => 'Dashboard\SettingsController@enableCaptcha']);
-    Route::post('settings/auth/registration/captcha/disable', ['as' => 'settings.registration.captcha.disable', 'uses' => 'Dashboard\SettingsController@disableCaptcha']);
-    Route::get('settings/plans', ['as' => 'settings.plans', 'uses' => 'Dashboard\SettingsController@plans']);
-    Route::post('settings/plans', ['as' => 'settings.plans.update', 'uses' => 'Dashboard\SettingsController@plansupdate']);
+    Route::post('settings/auth', ['as' => 'settings.auth.update','uses' => 'Dashboard\SettingsController@updateauth']);
+    //Route::post('settings/auth/registration/captcha/enable', ['as' => 'settings.registration.captcha.enable','uses' => 'Dashboard\SettingsController@enableCaptcha']);
+    //Route::post('settings/auth/registration/captcha/disable', ['as' => 'settings.registration.captcha.disable', 'uses' => 'Dashboard\SettingsController@disableCaptcha']);
+    //Route::get('settings/plans', ['as' => 'settings.plans', 'uses' => 'Dashboard\SettingsController@plans']);
+    //Route::post('settings/plans', ['as' => 'settings.plans.update', 'uses' => 'Dashboard\SettingsController@plansupdate']);
 });

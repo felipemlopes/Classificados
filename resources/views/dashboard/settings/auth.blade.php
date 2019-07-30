@@ -49,9 +49,6 @@
                 <div class="col-md-6">
                     @include('dashboard.settings.partials.registration')
                 </div>
-                <div class="col-md-6">
-                    @include('dashboard.settings.partials.recaptcha')
-                </div>
             </div>
         </div>
     </div>

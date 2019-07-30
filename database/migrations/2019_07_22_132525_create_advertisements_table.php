@@ -19,17 +19,21 @@ class CreateAdvertisementsTable extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->
                 references('id')->
-                on('users');
+                on('users')->
+                onDelete('cascade');
             $table->string('embedded_type');
             $table->bigInteger('embedded_id');
             $table->bigInteger('estado_id')->unsigned()->nullable();
             $table->foreign('estado_id')->
                 references('id')->
-                on('estados');
+                on('estados')->
+                onDelete('set null');
             $table->bigInteger('cidade_id')->unsigned()->nullable();
             $table->foreign('cidade_id')->
                 references('id')->
-                on('cidades');
+                on('cidades')->
+                onDelete('set null');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -17,15 +17,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AdvertisementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -53,10 +44,6 @@ class AdvertisementController extends Controller
         $file = Input::file('foto');
         $path = '';
         if($file){
-            //$uniqid = uniqid('img_',false);
-            //$time = time();
-            //$name = md5($uniqid.$time);
-            //$extension = $file->getClientOriginalExtension();
             $path = Storage::disk('public_uploads')->put('/', $file);
         }
         if($type==1){
@@ -104,40 +91,6 @@ class AdvertisementController extends Controller
             return redirect()->route('professional.index')->withSuccess('Anúncio criado com sucesso!');
         }
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
 }

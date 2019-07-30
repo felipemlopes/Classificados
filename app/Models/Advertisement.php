@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Advertisement extends Model
 {
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -69,7 +71,6 @@ class Advertisement extends Model
     public function musicalstyles()
     {
         return $this->morphTo()->musicalstyles();
-        //return $this->belongsToMany('App\Models\MusicStyle','artist_musical_styles');
     }
 
     public function city()

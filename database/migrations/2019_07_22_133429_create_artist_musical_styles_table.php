@@ -19,11 +19,13 @@ class CreateArtistMusicalStylesTable extends Migration
             $table->bigInteger('artist_id')->unsigned();
             $table->foreign('artist_id')->
                 references('id')->
-                on('artists');
+                on('artists')->
+                onDelete('cascade');
             $table->bigInteger('music_style_id')->unsigned();
             $table->foreign('music_style_id')->
                 references('id')->
-                on('music_styles');
+                on('music_styles')->
+                onDelete('cascade');
             $table->timestamps();
         });
     }

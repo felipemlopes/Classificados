@@ -15,12 +15,6 @@
 
 <div class="row tab-search">
     <div class="col-md-2 col-xs-2">
-        @can('Criar anúncios')
-        <a href="{{ route('dashboard.advertisement.create') }}" class="btn btn-success" id="add-user">
-            <i class="glyphicon glyphicon-plus"></i>
-            Adicionar anúncio
-        </a>
-        @endcan
     </div>
     <div class="col-md-5 col-xs-3">
 

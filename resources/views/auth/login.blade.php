@@ -10,8 +10,7 @@
             <div class="panel panel-default">
                 <div class="panel-intro text-center">
                     <h2 class="logo-title">
-                        {{ setting('app_name') }}
-                    </h2>
+                        Entre
                 </div>
                 <div class="panel-body">
                     @csrf

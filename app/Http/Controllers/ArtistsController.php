@@ -70,7 +70,6 @@ class ArtistsController extends Controller
     {
         $artist = Advertisement::with('embedded','embedded.musicalstyles')->Artist()
             ->where('embedded_id','=',$id)->first();
-        //$artist = Artist::with('musicalstyles','embedded')->find($id);
         $url=$artist->embedded->video;
         parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
         $videoyoutube = $my_array_of_vars['v'];
@@ -78,26 +77,4 @@ class ArtistsController extends Controller
         return view('frontend.artists.show', compact('artist','videoyoutube'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 }

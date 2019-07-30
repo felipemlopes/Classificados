@@ -92,5 +92,10 @@ class PermissionsTableSeeder extends Seeder
         $permission33->syncRoles($admin);
         $permission34->syncRoles($admin);
         $permission35->syncRoles($admin);
+
+        $permission36 = Permission::create(['name' => 'Editar planos']);
+        $permission37 = Permission::create(['name' => 'Visualizar planos']);
+        $permission36->syncRoles($admin);
+        $permission37->syncRoles($admin);
     }
 }

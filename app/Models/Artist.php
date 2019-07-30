@@ -82,15 +82,4 @@ class Artist extends Model
         $aux = str_replace(",", ".", $aux);
         $this->attributes['cache'] = $aux;
     }
-
-
-
-
-    //events
-
-    /*public function reviews()
-    {
-        return $this->hasMany('App\Models\Review','user_id');
-    }*/
-
 }

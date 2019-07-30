@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 
+use App\Http\Requests\dashboard\advertisement\UpdateAdvertisementImageRequest;
 use App\Http\Requests\dashboard\advertisement\UpdateAdvertisementRequest;
 use App\Http\Requests\dashboard\category\CreateCategoryRequest;
 use App\Http\Requests\dashboard\category\UpdateCategoryRequest;
@@ -140,7 +141,7 @@ class AdvertisementsController extends Controller
         return redirect()->back()->withSuccess('Anúncio atualizado com sucesso!');
     }
 
-    public function updateImage(Request $request, $advertisement_id)
+    public function updateImage(UpdateAdvertisementImageRequest $request, $advertisement_id)
     {
         if(!Auth::user()->can('Editar anúncios')){
             return redirect()->back()->withErrors('Você não esta autorizado para executar esta ação.');

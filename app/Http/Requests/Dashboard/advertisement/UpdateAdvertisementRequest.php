@@ -61,23 +61,21 @@ class UpdateAdvertisementRequest extends FormRequest
         $type = $this->request->get('type');
         if($type==1){ //artista
             $msg = [
-                'type.required' => 'Por favor preencha o campo tipo de anúncio',
                 'title.required' => 'Por favor preencha o campo título',
                 'description.required' => 'Por favor preencha o campo descrição',
                 'estado.required' => 'Por favor selecione um estado',
                 'cidade.required' => 'Por favor selecione uma cidade',
+                'videoyoutube.url' => 'A url do vídeo do youtube está em um formato inválido',
                 'estilos.required' => 'Por favor selecione pelo menos um estilo musical',
-                'cache.required' => 'Por favorpreencha o campo cache',
+                'cache.required' => 'Por favor preencha o campo cachê',
             ];
         }else{   //profissional
             $msg = [
-                'type.required' => 'Por favor preencha o campo tipo de anúncio',
                 'title.required' => 'Por favor preencha o campo título',
                 'description.required' => 'Por favor preencha o campo descrição',
                 'estado.required' => 'Por favor selecione um estado',
                 'cidade.required' => 'Por favor selecione uma cidade',
                 'categoria.required' => 'Por favor selecione uma categoria',
-                'subcategoria.required' => 'Por favor selecione uma subcategoria',
             ];
         }
         return $msg;

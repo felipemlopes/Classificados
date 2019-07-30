@@ -35,6 +35,11 @@
                                 <li><a href="{{route('myaccount.index')}}">Minha Conta</a></li>
                                 <li><a href="#">Meus anúncios</a></li>
                                 <li><a href="#">Configurações</a></li>
+                                @hasanyrole('Administrador|Gerente|Proprietário')
+                                <li>
+                                    <a href="{{route('dashboard.index')}}">Dashboard</a>
+                                </li>
+                                @endhasanyrole
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{{route('logout')}}">Sair</a></li>
                             </ul>

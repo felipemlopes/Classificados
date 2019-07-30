@@ -45,7 +45,6 @@ class CreateAnuncioRequest extends FormRequest
                 'instagram' => '',
                 'youtube' => '',
                 'cache' => 'required|regex:/^\d+(\,\d{1,2})?/',
-
                 'foto' => $img,
             ];
         }else{ //profissional
@@ -60,7 +59,6 @@ class CreateAnuncioRequest extends FormRequest
                 'facebook' => '',
                 'instagram' => '',
                 'youtube' => '',
-
                 'foto' => $img,
             ];
         }
@@ -78,8 +76,14 @@ class CreateAnuncioRequest extends FormRequest
                 'description.required' => 'Por favor preencha o campo descrição',
                 'estado.required' => 'Por favor selecione um estado',
                 'cidade.required' => 'Por favor selecione uma cidade',
+                'videoyoutube.url' => 'A url do vídeo do youtube está em um formato inválido',
                 'estilos.required' => 'Por favor selecione pelo menos um estilo musical',
-                'cache.required' => 'Por favorpreencha o campo cache',
+                'cache.required' => 'Por favor preencha o campo cachê',
+                'cache.regex' => 'O formato do campo cachê é inválido',
+                'foto.required' => 'Por favor selecione uma imagem para o anúncio',
+                'foto.image' => 'A foto deve ser uma imagem',
+                'foto.mimes' => 'A foto deve ser um arquivo do tipo jpg, png ou bmp',
+                'foto.max' => 'A foto não pode ser maior que 2048 kilobytes (2mb)',
             ];
         }else{   //profissional
             $msg = [
@@ -89,7 +93,10 @@ class CreateAnuncioRequest extends FormRequest
                 'estado.required' => 'Por favor selecione um estado',
                 'cidade.required' => 'Por favor selecione uma cidade',
                 'categoria.required' => 'Por favor selecione uma categoria',
-                'subcategoria.required' => 'Por favor selecione uma subcategoria',
+                'foto.required' => 'Por favor selecione uma imagem para o anúncio',
+                'foto.image' => 'A foto deve ser uma imagem',
+                'foto.mimes' => 'A foto deve ser um arquivo do tipo jpg, png ou bmp',
+                'foto.max' => 'A foto não pode ser maior que 2048 kilobytes (2mb)',
             ];
         }
         return $msg;

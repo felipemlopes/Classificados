@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-
 class RolesTableSeeder extends Seeder
 {
     /**

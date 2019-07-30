@@ -58,6 +58,7 @@
                                 <th>Sobrenome</th>
                                 <th>Email</th>
                                 <th>Anúncios</th>
+                                <th>Plano</th>
                                 <th>Último login</th>
                                 <th class="text-center">Ações</th>
                             </tr>
@@ -68,6 +69,7 @@
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->advertisements->count() }}</td>
+                                <td>{{ $user->hasActiveSubscription()==true?$user->currentSubscription()->first()->plan->name:'-'}}</td>
                                 <td>{{ $user->last_login != null ? date('d/m/Y H:i:s', strtotime($user->last_login)):'' }}</td>
                                 <td class="text-center">
                                     @can('Editar usuário')
