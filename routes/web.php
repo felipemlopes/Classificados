@@ -33,7 +33,16 @@ Route::get('profissionais/{id}', ['as' => 'professional.show','uses' => 'Profess
 Route::group(['middleware' => 'auth'], function() {
     Route::get('anunciar', ['as' => 'advertisement.index','uses' => 'AdvertisementController@create']);
     Route::post('anunciar', ['as' => 'advertisement.store','uses' => 'AdvertisementController@store']);
+
     Route::get('minha-conta', ['as' => 'myaccount.index','uses' => 'MyAccountController@index']);
+    Route::get('minha-conta/anuncios', ['as' => 'myaccount.advertisement','uses' => 'MyAccountController@advertisement']);
+    Route::get('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.edit','uses' => 'MyAccountController@advertisementEdit']);
+    Route::post('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.update','uses' => 'MyAccountController@advertisementUpdate']);
+    Route::post('minha-conta/anuncios/{anuncio_id}/editar/imagem', ['as' => 'myaccount.advertisement.update.image','uses' => 'MyAccountController@advertisementUpdateImage']);
+    Route::delete('minha-conta/anuncios/{anuncio_id}/excluir', ['as' => 'myaccount.advertisement.delete','uses' => 'MyAccountController@advertisementDelete']);
+    Route::get('minha-conta/configuracoes', ['as' => 'myaccount.settings','uses' => 'MyAccountController@settings']);
+    Route::post('minha-conta/configuracoes/editar', ['as' => 'myaccount.settings.update.details','uses' => 'MyAccountController@settingsupdate']);
+    Route::post('minha-conta/configuracoes/editar/senha', ['as' => 'myaccount.settings.update.password','uses' => 'MyAccountController@settingsupdatepassword']);
 });
 
 Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'],'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
