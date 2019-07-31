@@ -1,5 +1,13 @@
 @extends('frontend.layouts.master')
 
+@section('css')
+    <link href="{{ asset('vendor/starrr/starrr.css') }}" rel="stylesheet">
+    <style>
+        .reviews{
+            margin-top: 30px;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="container">
@@ -113,9 +121,60 @@
 
                 </aside>
             </div>
+
+            <div class="col-sm-12 col-md-9">
+                <h3>Avalie este artista</h3>
+                @include('partials.messages')
+                @if(Auth::Check())
+                    <form action="{{route('review.professional.store',$professional->id)}}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name">Título</label>
+                            <input type="text" class="form-control" id="title"
+                                   name="title" placeholder="Título da avaliação" value="">
+                        </div>
+                        <div class='starrr'></div>
+                        <div class="form-group">
+                            <label for="name">Sua opnião</label>
+                            <textarea type="text" class="form-control" id="body"
+                                      name="body" placeholder="" value=""></textarea>
+                        </div>
+                        <input type="hidden" name="rating" value="0" id="rating_input">
+                        <button type="submit" class="btn btn-primary">Avaliar</button>
+                    </form>
+                @else
+                    <p>Faça <a href="{{route('login')}}">Login</a> para avaliar</p>
+                @endif
+
+            </div>
+
+            <div class="col-sm-12 reviews">
+                <h3>Avaliações</h3>
+                <p> {{$professional->countRating()}} avaliações <span class="rating">{!! $professional->getRating() !!}</span></p>
+
+                @foreach($professional->ratings as $review)
+                    <div class="col-md-9" style="background-color: #cfcfcf; margin-bottom: 15px;">
+                        <h4>{{$review->title}}</h4>
+                        <div class="">
+                        </div>
+                        <p class="review-text">{{$review->body}}</p>
+                        <small class="review-date">{{ date('d/m/Y', strtotime($review->created_at)) }} Por {{$review->author->first_name.' '.$review->author->last_name}}</small>
+                    </div>
+                @endforeach
+            </div>
+
         </div>
     </div>
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('vendor/starrr/starrr.js') }}"></script>
+    <script>
+        $('.starrr').starrr({
+            rating: 1
+        });
+        $('.starrr').on('starrr:change', function(e, value){
+            $('#rating_input').val(value)
+        });
+    </script>
 @endsection

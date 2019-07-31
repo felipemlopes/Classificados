@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('anunciar', ['as' => 'advertisement.index','uses' => 'AdvertisementController@create']);
     Route::post('anunciar', ['as' => 'advertisement.store','uses' => 'AdvertisementController@store']);
 
+    Route::post('avaliar/artista/{id}', ['as' => 'review.artist.store','uses' => 'AdvertisementController@storeReviewArtista']);
+    Route::post('avaliar/profissional/{id}', ['as' => 'review.professional.store','uses' => 'AdvertisementController@storeReviewProfessional']);
+
     Route::get('minha-conta', ['as' => 'myaccount.index','uses' => 'MyAccountController@index']);
     Route::get('minha-conta/anuncios', ['as' => 'myaccount.advertisement','uses' => 'MyAccountController@advertisement']);
     Route::get('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.edit','uses' => 'MyAccountController@advertisementEdit']);

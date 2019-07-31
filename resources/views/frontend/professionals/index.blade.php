@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="no-padding photobox">
                                         <div class="add-image">
-                                            <a href="{{route('professional.show',$destaque->embedded->id)}}">
+                                            <a href="{{route('professional.show',$destaque->id)}}">
                                                 <img class="thumbnail no-margin" src="{{asset('uploads/'.$destaque->embedded->imagepath)}}" alt="img" style="height:186px;">
                                             </a>
                                         </div>
@@ -124,7 +124,7 @@
                             <div class="item-list col-md-4">
                                 <div class="no-padding photobox">
                                     <div class="add-image">
-                                        <a href="{{route('professional.show',$professional->embedded->id)}}">
+                                        <a href="{{route('professional.show',$professional->id)}}">
                                             <img class="thumbnail no-margin" src="{{asset('uploads/'.$professional->embedded->imagepath)}}" alt="img" style="height:186px;">
                                         </a>
                                     </div>
@@ -132,7 +132,7 @@
                                 <div class="add-desc-box">
                                     <div class="add-details">
                                         <h5 class="add-title">
-                                            <a href="{{route('professional.show',$professional->embedded->id)}}">
+                                            <a href="{{route('professional.show',$professional->id)}}">
                                                 {{$professional->embedded->title}}
                                             </a>
                                         </h5>

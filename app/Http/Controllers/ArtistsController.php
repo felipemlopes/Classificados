@@ -10,6 +10,7 @@ use App\Models\MusicStyle;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
@@ -104,8 +105,8 @@ class ArtistsController extends Controller
      */
     public function show($id)
     {
-        $artist = Advertisement::with('embedded','embedded.musicalstyles')->Artist()
-            ->where('embedded_id','=',$id)->first();
+        $artist = Advertisement::with('ratings','embedded','embedded.musicalstyles')->Artist()
+            ->where('id','=',$id)->first();
         $url=$artist->embedded->video;
         parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
         $videoyoutube = $my_array_of_vars['v'];

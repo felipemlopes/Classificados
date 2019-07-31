@@ -101,8 +101,8 @@ class ProfessionalsController extends Controller
      */
     public function show($id)
     {
-        $professional = Advertisement::with('embedded')->Professional()
-            ->where('embedded_id','=',$id)->first();
+        $professional = Advertisement::with('ratings','embedded')->Professional()
+            ->where('id','=',$id)->first();
 
         return view('frontend.professionals.show', compact('professional'));
     }

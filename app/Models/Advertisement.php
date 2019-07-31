@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Trexology\ReviewRateable\Contracts\ReviewRateable;
+use Trexology\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
 
-class Advertisement extends Model
+class Advertisement extends Model implements ReviewRateable
 {
-    use SoftDeletes;
+    use SoftDeletes, ReviewRateableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +55,22 @@ class Advertisement extends Model
         }
     }
 
+    public function getRating(){
+        $staro = '<i class="fa fa-star-o staro"></i>';
+        $star = '<i class="fa fa-star star"></i>';
+        $aux = 5 - $this->averageRating();
+        $rating = '';
+        for($i = 1; $i <= $this->averageRating(); $i++){
+            $rating = $rating.$star;
+        }
+
+        if($aux != 0){
+            for($i = 1; $i <= $aux; $i++){
+                $rating = $rating.$staro;
+            }
+        }
+        return $rating;
+    }
 
     /*
    |--------------------------------------------------------------------------

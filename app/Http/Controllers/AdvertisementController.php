@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\frontend\anuncio\CreateAnuncioRequest;
+use App\Http\Requests\frontend\anuncio\CreateReviewRequest;
 use App\Models\Advertisement;
 use App\Models\Artist;
 use App\Models\Category;
@@ -93,4 +94,46 @@ class AdvertisementController extends Controller
 
     }
 
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeReviewArtista(CreateReviewRequest $request,$id)
+    {
+        $artist = Advertisement::with('embedded')->Artist()
+            ->where('id','=',$id)->first();
+        $user = Auth::User();
+        $rating = $artist->rating([
+            'title' => $request->title,
+            'body' => $request->body, //optional
+            'anonymous' => 0, //optional
+            'rating' => $request->rating,
+        ], $user);
+
+        return redirect()->route('artist.show',$artist->id)->withSuccess('Avaliação feita com sucesso!');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeReviewProfessional(CreateReviewRequest $request,$id)
+    {
+        $professional = Advertisement::with('ratings','embedded')->Professional()
+            ->where('id','=',$id)->first();
+        $user = Auth::User();
+        $rating = $professional->rating([
+            'title' => $request->title,
+            'body' => $request->body, //optional
+            'anonymous' => 0, //optional
+            'rating' => $request->rating,
+        ], $user);
+
+        return redirect()->route('professional.show',$professional->id)->withSuccess('Avaliação feita com sucesso!');
+    }
 }

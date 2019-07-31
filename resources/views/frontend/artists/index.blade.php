@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="no-padding photobox">
                                     <div class="add-image">
-                                        <a href="{{route('artist.show',$destaque->embedded->id)}}">
+                                        <a href="{{route('artist.show',$destaque->id)}}">
                                             <img class="thumbnail no-margin" src="{{asset('uploads/'.$destaque->embedded->imagepath)}}" alt="img" style="height:186px;">
                                         </a>
                                     </div>
@@ -115,7 +115,7 @@
                         <div class="item-list col-md-4">
                             <div class="no-padding photobox">
                                 <div class="add-image">
-                                    <a href="{{route('artist.show',$artist->embedded->id)}}">
+                                    <a href="{{route('artist.show',$artist->id)}}">
                                         <img class="thumbnail no-margin" src="{{asset('uploads/'.$artist->embedded->imagepath)}}" alt="img" style="height:186px;">
                                     </a>
                                 </div>
@@ -123,7 +123,7 @@
                             <div class="add-desc-box">
                                 <div class="add-details">
                                     <h5 class="add-title">
-                                        <a href="{{route('artist.show',$artist->embedded->id)}}">
+                                        <a href="{{route('artist.show',$artist->id)}}">
                                             {{$artist->embedded->title}}
                                         </a>
                                     </h5>
