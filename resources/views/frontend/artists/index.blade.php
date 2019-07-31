@@ -73,7 +73,7 @@
                     </div>
                     <div class="adds-wrapper col-md-12">
 
-                        @foreach($artists as $artist)
+                        @foreach($destaques as $destaque)
                         <div class="item-list col-md-4">
                             <div>
                                 <div class="cornerRibbons topAds">
@@ -81,8 +81,8 @@
                                 </div>
                                 <div class="no-padding photobox">
                                     <div class="add-image">
-                                        <a href="{{route('artist.show',$artist->embedded->id)}}">
-                                            <img class="thumbnail no-margin" src="{{asset('uploads/'.$artist->embedded->imagepath)}}" alt="img" style="height:186px;">
+                                        <a href="{{route('artist.show',$destaque->embedded->id)}}">
+                                            <img class="thumbnail no-margin" src="{{asset('uploads/'.$destaque->embedded->imagepath)}}" alt="img" style="height:186px;">
                                         </a>
                                     </div>
                                 </div>
@@ -90,8 +90,8 @@
                             <div class="add-desc-box">
                                 <div class="add-details">
                                     <h5 class="add-title">
-                                        <a href="{{route('artist.show',$artist->id)}}">
-                                            {{$artist->embedded->title}}
+                                        <a href="{{route('artist.show',$destaque->id)}}">
+                                            {{$destaque->embedded->title}}
                                         </a>
                                     </h5>
                                     <span class="info-row">
@@ -100,7 +100,7 @@
                                         <span class="category">{{--$dest->categoria->nome--}} </span>
                                         <span class="item-location">
                                             <i class="fa fa-map-marker"></i>
-                                            {{$artist->city->cidade .' - '. $artist->state->sigla}}
+                                            {{$destaque->city->cidade .' - '. $destaque->state->sigla}}
                                         </span>
                                     </span>
                                 </div>

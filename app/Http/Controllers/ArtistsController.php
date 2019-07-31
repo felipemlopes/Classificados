@@ -7,6 +7,7 @@ use App\Models\Artist;
 use App\Models\Cidade;
 use App\Models\Estado;
 use App\Models\MusicStyle;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,9 +28,24 @@ class ArtistsController extends Controller
         $style= Input::get('estilo');
         $state= Input::get('estado');
         $city= Input::get('cidade');
+        $qtd_destaque = setting('qtd_ads_destaque');
+
+        $destaques = Advertisement::Artist();
+        $destaques = $destaques->whereHas('user', function (Builder $query) {
+            $query->whereHas('subscriptions', function (Builder $query) {
+                $query->where('starts_on', '<', Carbon::now());
+                $query->where('expires_on', '>', Carbon::now());
+                $query->where('plan_id', '=', 2);
+            });
+        });
 
         $artists = Advertisement::query();
         $artists = $artists->select('advertisements.*','artists.*')
+            ->join('artists', function ($join) {
+                $join->on('artists.id', '=', 'advertisements.embedded_id');
+                $join->where('embedded_type','=', 'App\Models\Artist');
+            });
+        $destaques->select('advertisements.*','artists.*')
             ->join('artists', function ($join) {
                 $join->on('artists.id', '=', 'advertisements.embedded_id');
                 $join->where('embedded_type','=', 'App\Models\Artist');
@@ -39,9 +55,16 @@ class ArtistsController extends Controller
                     $join->on('artists.id', '=', 'artist_musical_styles.artist_id');
                     $join->where('music_style_id','=', $style);
                 });
+                $destaques->join('artist_musical_styles', function ($join) use ($style) {
+                    $join->on('artists.id', '=', 'artist_musical_styles.artist_id');
+                    $join->where('music_style_id','=', $style);
+                });
             }
         if ($state <> "") {
             $artists->where(function ($q) use ($state) {
+                $q->where('estado_id', "=", $state);
+            });
+            $destaques->where(function ($q) use ($state) {
                 $q->where('estado_id', "=", $state);
             });
         }
@@ -49,15 +72,28 @@ class ArtistsController extends Controller
             $artists->where(function ($q) use ($city) {
                 $q->where('cidade_id', "=", $city);
             });
+            $destaques->where(function ($q) use ($city) {
+                $q->where('cidade_id', "=", $city);
+            });
         }
         $artists = $artists->paginate($peer_page);
+        $destaques = $destaques->take($qtd_destaque)->inRandomOrder()->get();
+        if ($style) {
+            $artists->appends(['estilo' => $style]);
+        }
+        if ($state) {
+            $artists->appends(['estado' => $state]);
+        }
+        if ($city) {
+            $artists->appends(['cidade' => $city]);
+        }
 
         $styles = MusicStyle::all();
         $states=Estado::all();
         $cities=Cidade::where('estado_id','=',$state)->get();
 
         return view('frontend.artists.index', compact('styles','states','cities',
-            'artists'));
+            'artists','destaques'));
     }
 
     /**

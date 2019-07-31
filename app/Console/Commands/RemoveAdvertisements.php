@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Advertisement;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class RemoveAdvertisements extends Command
@@ -38,7 +39,32 @@ class RemoveAdvertisements extends Command
      */
     public function handle()
     {
-        $date = \Carbon\Carbon::today()->subDays(30);
-        $advertisements = Advertisement::where('created_at', '<', date($date))->delete();
+        //free
+        $datefree = \Carbon\Carbon::today()->subDays(setting('days_ads_free'));
+        Advertisement::select('advertisements.*','users.*','plan_subscriptions.*')
+            ->join('users', function ($join) {
+                $join->on('users.id', '=', 'advertisements.user_id');
+            })
+            ->join('plan_subscriptions', function ($join) use($datefree){
+                $join->on('users.id', '=', 'plan_subscriptions.user_id');
+                $join->where('plan_subscriptions.plan_id','=', 1);
+                $join->where('starts_on', '<', Carbon::now())->where('expires_on', '>', Carbon::now());
+                $join->where('advertisements.created_at', '<', date($datefree));
+            })
+            ->delete();
+
+        //premium
+        $datepremium = \Carbon\Carbon::today()->subDays(setting('days_ads_premium'));
+        Advertisement::select('advertisements.*','users.*','plan_subscriptions.*')
+            ->join('users', function ($join) {
+                $join->on('users.id', '=', 'advertisements.user_id');
+            })
+            ->join('plan_subscriptions', function ($join) use($datepremium){
+                $join->on('users.id', '=', 'plan_subscriptions.user_id');
+                $join->where('plan_subscriptions.plan_id','=', 2);
+                $join->where('starts_on', '<', Carbon::now())->where('expires_on', '>', Carbon::now());
+                $join->where('advertisements.created_at', '<', date($datepremium));
+            })
+            ->delete();
     }
 }
