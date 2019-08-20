@@ -60,6 +60,40 @@ class User extends Authenticatable
    | FUNCTIONS
    |--------------------------------------------------------------------------
    */
+    public function canCreateAdvertisementArtist()
+    {
+        if($this->hasActivePlan()){
+            $premium = Plan::first();
+            $qtd_ads_art = PlanFeature::where('plan_id',$premium->id)->where('name','qtd_ads_art')->first();
+            $count = Advertisement::where('user_id',$this->id)->Artist()->Published()->count();
+        }else{
+            $qtd_ads_art = setting('qtd_ads_artist_freeaccount');
+            $count = Advertisement::where('user_id',$this->id)->Artist()->Published()->count();
+        }
+        if($count<$qtd_ads_art){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function canCreateAdvertisementProfessional()
+    {
+        if($this->hasActivePlan()){
+            $premium = Plan::first();
+            $qtd_ads_pro = PlanFeature::where('plan_id',$premium->id)->where('name','qtd_ads_pro')->first();
+            $count = Advertisement::where('user_id',$this->id)->Professional()->Published()->count();
+        }else{
+            $qtd_ads_pro = setting('qtd_ads_pro_freeaccount');
+            $count = Advertisement::where('user_id',$this->id)->Professional()->Published()->count();
+        }
+        if($count<$qtd_ads_pro){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * Check if the mode has a due, unpaid subscription.
      *

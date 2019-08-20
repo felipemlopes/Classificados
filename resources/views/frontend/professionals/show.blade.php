@@ -92,11 +92,13 @@
                             </div>
                         </div>
                         <div class="content-footer text-left">
-                            @if($professional->user_id!=Auth::User()->id)
-                            <a href="{{route('message.create',$professional->id)}}" class="btn  btn-default">
-                                <i class=" icon-mail-2"></i>
-                                Envie uma menssagem
-                            </a>
+                            @if(Auth::Check())
+                                @if($professional->user_id!=Auth::User()->id)
+                                <a href="{{route('message.create',$professional->id)}}" class="btn  btn-default">
+                                    <i class=" icon-mail-2"></i>
+                                    Envie uma menssagem
+                                </a>
+                                @endif
                             @endif
                             <!--<a class="btn  btn-primary">
                                 <i class=" icon-phone-1"></i>
@@ -124,11 +126,13 @@
                                     </p>
                                 </div>
                                 <div class="user-ads-action">
-                                    @if($professional->user_id!=Auth::User()->id)
-                                    <a href="{{route('message.create',$professional->id)}}" class="btn btn-default btn-block">
-                                        <i class=" icon-mail-2"></i>
-                                        Envie uma menssagem
-                                    </a>
+                                    @if(Auth::Check())
+                                        @if($professional->user_id!=Auth::User()->id)
+                                        <a href="{{route('message.create',$professional->id)}}" class="btn btn-default btn-block">
+                                            <i class=" icon-mail-2"></i>
+                                            Envie uma menssagem
+                                        </a>
+                                        @endif
                                     @endif
                                     <!--<a class="btn  btn-primary btn-block">
                                         <i class=" icon-phone-1"></i>
