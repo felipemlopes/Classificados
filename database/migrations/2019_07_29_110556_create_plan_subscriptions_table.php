@@ -14,13 +14,14 @@ class CreatePlanSubscriptionsTable extends Migration
     public function up()
     {
         Schema::create('plan_subscriptions', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->bigInteger('plan_id');
+            $table->bigInteger('plan_id')->unsigned();
             $table->foreign('plan_id')->
                 references('id')->
                 on('plans')->
                 onDelete('cascade');
-            $table->bigInteger('user_id');
+            $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->
                 references('id')->
                 on('users')->
