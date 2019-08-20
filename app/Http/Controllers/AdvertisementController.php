@@ -12,7 +12,6 @@ use App\Models\Estado;
 use App\Models\MusicStyle;
 use App\Models\Payment;
 use App\Models\Professional;
-use App\models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
