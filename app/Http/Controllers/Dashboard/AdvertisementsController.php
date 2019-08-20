@@ -80,20 +80,29 @@ class AdvertisementsController extends Controller
         }
         $edit = true;
         $advertisement = Advertisement::find($advertisement_id);
-        $estilos = null;
-        $categorias = null;
-        $subcatecorias = null;
+        //$estilos = null;
+        //$categorias = null;
+        //$subcatecorias = null;
         if($advertisement->embedded_type=="App\Models\Artist"){
             $estilos=MusicStyle::all();
+            $estados = Estado::all();
+            $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
+
+            return view('dashboard.advertisement.edit',compact('edit', 'advertisement','estilos',
+                'estados','cidades'));
         }else{
             $categorias = Category::All();
             $subcategorias = Category::where('parent_id','=',$advertisement->embedded->category_id)->get();
-        }
-        $estados = Estado::all();
-        $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
+            $estados = Estado::all();
+            $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
 
-        return view('dashboard.advertisement.edit',compact('edit', 'advertisement','estilos',
-            'estados','cidades','categorias','subcategorias'));
+            return view('dashboard.advertisement.edit',compact('edit', 'advertisement',
+                'estados','cidades','categorias','subcategorias'));
+        }
+
+
+        /*return view('dashboard.advertisement.edit',compact('edit', 'advertisement','estilos',
+            'estados','cidades','categorias','subcategorias'));*/
     }
 
     /**
