@@ -138,7 +138,11 @@ class AdvertisementController extends Controller
         $advertisement->is_published = true;
         $advertisement->save();
 
-        return redirect()->route('professional.index')->withSuccess('Anúncio criado com sucesso!');
+        if($advertisement->embedded_type=="App\Models\Artist"){
+            return redirect()->route('artist.index')->withSuccess('Anúncio criado com sucesso!');
+        }else{
+            return redirect()->route('professional.index')->withSuccess('Anúncio criado com sucesso!');
+        }
     }
 
 

@@ -165,4 +165,16 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $('#estado').on('change', function (e) {
+            var selected = $('#estado option:selected').val();
+            $.get('/cidades/'+selected, function (filtros) {
+                $('select[id=cidade]').empty();
+                $('select[id=cidade]').append('<option value=>Selecione a cidade</option>');
+                $.each(filtros, function (key,value) {
+                    $('select[id=cidade]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
+                });
+            });
+        });
+    </script>
 @endsection
