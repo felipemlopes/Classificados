@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Requests\Frontend\user\CreateUserRequest;
 use App\Models\Plan;
 use App\Models\PlanSubscription;
-use App\models\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
