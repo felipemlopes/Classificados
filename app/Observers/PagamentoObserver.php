@@ -49,15 +49,20 @@ class PagamentoObserver
             if($pagamento->status==2){
                 $subscription = PlanSubscription::find($pagamento->paymentable_id);
                 $subscription->is_paid = true;
+                $subscription->starts_on = Carbon::now();
+                $subscription->expires_on = Carbon::now()->addDays(30);
+                $subscription->is_paid = true;
                 $subscription->save();
             }
             if($pagamento->status==3){
                 $subscription = PlanSubscription::find($pagamento->paymentable_id);
                 $subscription->is_paid = true;
+                $subscription->starts_on = Carbon::now();
+                $subscription->expires_on = Carbon::now()->addDays(30);
+                $subscription->is_paid = true;
                 $subscription->save();
             }
         }
-
     }
 
     /**

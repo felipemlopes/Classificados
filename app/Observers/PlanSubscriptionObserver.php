@@ -27,12 +27,7 @@ class PlanSubscriptionObserver
      */
     public function updated(PlanSubscription $planSubscription)
     {
-        if($planSubscription->status=="ACTIVE"){
-            $planSubscription->starts_on = Carbon::now();
-            $planSubscription->expires_on = Carbon::now()->addDays(30);
-            $planSubscription->is_paid = true;
-            $planSubscription->save();
-        }
+
         if($planSubscription->status=="PENDING"){
             $planSubscription->is_paid = false;
             $planSubscription->save();
