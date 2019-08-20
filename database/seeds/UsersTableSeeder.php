@@ -16,9 +16,9 @@ class UsersTableSeeder extends Seeder
     {
 
         $user= new \App\Models\User();
-        $user->first_name = 'Felipe';
-        $user->last_name = 'Lopes';
-        $user->email = 'felipe@dev.com';
+        $user->first_name = 'Admin';
+        $user->last_name = 'Admin';
+        $user->email = 'admin@admin.com';
         $user->password = 'admin123';
         $user->save();
 
