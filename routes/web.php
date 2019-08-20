@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('minha-conta/plano', ['as' => 'myaccount.plan','uses' => 'MyAccountController@plan']);
     Route::get('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe','uses' => 'MyAccountController@planSubscribe']);
     Route::post('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe.post','uses' => 'MyAccountController@planSubscribePost']);
-    Route::get('minha-conta/plano/cancelar', ['as' => 'myaccount.plan.cancel','uses' => 'MyAccountController@planSubscribePost']);
+    Route::get('minha-conta/plano/cancelar', ['as' => 'myaccount.plan.cancel','uses' => 'MyAccountController@planCancel']);
 });
 
 Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'],'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
