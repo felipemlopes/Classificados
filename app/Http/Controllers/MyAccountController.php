@@ -132,20 +132,21 @@ class MyAccountController extends Controller
     {
         $edit = true;
         $advertisement = Advertisement::find($id);
-        $estilos = null;
-        $categorias = null;
-        $subcatecorias = null;
+
         if($advertisement->embedded_type=="App\Models\Artist"){
             $estilos=MusicStyle::all();
+            $estados = Estado::all();
+            $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
+            return view('frontend.myaccount.advertisementedit',compact('edit', 'advertisement','estilos',
+                'estados','cidades'));
         }else{
             $categorias = Category::where('parent_id','=',null)->get();
             $subcategorias = Category::where('parent_id','=',$advertisement->embedded->category_id)->get();
+            $estados = Estado::all();
+            $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
+            return view('frontend.myaccount.advertisementedit',compact('edit', 'advertisement',
+                'estados','cidades','categorias','subcategorias'));
         }
-        $estados = Estado::all();
-        $cidades = Cidade::where('estado_id','=',$advertisement->estado_id)->get();
-
-        return view('frontend.myaccount.advertisementedit',compact('edit', 'advertisement','estilos',
-            'estados','cidades','categorias','subcategorias'));
     }
 
     /**

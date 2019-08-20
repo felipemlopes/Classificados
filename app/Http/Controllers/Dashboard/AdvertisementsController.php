@@ -80,9 +80,6 @@ class AdvertisementsController extends Controller
         }
         $edit = true;
         $advertisement = Advertisement::find($advertisement_id);
-        //$estilos = null;
-        //$categorias = null;
-        //$subcatecorias = null;
         if($advertisement->embedded_type=="App\Models\Artist"){
             $estilos=MusicStyle::all();
             $estados = Estado::all();
@@ -100,9 +97,6 @@ class AdvertisementsController extends Controller
                 'estados','cidades','categorias','subcategorias'));
         }
 
-
-        /*return view('dashboard.advertisement.edit',compact('edit', 'advertisement','estilos',
-            'estados','cidades','categorias','subcategorias'));*/
     }
 
     /**
