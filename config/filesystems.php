@@ -12,7 +12,7 @@ return [
     | based disks are available to your application. Just store away!
     |
     */
-    
+
     'default' => env('FILESYSTEM_DRIVER', 'public_uploads'),
 
     /*
@@ -50,7 +50,7 @@ return [
 
         'public_uploads' => [
             'driver' => 'local',
-            'root'   => public_path() . '\uploads',
+            'root'   => public_path() . '/uploads',
         ],
 
         'public' => [

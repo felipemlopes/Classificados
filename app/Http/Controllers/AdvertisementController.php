@@ -45,7 +45,7 @@ class AdvertisementController extends Controller
     {
         if($request->type==1){
             if(!Auth::User()->canCreateAdvertisementArtist()){
-                if(Auth::User()->hasActivePlan()){
+                if(Auth::User()->hasActiveSubscription()){
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos.');
                 }else{
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos, assine o plano empresarial para aumentar o limite');
@@ -53,7 +53,7 @@ class AdvertisementController extends Controller
             }
         }else{
             if(!Auth::User()->canCreateAdvertisementProfessional()){
-                if(Auth::User()->hasActivePlan()){
+                if(Auth::User()->hasActiveSubscription()){
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos.');
                 }else{
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos, assine o plano empresarial para aumentar o limite');
