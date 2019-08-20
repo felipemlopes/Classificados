@@ -303,7 +303,10 @@ class MyAccountController extends Controller
             $subscription->is_paid = false;
             $subscription->cancelled_on = Carbon::now();
             $subscription->save();
+            return redirect()->route('myaccount.plan')->withSuccess('Plano cancelado com sucesso!');
         }
+
+        return redirect()->back()->withErrors('Ocorreu um erro ao tentar cancelar o plano, tente novamente.');
     }
 
     /**

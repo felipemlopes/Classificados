@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f21354b8-a69e-4d97-af8c-2d6ac01a14ef" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,41 +15,7 @@
     <executablePath>composer</executablePath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="65" column="119" selection-start-line="65" selection-start-column="119" selection-end-line="65" selection-end-column="119" />
-              <folding>
-                <element signature="e#5786#13143#1#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="295" column="30" selection-start-line="295" selection-start-column="20" selection-end-line="295" selection-end-column="30" />
-              <folding>
-                <element signature="e#40#99#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/plan.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="781">
-              <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -136,7 +102,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Dashboard/UsersController.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/advertisement/list.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Dashboard/AdvertisementsController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AdvertisementController.php" />
         <option value="$PROJECT_DIR$/resources/views/frontend/artists/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/frontend/professionals/index.blade.php" />
@@ -149,6 +114,7 @@
         <option value="$PROJECT_DIR$/app/Observers/PlanSubscriptionObserver.php" />
         <option value="$PROJECT_DIR$/app/Observers/PagamentoObserver.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" />
       </list>
     </option>
   </component>
@@ -410,16 +376,15 @@
       <workItem from="1566217573335" duration="18111000" />
       <workItem from="1566303590471" duration="14127000" />
       <workItem from="1566320592261" duration="1653000" />
-      <workItem from="1566322370443" duration="7006000" />
+      <workItem from="1566322370443" duration="7421000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="389638000" />
+    <option name="totallyTimeSpent" value="390053000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1168" height="840" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992928" visible="true" weight="0.3465704" />
       <window_info id="Structure" order="1" sideWeight="0.5007072" side_tool="true" weight="0.25451264" />
@@ -800,17 +765,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/plan.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="295" column="30" selection-start-line="295" selection-start-column="20" selection-end-line="295" selection-end-column="30" />
+        <state relative-caret-position="189">
+          <caret line="298" column="62" lean-forward="true" selection-start-line="298" selection-start-column="62" selection-end-line="298" selection-end-column="62" />
           <folding>
             <element signature="e#40#99#0#PHP" expanded="true" />
           </folding>
@@ -819,11 +777,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="65" column="119" selection-start-line="65" selection-start-column="119" selection-end-line="65" selection-end-column="119" />
+        <state relative-caret-position="544">
+          <caret line="62" column="60" lean-forward="true" selection-start-line="62" selection-start-column="46" selection-end-line="62" selection-end-column="60" />
           <folding>
             <element signature="e#5786#13143#1#PHP" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/plan.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="781">
+          <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
         </state>
       </provider>
     </entry>
