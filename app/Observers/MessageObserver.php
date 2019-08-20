@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Models\Conversation;
 use App\Models\Message;
+use App\models\User;
 
 class MessageObserver
 {
@@ -14,10 +16,16 @@ class MessageObserver
      */
     public function created(Message $message)
     {
-        //poe a lógica de tudo isso
-            //ver o usuário que enviou
-            //mandar email para o usuário que recebeu
-            //tem que ter um tempo para enviar mensagens
+        $conversation = Conversation::find($message->conversation_id);
+        if($conversation){
+            if($message->user_id==$conversation->user_one){
+                $user = User::find($conversation->user_two);
+                $user->notify(new \App\Notifications\Message($message));
+            }else{
+                $user = User::find($conversation->user_one);
+                $user->notify(new \App\Notifications\Message($message));
+            }
+        }
     }
 
     /**

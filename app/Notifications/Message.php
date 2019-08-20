@@ -10,15 +10,19 @@ use Illuminate\Notifications\Messages\MailMessage;
 class Message extends Notification  implements ShouldQueue
 {
     use Queueable;
+    /**
+     * @var \App\Models\Message
+     */
+    private $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(\App\Models\Message $message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -40,10 +44,13 @@ class Message extends Notification  implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        $link = route('message.index');
+
+        return ( new MailMessage )
+            ->subject( 'Nova mensagem' )
+            ->line( "Você está recebendo este email, por que você recebeu uma nova mensagem." )
+            ->action( 'Ver mensagens', $link )
+            ->line( 'Obrigado!' );
     }
 
     /**
