@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advertisement;
 use App\Models\Payment;
 use App\Models\PlanSubscription;
 use App\PagSeguro\PagSeguro;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -24,18 +26,12 @@ class PagseguroController extends Controller
             }else{
                 $response = (array)(new PagSeguro)->notificacao(PagSeguro::NOTIFICATION_PREAPPROVAL, $request->notificationCode);
             }
-            //Log::info($request->all());
-            //Log::info($response);
             $response['code']; //reference da assinatura
-            //$response['reference']; //reference do pagamento
             $pagamento = Payment::where('reference', $response['reference'])->first();
             if ($pagamento) {
-                //$pagamento->status = $response['status'];
-                //$pagamento->save();
                 $subscription = PlanSubscription::find($pagamento->paymentable_id);
                 $subscription->status = $response['status'];
                 $subscription->save();
-                //Log::info($subscription);
             }
         }
         if($request->notificationType=="transaction") {
@@ -49,9 +45,30 @@ class PagseguroController extends Controller
                 $pagamento->status = $response['status'];
                 $pagamento->save();
             }
-            //Log::info($request->all());
-            //Log::info($response);
-            //Log::info($pagamento);
+
+
+
+
+
+
+            if($pagamento->paymentable_type=="App\Models\Advertisement"){
+                $dias = setting('days_ads_premium');
+                $data = Carbon::now()->addDays($dias);
+                $anuncio = Advertisement::find($pagamento->recurso_id);
+                if($pagamento->status==3){
+                    $anuncio->is_paid = true;
+                    $anuncio->featured_until = $data;
+                    $anuncio->save;
+                }
+                if($pagamento->status==4){
+                    $anuncio->is_paid = true;
+                    $anuncio->featured_until = $data;
+                    $anuncio->save;
+                }
+            }
+
+
+
         }
     }
 

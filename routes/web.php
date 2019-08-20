@@ -137,8 +137,4 @@ Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'
     Route::post('settings/general', ['as' => 'settings.general.update','uses' => 'Dashboard\SettingsController@updategeneral']);
     Route::get('settings/auth', ['as' => 'settings.auth','uses' => 'Dashboard\SettingsController@auth']);
     Route::post('settings/auth', ['as' => 'settings.auth.update','uses' => 'Dashboard\SettingsController@updateauth']);
-    //Route::post('settings/auth/registration/captcha/enable', ['as' => 'settings.registration.captcha.enable','uses' => 'Dashboard\SettingsController@enableCaptcha']);
-    //Route::post('settings/auth/registration/captcha/disable', ['as' => 'settings.registration.captcha.disable', 'uses' => 'Dashboard\SettingsController@disableCaptcha']);
-    //Route::get('settings/plans', ['as' => 'settings.plans', 'uses' => 'Dashboard\SettingsController@plans']);
-    //Route::post('settings/plans', ['as' => 'settings.plans.update', 'uses' => 'Dashboard\SettingsController@plansupdate']);
 });
