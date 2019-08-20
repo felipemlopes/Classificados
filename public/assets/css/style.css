@@ -4580,3 +4580,353 @@ nav.slider-nav a.next {
 .company-logo-thumb img {
   max-width: 100%;
 }
+
+
+
+/* Minha conta */
+.menu-minhaconta{
+  margin-top: 40px;
+}
+.li-menuminhaconta{
+  margin-top: 25px;
+}
+.link-myaccount{
+  color: #999;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.link-myaccount:hover{
+  color: #2b2f45;
+  text-decoration: none;
+  border-bottom: 3px solid;
+  padding-bottom: 5px;
+}
+.link-myaccount:focus{
+  color: #999;
+  text-decoration: none;
+}
+.link-myaccount:active{
+  color: #999;
+  text-decoration: none;
+}
+.link-myaccount.active{
+  color: #2b2f45;
+  text-decoration: none;
+  border-bottom: 3px solid;
+  padding-bottom: 5px;
+}
+.minhaconta-titulo{
+  font-size: 18px;
+}
+.minhaconta-item{
+  font-size: 30px;
+  color: #E62159;
+}
+.secao-minhaconta{
+  margin-top: 40px;
+}
+.small-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  background-color: #F20E4C;
+  color: #fff;
+}
+.small-box > .inner {
+  padding: 10px;
+}
+.small-box h3, .small-box p {
+  z-index: 5;
+}
+.small-box h3 {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+.small-box h3, .small-box p {
+  z-index: 5;
+}
+.small-box p {
+  font-size: 15px;
+}
+.small-box .icon {
+  -webkit-transition: all .3s linear;
+  -o-transition: all .3s linear;
+  transition: all .3s linear;
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  z-index: 0;
+  font-size: 90px;
+  color: rgba(0,0,0,0.15);
+}
+.small-box > .small-box-footer {
+  position: relative;
+  text-align: center;
+  padding: 3px 0;
+  color: #fff;
+  color: rgba(255,255,255,0.8);
+  display: block;
+  z-index: 10;
+  background: rgba(0,0,0,0.1);
+  text-decoration: none;
+}
+
+
+.nav-tabs-custom {
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  border-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #F20E4C;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  border-top-color: transparent;
+  margin-bottom: -2px;
+  margin-right: 5px;
+}
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+}
+.nav > li {
+  position: relative;
+  display: block;
+}
+
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #f4f4f4;
+  border-right-color: #f4f4f4;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #444;
+}
+.nav-tabs-custom > .nav-tabs > li > a, .nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  background-color: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a {
+  color: #444;
+  border-radius: 0;
+}
+
+
+
+
+/* Review */
+.reviews{
+  margin-top: 30px;
+}
+
+
+
+/* chat */
+#frame {
+
+  height: 92vh;
+  min-height: 300px;
+  max-height: 720px;
+  background: #cfcfcf;
+}
+
+
+
+
+
+.content .messages {
+  height: auto;
+  min-height: calc(100% - 93px);
+  max-height: calc(100% - 93px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.content .messages::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+.content .messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.content .messages ul li {
+  display: inline-block;
+  clear: both;
+  float: left;
+  margin: 15px 15px 5px 15px;
+  width: calc(100% - 25px);
+  font-size: 0.9em;
+}
+.content .messages ul li:nth-last-child(1) {
+  margin-bottom: 20px;
+}
+.content .messages ul li.sent img {
+  margin: 6px 8px 0 0;
+}
+.content .messages ul li.sent p {
+  background: #435f7a;
+  color: #f5f5f5;
+}
+.content .messages ul li.replies img {
+  float: right;
+  margin: 6px 0 0 8px;
+}
+.content .messages ul li.replies p {
+  background: #f5f5f5;
+  float: right;
+}
+.content .messages ul li img {
+  width: 22px;
+  border-radius: 50%;
+  float: left;
+}
+.content .messages ul li p {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 205px;
+  line-height: 130%;
+}
+
+
+
+
+
+
+
+
+.message-input {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  z-index: 99;
+  padding: 5px;
+}
+.content .message-input .wrap {
+  position: relative;
+}
+.content .message-input .wrap input {
+  font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+  float: left;
+  border: none;
+  width: calc(100% - 90px);
+  padding: 11px 32px 10px 8px;
+  font-size: 1.2em;
+  color: #32465a;
+}
+
+.content .message-input .wrap input:focus {
+  outline: none;
+}
+.content .message-input .wrap .attachment {
+  position: absolute;
+  right: 60px;
+  z-index: 4;
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #435f7a;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.content .message-input .wrap .attachment:hover {
+  opacity: 1;
+}
+.content .message-input .wrap button {
+  float: right;
+  border: none;
+  width: 50px;
+  padding: 12px 0;
+  cursor: pointer;
+  background: #32465a;
+  color: #f5f5f5;
+}
+
+.content .message-input .wrap button:hover {
+  background: #435f7a;
+}
+.content .message-input .wrap button:focus {
+  outline: none;
+}
+
+
+
+
+.topsidebar {
+  background: #2c3e50;
+  color: #f5f5f5;
+  height: 92vh;
+  min-height: 300px;
+  max-height: 720px;
+}
+#profile .wrap p{
+  padding-top: 10px;
+}
+
+
+#contacts{
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#contacts ul li.contact {
+  position: relative;
+  padding: 10px 0 15px 0;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+#contacts ul li.contact:hover {
+  background: #32465a;
+}
+#contacts ul li.contact.active {
+  background: #32465a;
+  border-right: 5px solid #435f7a;
+}
+#contacts ul li.contact.active span.contact-status {
+  border: 2px solid #32465a !important;
+}
+#contacts ul li.contact .wrap {
+  width: 88%;
+  margin: 0 auto;
+  position: relative;
+}
+#contacts ul li.contact a {
+  color: #FFF;
+}
+
+
+
+
+/* Link Social Network */
+
+.linksocialnetowrk{
+  color: #333;
+}
+.linksocialnetowrk:hover{
+  color: #333;
+}
+.linksocialnetowrk:active{
+  color: #333;
+}
+.linksocialnetowrk:focus{
+  color: #333;
+}

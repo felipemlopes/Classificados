@@ -45,7 +45,6 @@ class SettingsController extends Controller
         if(!Auth::user()->can('Gerenciar configurações')){
             return redirect()->back()->withErrors('Você não esta autorizado para executar esta ação');
         }
-
         $this->updateSettings($request->except("_token"));
 
         return back()->withSuccess('Configurações atualizadas com sucesso');

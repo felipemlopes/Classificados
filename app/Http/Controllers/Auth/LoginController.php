@@ -34,7 +34,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/artistas';
 
     /**
      * Show the application's login form.
@@ -58,7 +58,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return '/';
+        return '/artistas';
     }
 
     /**

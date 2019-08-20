@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Payment;
+use App\Models\PlanSubscription;
+use App\Observers\PagamentoObserver;
+use App\Observers\PlanSubscriptionObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        PlanSubscription::observe(PlanSubscriptionObserver::class);
+        Payment::observe(PagamentoObserver::class);
     }
 }

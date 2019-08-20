@@ -22,7 +22,7 @@
     <form method="GET" action="" accept-charset="UTF-8" id="ads-form">
         <div class="col-md-2 col-xs-3">
             <select name="tipo" id="tipo" class="form-control">
-                <option value="">Tipo</option>
+                <option value="">Tipo de multa</option>
                 <option value="1" {{app('request')->input('tipo')==1?'selected':''}}>Artistas</option>
                 <option value="2" {{app('request')->input('tipo')==2?'selected':''}}>Profissionais</option>
             </select>

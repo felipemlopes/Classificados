@@ -11,7 +11,8 @@
                         <h1 class="text-center">Artistas</h1>
 
                         <div class="col-xs-12 col-sm-4 col-md-4">
-                            <select name="estilo" id="estilo" class="form-control selectpicker" title="Selecione o estilo musical" data-live-search="true">
+                            <select name="estilo" id="estilo" class="form-control">
+                                <option value="">Selecione o estilo</option>
                                 @foreach($styles as $style)
                                 <option value="{{$style->id}}" {{app('request')->input('estilo')==$style->id? 'selected':''}}>
                                     {{$style->name}}
@@ -20,7 +21,8 @@
                             </select>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
-                            <select name="estado" id="estados" class="form-control selectpicker" title="Selecione o estado" data-live-search="true">
+                            <select name="estado" id="estado" class="form-control" @change="onChangeEstado($event)">
+                                <option value="">Selecione o estado</option>
                                 @foreach($states as $state)
                                 <option value="{{$state->id}}" {{app('request')->input('estado')==$state->id? 'selected':''}}>
                                     {{$state->estado}}
@@ -29,7 +31,8 @@
                             </select>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
-                            <select name="cidade" id="cidades" class="form-control selectpicker" title="Selecione a cidade" data-live-search="true">
+                            <select name="cidade" id="cidade" class="form-control">
+                                <option value="">Selecione a cidade</option>
                                 @foreach($cities as $city)
                                 <option value="{{$city->id}}" {{app('request')->input('cidade')==$city->id? 'selected':''}}>
                                     {{$city->cidade}}
@@ -162,16 +165,4 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('#estados').on('changed.bs.select', function (e) {
-            var selected = $('#estados option:selected').val();
-            $.get('/cidades/'+selected, function (filtros) {
-                $('select[id=cidades]').empty();
-                $.each(filtros, function (key,value) {
-                    $('select[id=cidades]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
-                });
-                $('#cidades').selectpicker('refresh');
-            });
-        });
-    </script>
 @endsection

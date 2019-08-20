@@ -2,55 +2,6 @@
 
 
 @section('css')
-    <style>
-        .menu-minhaconta{
-            margin-top: 40px;
-        }
-        .li-menuminhaconta{
-            margin-top: 25px;
-        }
-        .link-myaccount{
-            color: #999;
-            font-size: 16px;
-            text-decoration: none;
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-        .link-myaccount:hover{
-            color: #2b2f45;
-            text-decoration: none;
-            border-bottom: 3px solid;
-            padding-bottom: 5px;
-        }
-        .link-myaccount:focus{
-            color: #999;
-            text-decoration: none;
-        }
-        .link-myaccount:active{
-            color: #999;
-            text-decoration: none;
-        }
-        .link-myaccount.active{
-            color: #2b2f45;
-            text-decoration: none;
-            border-bottom: 3px solid;
-            padding-bottom: 5px;
-        }
-        .minhaconta-titulo{
-            font-size: 18px;
-        }
-        .minhaconta-item{
-            font-size: 30px;
-            color: #E62159;
-        }
-        .secao-minhaconta{
-            margin-top: 40px;
-        }
-
-
-
-
-    </style>
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
 @endsection
 
@@ -66,7 +17,11 @@
                     </li>
                     <li class="li-menuminhaconta">
                         <a href="{{ route('myaccount.advertisement') }}" class="link-myaccount active">
-                            <i class="fa fa-home"></i> Anúncios</a>
+                            <i class="fa fa-tags"></i> Anúncios</a>
+                    </li>
+                    <li class="li-menuminhaconta">
+                        <a href="{{ route('myaccount.plan') }}" class="link-myaccount">
+                            <i class="fa fa-credit-card"></i> Plano</a>
                     </li>
                     <li class="li-menuminhaconta">
                         <a href="{{ route('myaccount.settings') }}" class="link-myaccount">

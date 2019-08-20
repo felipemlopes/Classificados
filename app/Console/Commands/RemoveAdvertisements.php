@@ -41,30 +41,15 @@ class RemoveAdvertisements extends Command
     {
         //free
         $datefree = \Carbon\Carbon::today()->subDays(setting('days_ads_free'));
-        Advertisement::select('advertisements.*','users.*','plan_subscriptions.*')
-            ->join('users', function ($join) {
-                $join->on('users.id', '=', 'advertisements.user_id');
-            })
-            ->join('plan_subscriptions', function ($join) use($datefree){
-                $join->on('users.id', '=', 'plan_subscriptions.user_id');
-                $join->where('plan_subscriptions.plan_id','=', 1);
-                $join->where('starts_on', '<', Carbon::now())->where('expires_on', '>', Carbon::now());
-                $join->where('advertisements.created_at', '<', date($datefree));
-            })
-            ->delete();
+
+        //sempre foi free
+        Advertisement::where('is_featured',false)->where('created_at','<',date($datefree))->delete();
+
+        //é featured mas featured until é nulo segue o caso anterior
+        Advertisement::where('is_featured',true)->where('featured_until',null)->where('created_at','<',date($datefree))->delete();
 
         //premium
-        $datepremium = \Carbon\Carbon::today()->subDays(setting('days_ads_premium'));
-        Advertisement::select('advertisements.*','users.*','plan_subscriptions.*')
-            ->join('users', function ($join) {
-                $join->on('users.id', '=', 'advertisements.user_id');
-            })
-            ->join('plan_subscriptions', function ($join) use($datepremium){
-                $join->on('users.id', '=', 'plan_subscriptions.user_id');
-                $join->where('plan_subscriptions.plan_id','=', 2);
-                $join->where('starts_on', '<', Carbon::now())->where('expires_on', '>', Carbon::now());
-                $join->where('advertisements.created_at', '<', date($datepremium));
-            })
-            ->delete();
+        Advertisement::where('is_featured',true)->where('featured_until','>',\Carbon\Carbon::now())->delete();
+
     }
 }

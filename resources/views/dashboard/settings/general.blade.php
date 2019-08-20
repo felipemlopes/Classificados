@@ -36,6 +36,16 @@
                                    name="home_url" value="{{ setting('home_url')!=""?setting('home_url'):old('home_url') }}">
                         </div>
                         <div class="form-group">
+                            <label for="qtd_ads_artist_freeaccount">Quantidade de anúncios de artistas ativos para usuário gratuito</label>
+                            <input type="text" class="form-control" id="qtd_ads_artist_freeaccount"
+                                   name="qtd_ads_artist_freeaccount" value="{{ setting('qtd_ads_artist_freeaccount')!=""?setting('qtd_ads_artist_freeaccount'):old('qtd_ads_artist_freeaccount') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="qtd_ads_pro_freeaccount">Quantidade de anúncios de profissionais ativos para usuário gratuito</label>
+                            <input type="text" class="form-control" id="qtd_ads_pro_freeaccount"
+                                   name="qtd_ads_pro_freeaccount" value="{{ setting('qtd_ads_pro_freeaccount')!=""?setting('qtd_ads_pro_freeaccount'):old('qtd_ads_pro_freeaccount') }}">
+                        </div>
+                        <div class="form-group">
                             <label for="qtd_ads_destaque">Quantidade de anúncios em destaque por página</label>
                             <input type="text" class="form-control" id="qtd_ads_destaque"
                                    name="qtd_ads_destaque" value="{{ setting('qtd_ads_destaque')!=""?setting('qtd_ads_destaque'):old('qtd_ads_destaque') }}">
@@ -46,11 +56,15 @@
                                    name="days_ads_free" value="{{ setting('days_ads_free')!=""?setting('days_ads_free'):old('days_ads_free') }}">
                         </div>
                         <div class="form-group">
-                            <label for="days_ads_premium">Dias que um anúncio premium fica no sistema</label>
+                            <label for="days_ads_premium">Dias que um anúncio fica em destaque</label>
                             <input type="text" class="form-control" id="days_ads_premium"
                                    name="days_ads_premium" value="{{ setting('days_ads_premium')!=""?setting('days_ads_premium'):old('days_ads_premium') }}">
                         </div>
-
+                        <div class="form-group">
+                            <label for="price_ads_premium">Valor pago por anúncio em destaque</label>
+                            <input type="text" class="form-control" id="price_ads_premium"
+                                   name="price_ads_premium" value="{{ setting('price_ads_premium')!=""?setting('price_ads_premium'):old('price_ads_premium') }}">
+                        </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-refresh"></i>
                             Atualizar configurações
@@ -73,4 +87,8 @@
 @stop
 
 @section('js')
+    <script src="{{asset('js/jquery.mask.min.js')}}"></script>
+    <script>
+        $('#price_ads_premium').mask('000,00', {reverse: true});
+    </script>
 @stop

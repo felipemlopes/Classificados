@@ -33,6 +33,10 @@ class CreateAdvertisementsTable extends Migration
                 references('id')->
                 on('cidades')->
                 onDelete('set null');
+            $table->boolean('is_published')->default(false);
+            $table->boolean('is_paid')->default(false);
+            $table->boolean('is_featured')->default(false);
+            $table->timestamp('featured_until')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

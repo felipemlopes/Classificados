@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Trexology\ReviewRateable\Contracts\ReviewRateable;
@@ -44,6 +45,16 @@ class Advertisement extends Model implements ReviewRateable
    | FUNCTIONS
    |--------------------------------------------------------------------------
    */
+    public function isActiveFeatured()
+    {
+        if($this->is_published==true and $this->is_paid==true and $this->is_featured==true
+            and $this->featured_until > Carbon::now()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function getType()
     {
         if($this->embedded_type=='App\Models\Artist'){
@@ -101,6 +112,10 @@ class Advertisement extends Model implements ReviewRateable
         return $this->belongsTo('App\Models\Estado', 'estado_id');
     }
 
+    public function paymentable()
+    {
+        return $this->morphOne('App\Models\Payment', 'paymentable');
+    }
 
     /*
    |--------------------------------------------------------------------------
@@ -117,6 +132,35 @@ class Advertisement extends Model implements ReviewRateable
         return $query->where('embedded_type', '=', 'App\Models\Professional');
     }
 
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true)->where('featured_until','>',Carbon::now());
+    }
+
+    public function scopeUnfeatured($query)
+    {
+        return $query->where('is_featured', false);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
+    public function scopeUnpublished($query)
+    {
+        return $query->where('is_published', false);
+    }
+
+    public function scopePaid($query)
+    {
+        return $query->where('is_paid', true);
+    }
+
+    public function scopeUnpaid($query)
+    {
+        return $query->where('is_paid', false);
+    }
     /*
    |--------------------------------------------------------------------------
    | ACCESORS

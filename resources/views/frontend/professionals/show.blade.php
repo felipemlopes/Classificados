@@ -2,11 +2,6 @@
 
 @section('css')
     <link href="{{ asset('vendor/starrr/starrr.css') }}" rel="stylesheet">
-    <style>
-        .reviews{
-            margin-top: 30px;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -48,12 +43,6 @@
                             <div class="col-md-4">
                                 <aside class="panel panel-body panel-details">
                                     <ul>
-                                        <!--<li>
-                                            <p class=" no-margin ">
-                                                <strong>Preço:</strong>
-                                                R${{--number_format($artist->embedded->cache, 2, ',', '')--}}
-                                            </p>
-                                        </li>-->
                                         <li>
                                             <p class="no-margin">
                                                 <strong>Cidade:</strong>
@@ -61,6 +50,34 @@
                                             </p>
                                         </li>
                                     </ul>
+                                    @if($professional->embedded->hasSocialNetworks())
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Redes sociais:</strong>
+                                        </li>
+                                        @if($professional->embedded->facebook)
+                                        <li>
+                                            <a class="linksocialnetowrk" href="{{$professional->embedded->facebook}}" target="_blank">
+                                                <i class="fa fa-lg fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        @endif
+                                        @if($professional->embedded->instagram)
+                                        <li>
+                                            <a class="linksocialnetowrk" href="{{$professional->embedded->instagram}}" target="_blank">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        @endif
+                                        @if($professional->embedded->youtube)
+                                        <li>
+                                            <a class="linksocialnetowrk" href="{{$professional->embedded->youtube}}" target="_blank">
+                                                <i class="fa fa-youtube-square"></i>
+                                            </a>
+                                        </li>
+                                        @endif
+                                    </ul>
+                                    @endif
                                 </aside>
                                 <!--<div class="ads-action">
                                     <ul class="list-border">
@@ -75,10 +92,12 @@
                             </div>
                         </div>
                         <div class="content-footer text-left">
-                            <a class="btn  btn-default">
+                            @if($professional->user_id!=Auth::User()->id)
+                            <a href="{{route('message.create',$professional->id)}}" class="btn  btn-default">
                                 <i class=" icon-mail-2"></i>
                                 Envie uma menssagem
                             </a>
+                            @endif
                             <!--<a class="btn  btn-primary">
                                 <i class=" icon-phone-1"></i>
                                 {{--$produto->owner->phone--}}
@@ -105,10 +124,12 @@
                                     </p>
                                 </div>
                                 <div class="user-ads-action">
-                                    <a data-target="#myModal" data-toggle="modal" class="btn   btn-default btn-block">
+                                    @if($professional->user_id!=Auth::User()->id)
+                                    <a href="{{route('message.create',$professional->id)}}" class="btn btn-default btn-block">
                                         <i class=" icon-mail-2"></i>
                                         Envie uma menssagem
                                     </a>
+                                    @endif
                                     <!--<a class="btn  btn-primary btn-block">
                                         <i class=" icon-phone-1"></i>
                                         {{--$produto->owner->phone--}}

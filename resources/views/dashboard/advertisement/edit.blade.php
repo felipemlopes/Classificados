@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane active" id="imagem">
+        <div role="tabpanel" class="tab-pane" id="imagem">
             <div class="col-lg-4 col-md-5">
                 <form action="{{route('dashboard.advertisement.updateimage',$advertisement->id)}}" method="post" enctype="multipart/form-data">
                     @csrf

@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 window.Vue = require('vue');
+window.axios = require('axios');
 import money from 'v-money';
 Vue.use(money);
 
@@ -29,11 +30,9 @@ Vue.use(money);
  */
 
 const app = new Vue({
-
     el: '#app',
     data: {
-        type: '',
-        //title: '',
+        type: "",
         cache: 0,
         money: {
             decimal: ',',
@@ -42,9 +41,60 @@ const app = new Vue({
             suffix: '',
             precision: 2,
             masked: false
-        }
+        },
+        dropdownmenu:false,
+        message:'',
+        conversation:'',
+        csrftoken:'',
+    },
+    methods:{
+        toggleDropdown(){
+            this.dropdownmenu = !this.dropdownmenu;
+        },
+        onChangeEstado(event) {
+            var selected = $('#estado option:selected').val();
+            $.get('/cidades/'+selected, function (filtros) {
+                $('select[id=cidade]').empty();
+                $('select[id=cidade]').append('<option value=>Selecione a cidade</option>');
+                $.each(filtros, function (key,value) {
+                    $('select[id=cidade]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
+                });
+            });
+        },
+        onChangeCategoria(event) {
+            var selected = $('#categoria option:selected').val();
+            $.get('/categoria/'+selected, function (filtros) {
+                $('select[id=subcategoria]').empty();
+                $('select[id=subcategoria]').append('<option value=>Selecione a subcategoria</option>');
+                $.each(filtros, function (key,value) {
+                    $('select[id=subcategoria]').append('<option value=' + value.id + '>' + value.name + '</option>');
+                });
+            });
+        },
+        submitMessage(){
+            if(this.message.trim() == '') {
+                return false;
+            }
+            $('<li class="sent"><p>' + this.message + '</p></li>').appendTo($('.messages ul'));
+            $('.message-input input').val(null);
+            $('.contact.active .preview').html('<span>Você: </span>' + this.message);
+            $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+            axios.post(`${this.conversation}/send`, {
+                _token: this.csrftoken,
+                conversation: this.conversation,
+                message: this.message,
+            })
+                .then(response => {
+                })
+                .catch(error => {
+                });
+        },
     },
     mounted: function() {
-
+        let cachehidden = $('#cachehidden').val();
+        this.cache = cachehidden;
+        this.csrftoken = $("input[name=_token]").val();
+        this.conversation = $("input[name=conversation]").val();
     },
 });

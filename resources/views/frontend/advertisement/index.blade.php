@@ -2,11 +2,9 @@
 
 
 @section('content')
-    <div class="row" id="app">
+    <div class="row">
 
         <h1 class="text-center">Criar anúncio</h1>
-
-
 
         <form action="{{route('advertisement.store')}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -19,8 +17,8 @@
                     <label for="type">Tipo de anúncio:</label>
                     <select class="form-control" id="type" name="type" v-model="type">
                         <option value="">Selecione</option>
-                        <option value="1" {{old('type')==1?"selected":""}}>Artista</option>
-                        <option value="2" {{old('type')==2?"selected":""}}>Profissional</option>
+                        <option value="1" {{old('type')=='1'?"selected":""}}>Artista</option>
+                        <option value="2" {{old('type')=='2'?"selected":""}}>Profissional</option>
                     </select>
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -35,8 +33,6 @@
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-md-12" v-show="type==1">
                     <label for="title">Cachê:</label>
-                    <!--<input type="text" class="form-control" id="cache" name="cache" v-model="cache" v-bind="money"
-                           value="{{--old('cache')--}}" >-->
                     <money v-model="cache"
                            v-bind="money"
                            class="form-control"
@@ -61,8 +57,8 @@
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-md-12" v-show="type==2">
                     <label for="categoria">Categoria:</label>
-                    <select class="form-control" id="categoria" name="categoria">
-                        <option value="">Selecione</option>
+                    <select class="form-control" id="categoria" name="categoria" @change="onChangeCategoria($event)">
+                        <option value="">Selecione a categoria</option>
                         @foreach($categorias as $categoria)
                             <option value="{{$categoria->id}}" {{old('categoria')==$categoria->id?"selected":""}}>{{$categoria->name}}</option>
                         @endforeach
@@ -72,7 +68,7 @@
                 <div class="form-group col-xs-12 col-sm-12 col-md-12" v-show="type==2">
                     <label for="subcategoria">Sub categoria:</label>
                     <select class="form-control" id="subcategoria" name="subcategoria">
-                        <option value="">Selecione</option>
+                        <option value="">Selecione a subcategoria</option>
                     </select>
                 </div>
             </div>
@@ -81,8 +77,8 @@
                 <h2>Local:</h2>
                 <div class="form-group col-xs-12 col-sm-12 col-md-12">
                     <label for="estado">Estado:</label>
-                    <select class="form-control" id="estado" name="estado">
-                        <option value="">Selecione</option>
+                    <select class="form-control" id="estado" name="estado" @change="onChangeEstado($event)">
+                        <option value="">Selecione o estado</option>
                         @foreach($estados as $estado)
                             <option value="{{$estado->id}}" {{old('estado')==$estado->id?"selected":""}}>{{$estado->estado}}</option>
                         @endforeach
@@ -91,7 +87,7 @@
                 <div class="form-group col-xs-12 col-sm-12 col-md-12">
                     <label for="cidade">Cidade:</label>
                     <select class="form-control" id="cidade" name="cidade">
-                        <option value="">Selecione</option>
+                        <option value="">Selecione a cidade</option>
                     </select>
                 </div>
             </div>
@@ -142,27 +138,5 @@
     <script src="{{asset('js/app.js')}}"></script>
     <script>
 
-
-        $('#estado').on('change', function (e) {
-            var selected = $('#estado option:selected').val();
-            $.get('/cidades/'+selected, function (filtros) {
-                $('select[id=cidade]').empty();
-                $('select[id=cidade]').append('<option value=>Selecione</option>');
-                $.each(filtros, function (key,value) {
-                    $('select[id=cidade]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
-                });
-            });
-        });
-
-        $('#categoria').on('change', function (e) {
-            var selected = $('#categoria option:selected').val();
-            $.get('/categoria/'+selected, function (filtros) {
-                $('select[id=subcategoria]').empty();
-                $('select[id=subcategoria]').append('<option value=>Selecione</option>');
-                $.each(filtros, function (key,value) {
-                    $('select[id=subcategoria]').append('<option value=' + value.id + '>' + value.name + '</option>');
-                });
-            });
-        });
     </script>
 @endsection

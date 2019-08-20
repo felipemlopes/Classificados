@@ -17,6 +17,7 @@ class CreatePlansTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->decimal('price', 8, 2);
+            $table->string('reference')->nullable();
             $table->timestamps();
         });
     }

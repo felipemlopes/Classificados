@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\frontend\user\CreateUserRequest;
+use App\Http\Requests\Frontend\user\CreateUserRequest;
 use App\Models\Plan;
 use App\Models\PlanSubscription;
 use App\models\User;
-use App\Support\UserStatus;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
@@ -35,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '';
+    protected $redirectTo = '/artistas';
 
     /**
      * Create a new controller instance.
@@ -49,7 +48,7 @@ class RegisterController extends Controller
 
     public function redirectTo()
     {
-        return '/';
+        return '/artistas';
     }
 
     /**
@@ -79,16 +78,6 @@ class RegisterController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-
-        $plan = Plan::find(1);
-        $subscription = $user->subscriptions()->save(new PlanSubscription([
-            'plan_id' => $plan->id,
-            'starts_on' => Carbon::now()->subSeconds(1),
-            'expires_on' => null,
-            'cancelled_on' => null,
-            'is_paid' => (bool) true,
-            'is_recurring' => true,
-        ]));
 
         event(new Registered($user));
 

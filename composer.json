@@ -10,10 +10,11 @@
     "require": {
         "php": "^7.1.3",
         "anlutro/l4-settings": "^0.8.3",
+        "artistas/laravel-pagseguro": "1.7.*",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "michael/laravelpagseguro": "dev-master",
         "spatie/laravel-permission": "^2.37",
         "trexology/reviewrateable": "^2.0"
     },

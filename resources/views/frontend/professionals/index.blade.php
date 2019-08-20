@@ -1,6 +1,5 @@
 @extends('frontend.layouts.master')
 
-
 @section('content')
     <div class="container">
         <div class="row">
@@ -11,7 +10,8 @@
                     <h1 class="text-center">Profissionais</h1>
 
                     <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="categoria" id="categoria" class="form-control selectpicker" title="Selecione a categoria" data-live-search="true">
+                        <select name="categoria" id="categoria" class="form-control" @change="onChangeCategoria($event)">
+                            <option value="">Selecione a categoria</option>
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}" {{app('request')->input('categoria')==$category->id? 'selected':''}}>
                                     {{$category->name}}
@@ -20,16 +20,20 @@
                         </select>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="subcategoria" id="subcategoria" class="form-control selectpicker" title="Selecione a sub-categoria" data-live-search="true">
+                        <select name="subcategoria" id="subcategoria" class="form-control">
+                            <option value="">Selecione a subcategoria</option>
+                            @if($subcategories)
                             @foreach($subcategories as $subcategory)
                                 <option value="{{$subcategory->id}}" {{app('request')->input('subcategoria')==$subcategory->id? 'selected':''}}>
                                     {{$subcategory->name}}
                                 </option>
                             @endforeach
+                            @endif
                         </select>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="estado" id="estado" class="form-control selectpicker" title="Selecione o estado" data-live-search="true">
+                        <select name="estado" id="estado" class="form-control" @change="onChangeEstado($event)">
+                            <option value="">Selecione o estado</option>
                             @foreach($states as $state)
                                 <option value="{{$state->id}}" {{app('request')->input('estado')==$state->id? 'selected':''}}>
                                     {{$state->estado}}
@@ -38,7 +42,8 @@
                         </select>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="cidade" id="cidade" class="form-control selectpicker" title="Selecione a cidade" data-live-search="true">
+                        <select name="cidade" id="cidade" class="form-control">
+                            <option value="">Selecione a cidade</option>
                             @foreach($cities as $city)
                                 <option value="{{$city->id}}" {{app('request')->input('cidade')==$city->id? 'selected':''}}>
                                     {{$city->cidade}}
@@ -173,26 +178,4 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('#estado').on('changed.bs.select', function (e) {
-            var selected = $('#estado option:selected').val();
-            $.get('/cidades/'+selected, function (filtros) {
-                $('select[id=cidade]').empty();
-                $.each(filtros, function (key,value) {
-                    $('select[id=cidade]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
-                });
-                $('#cidade').selectpicker('refresh');
-            });
-        });
-        $('#categoria').on('changed.bs.select', function (e) {
-            var selected = $('#categoria option:selected').val();
-            $.get('/categoria/'+selected, function (filtros) {
-                $('select[id=subcategoria]').empty();
-                $.each(filtros, function (key,value) {
-                    $('select[id=subcategoria]').append('<option value=' + value.id + '>' + value.name + '</option>');
-                });
-                $('#subcategoria').selectpicker('refresh');
-            });
-        });
-    </script>
 @endsection

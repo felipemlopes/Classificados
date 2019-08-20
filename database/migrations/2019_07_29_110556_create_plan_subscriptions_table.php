@@ -25,13 +25,15 @@ class CreatePlanSubscriptionsTable extends Migration
                 references('id')->
                 on('users')->
                 onDelete('cascade');
+            $table->string('reference');
             $table->decimal('charging_price', 8, 2)->nullable();
-            $table->boolean('is_recurring')->default(true);
-            $table->enum('payment_method', ['paypal'])->nullable()->default(null);
+            $table->boolean('is_recurring')->default(false);
+            $table->enum('payment_method', ['pagseguro'])->nullable()->default(null);
             $table->boolean('is_paid')->default(false);
             $table->timestamp('starts_on')->nullable();
             $table->timestamp('expires_on')->nullable();
             $table->timestamp('cancelled_on')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

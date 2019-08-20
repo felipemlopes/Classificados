@@ -128,6 +128,10 @@ class PlanSubscription extends Model
         return $this->belongsTo('App\Models\Plan', 'plan_id');
     }
 
+    public function paymentable()
+    {
+        return $this->morphOne('App\Models\Payment', 'paymentable');
+    }
 
 
     /*

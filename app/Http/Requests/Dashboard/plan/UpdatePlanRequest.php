@@ -29,11 +29,15 @@ class UpdatePlanRequest extends FormRequest
             return [
                 'name' => 'required|unique:plans,name,'.$plan->id,
                 'price' => 'required|regex:/^\d+(\,\d{1,2})?/',
+                'qtd_ads_art' => 'required|numeric',
+                'qtd_ads_pro' => 'required|numeric',
             ];
         }else{
             return [
                 'name' => 'required|unique:plans,name',
                 'price' => 'required|regex:/^\d+(\,\d{1,2})?/',
+                'qtd_ads_art' => 'required|numeric',
+                'qtd_ads_pro' => 'required|numeric',
             ];
         }
     }
@@ -45,6 +49,12 @@ class UpdatePlanRequest extends FormRequest
             'name.unique' => 'Este nome já esta em uso',
             'price.required' => 'Por favor preencha o campo preço',
             'price.regex' => 'O formato do campo preço é inválido',
+            'qtd_ads_art.required' => 'Por favor preencha o campo "Quantidade de anúncios de artistas ativos"',
+            'qtd_ads_art.numeric' => 'O campo "Quantidade de anúncios de artistas ativos" deve ser um número',
+            'qtd_ads_pro.required' => 'Por favor preencha o campo "Quantidade de anúncios de profissionais ativos"',
+            'qtd_ads_pro.numeric' => 'O campo "Quantidade de anúncios de profissionais ativos"deve ser um número',
+
+
         ];
     }
 }

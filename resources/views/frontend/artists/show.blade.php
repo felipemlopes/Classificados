@@ -2,11 +2,6 @@
 
 @section('css')
     <link href="{{ asset('vendor/starrr/starrr.css') }}" rel="stylesheet">
-    <style>
-        .reviews{
-            margin-top: 30px;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -61,6 +56,34 @@
                                             </p>
                                         </li>
                                     </ul>
+                                    @if($artist->embedded->hasSocialNetworks())
+                                        <ul class="list-inline">
+                                            <li>
+                                                <strong>Redes sociais:</strong>
+                                            </li>
+                                            @if($artist->embedded->facebook)
+                                                <li>
+                                                    <a class="linksocialnetowrk" href="{{$artist->embedded->facebook}}" target="_blank">
+                                                        <i class="fa fa-lg fa-facebook"></i>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                            @if($artist->embedded->instagram)
+                                                <li>
+                                                    <a class="linksocialnetowrk" href="{{$artist->embedded->instagram}}" target="_blank">
+                                                        <i class="fa fa-instagram"></i>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                            @if($artist->embedded->youtube)
+                                                <li>
+                                                    <a class="linksocialnetowrk" href="{{$artist->embedded->youtube}}" target="_blank">
+                                                        <i class="fa fa-youtube-square"></i>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    @endif
                                 </aside>
                                 <!--<div class="ads-action">
                                     <ul class="list-border">
@@ -101,10 +124,12 @@
 
                         </h5>
                         <div class="content-footer text-left">
-                            <a class="btn  btn-default">
+                            @if($artist->user_id!=Auth::User()->id)
+                            <a href="{{route('message.create',$artist->id)}}" class="btn  btn-default">
                                 <i class=" icon-mail-2"></i>
                                 Envie uma menssagem
                             </a>
+                            @endif
                             <!--<a class="btn  btn-primary">
                                 <i class=" icon-phone-1"></i>
                                 {{--$produto->owner->phone--}}
@@ -131,10 +156,12 @@
                                     </p>
                                 </div>
                                 <div class="user-ads-action">
-                                    <a data-target="#myModal" data-toggle="modal" class="btn   btn-default btn-block">
+                                    @if($artist->user_id!=Auth::User()->id)
+                                    <a href="{{route('message.create',$artist->id)}}" class="btn btn-default btn-block">
                                         <i class=" icon-mail-2"></i>
                                         Envie uma menssagem
                                     </a>
+                                    @endif
                                     <!--<a class="btn  btn-primary btn-block">
                                         <i class=" icon-phone-1"></i>
                                         {{--$produto->owner->phone--}}

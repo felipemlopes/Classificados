@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
 
         $user->assignRole('Administrador');
 
-        $plan = Plan::find(1);
+        /*$plan = Plan::find(1);
         $subscription = $user->subscriptions()->save(new PlanSubscription([
             'plan_id' => $plan->id,
             'starts_on' => Carbon::now()->subSeconds(1),
@@ -32,6 +32,6 @@ class UsersTableSeeder extends Seeder
             'cancelled_on' => null,
             'is_paid' => (bool) true,
             'is_recurring' => true,
-        ]));
+        ]));*/
     }
 }

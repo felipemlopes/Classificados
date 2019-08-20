@@ -28,7 +28,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/artistas';
 
     /**
      * Create a new controller instance.
@@ -44,7 +44,7 @@ class VerificationController extends Controller
 
     public function redirectTo()
     {
-        return '/home';
+        return '/artistas';
     }
 
     /**

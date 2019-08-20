@@ -37,6 +37,10 @@ class Professional extends Model
    | FUNCTIONS
    |--------------------------------------------------------------------------
    */
+    public function hasSocialNetworks()
+    {
+        return (bool) $this->facebook!="" or $this->instagram!="" or $this->youtube!=""? true: false;
+    }
 
 
     /*

@@ -74,7 +74,6 @@
 @section('js')
     <script src="{{ asset('vendor/adminlte/plugins/Chart.min.js') }}"></script>
     <script>
-
         var areaChartCanvas = $('#myChart').get(0).getContext('2d')
         // This will get the first returned node in the jQuery collection.
         var areaChart       = new Chart(areaChartCanvas)

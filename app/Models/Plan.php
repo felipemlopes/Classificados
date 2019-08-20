@@ -45,7 +45,10 @@ class Plan extends Model
         return $this->hasMany('App\Models\PlanSubscription','plan_id');
     }
 
-
+    public function features()
+    {
+        return $this->hasMany('App\Models\PlanFeature','plan_id');
+    }
 
     /*
    |--------------------------------------------------------------------------

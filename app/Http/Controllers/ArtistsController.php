@@ -23,24 +23,16 @@ class ArtistsController extends Controller
      */
     public function index()
     {
-
-
         $peer_page = 15;
         $style= Input::get('estilo');
         $state= Input::get('estado');
         $city= Input::get('cidade');
         $qtd_destaque = setting('qtd_ads_destaque');
 
-        $destaques = Advertisement::Artist();
-        $destaques = $destaques->whereHas('user', function (Builder $query) {
-            $query->whereHas('subscriptions', function (Builder $query) {
-                $query->where('starts_on', '<', Carbon::now());
-                $query->where('expires_on', '>', Carbon::now());
-                $query->where('plan_id', '=', 2);
-            });
-        });
+        $destaques = Advertisement::Artist()->Published()->Featured()->Paid();
 
-        $artists = Advertisement::query();
+
+        $artists = Advertisement::query()->Published();
         $artists = $artists->select('advertisements.*','artists.*')
             ->join('artists', function ($join) {
                 $join->on('artists.id', '=', 'advertisements.embedded_id');

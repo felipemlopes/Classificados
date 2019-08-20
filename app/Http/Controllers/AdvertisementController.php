@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\frontend\anuncio\CreateAnuncioRequest;
-use App\Http\Requests\frontend\anuncio\CreateReviewRequest;
+use App\Http\Requests\Frontend\Anuncio\CreateAnuncioRequest;
+use App\Http\Requests\Frontend\Anuncio\CreateReviewRequest;
+use App\Http\Requests\Frontend\Anuncio\PagarAnuncioRequest;
 use App\Models\Advertisement;
 use App\Models\Artist;
 use App\Models\Category;
 use App\Models\Estado;
-use App\Models\File;
 use App\Models\MusicStyle;
+use App\Models\Payment;
 use App\Models\Professional;
-use Illuminate\Http\Request;
+use App\models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
+use PagSeguro;
 
 class AdvertisementController extends Controller
 {
@@ -68,7 +70,7 @@ class AdvertisementController extends Controller
             $advertisement->embedded_id = $artist->id;
             $advertisement->save();
 
-            return redirect()->route('artist.index')->withSuccess('Anúncio criado com sucesso!');
+            return redirect()->route('advertisement.plan',$advertisement->id);
         }else{
             $professional = new Professional();
             $professional->title = $request->title;
@@ -89,9 +91,99 @@ class AdvertisementController extends Controller
             $advertisement->embedded_id = $professional->id;
             $advertisement->save();
 
-            return redirect()->route('professional.index')->withSuccess('Anúncio criado com sucesso!');
+            return redirect()->route('advertisement.plan',$advertisement->id);
+        }
+    }
+
+
+    public function plan($id)
+    {
+        $advertisement = Advertisement::find($id);
+
+        return view('frontend.advertisement.plan', compact('advertisement'));
+    }
+
+    public function updatePlanYes($id)
+    {
+        $advertisement = Advertisement::find($id);
+        $advertisement->is_published = true;
+        $advertisement->is_featured = true;
+        $advertisement->save();
+        $valor = setting('price_ads_premium');
+        $valor = str_replace(",", ".", $valor);
+
+        return view('frontend.advertisement.pagar', compact('advertisement','valor'));
+    }
+
+    public function updatePlanNo($id)
+    {
+        $advertisement = Advertisement::find($id);
+        $advertisement->is_published = true;
+        $advertisement->save();
+
+        return redirect()->route('professional.index')->withSuccess('Anúncio criado com sucesso!');
+    }
+
+
+    public function pagar(PagarAnuncioRequest $request, $id)
+    {
+        $valor = setting('price_ads_premium');
+        $valor = str_replace(",", ".", $valor);
+        $anuncio = Advertisement::find($id);
+        if($anuncio->is_featured!=true){
+            $anuncio->is_published = true;
+            $anuncio->is_featured = true;
+            $anuncio->save();
         }
 
+        $reference = md5(str_random(15) . microtime());
+        $pagseguro = PagSeguro::setReference($reference)
+            ->setSenderInfo([
+                'senderName' => (String)$request->senderName, //Deve conter nome e sobrenome
+                'senderPhone' => (String)$request->senderPhone, //Código de área enviado junto com o telefone
+                'senderEmail' => (String)$request->senderEmail,
+                'senderHash' => (String)$request->senderHash,
+                'senderCPF' => (String)$request->senderCPF //Ou CNPJ se for Pessoa Júridica
+            ])
+            ->setCreditCardHolder([
+                'creditCardHolderName' => (String)$request->creditCardHolderName, //Deve conter nome e sobrenome
+                'creditCardHolderPhone' => (String)$request->senderPhone, //Código de área enviado junto com o telefone
+                'creditCardHolderCPF' => (String)$request->creditCardHolderCPF, //Ou CNPJ se for Pessoa Júridica
+                'creditCardHolderBirthDate' => (String)$request->creditCardHolderBirthDate,
+            ])
+            ->setBillingAddress([
+                'billingAddressStreet' => (String)$request->billingAddressStreet,
+                'billingAddressNumber' => (String)$request->billingAddressNumber,
+                'billingAddressDistrict' => (String)$request->billingAddressDistrict,
+                'billingAddressPostalCode' => (String)$request->billingAddressPostalCode,
+                'billingAddressCity' => (String)$request->billingAddressCity,
+                'billingAddressState' => (String)$request->billingAddressState
+            ])
+            ->setItems([
+                [
+                    'itemId' => (string)$anuncio->id,
+                    'itemDescription' => 'Anúncio de classificados em destaque',
+                    'itemAmount' => $valor, //Valor unitário
+                    'itemQuantity' => '1',
+                ],
+            ])
+            ->send([
+                'paymentMethod' => 'creditCard',
+                'creditCardToken' => (String)$request->creditCardToken,
+                'installmentQuantity' => (String)$request->installmentQuantity,
+                'installmentValue' => $request->installmentValue,
+            ]);
+        $response = (array)$pagseguro;
+
+        $pagamento = new Payment();
+        $pagamento->paymentable_type = 'App\Models\Advertisement';
+        $pagamento->paymentable_id = $anuncio->id;
+        $pagamento->reference = $reference;
+        $pagamento->price = $valor;
+        $pagamento->status = $response['status'];
+        $pagamento->save();
+
+        return redirect()->route('checkout.sucess');
     }
 
 

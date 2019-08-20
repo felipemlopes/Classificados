@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\dashboard\plan\UpdatePlanRequest;
 use App\Models\Plan;
+use App\Models\PlanFeature;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -55,8 +56,10 @@ class PlansController extends Controller
         }
         $edit = true;
         $plan = Plan::find($plan_id);
+        $qtd_ads_pro = PlanFeature::where('plan_id',$plan->id)->where('name','qtd_ads_pro')->first();
+        $qtd_ads_art = PlanFeature::where('plan_id',$plan->id)->where('name','qtd_ads_art')->first();
 
-        return view('dashboard.plan.edit',compact('edit', 'plan'));
+        return view('dashboard.plan.edit',compact('edit', 'plan','qtd_ads_pro','qtd_ads_art'));
     }
 
     /**
@@ -76,6 +79,13 @@ class PlansController extends Controller
         $plan->name = $request->name;
         $plan->price = $request->price;
         $plan->save();
+
+        $qtd_ads_pro = PlanFeature::where('plan_id',$plan->id)->where('name','qtd_ads_pro')->first();
+        $qtd_ads_pro->limit = $request->qtd_ads_pro;
+        $qtd_ads_pro->save();
+        $qtd_ads_art = PlanFeature::where('plan_id',$plan->id)->where('name','qtd_ads_art')->first();
+        $qtd_ads_art->limit = $request->qtd_ads_art;
+        $qtd_ads_art->save();
 
         return redirect()->back()->withSuccess('Plano atualizado com sucesso!');
     }

@@ -49026,6 +49026,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 Vue.use(v_money__WEBPACK_IMPORTED_MODULE_0___default.a);
 /**
@@ -49048,8 +49049,7 @@ Vue.use(v_money__WEBPACK_IMPORTED_MODULE_0___default.a);
 var app = new Vue({
   el: '#app',
   data: {
-    type: '',
-    //title: '',
+    type: "",
     cache: 0,
     money: {
       decimal: ',',
@@ -49058,9 +49058,60 @@ var app = new Vue({
       suffix: '',
       precision: 2,
       masked: false
+    },
+    dropdownmenu: false,
+    message: '',
+    conversation: '',
+    csrftoken: ''
+  },
+  methods: {
+    toggleDropdown: function toggleDropdown() {
+      this.dropdownmenu = !this.dropdownmenu;
+    },
+    onChangeEstado: function onChangeEstado(event) {
+      var selected = $('#estado option:selected').val();
+      $.get('/cidades/' + selected, function (filtros) {
+        $('select[id=cidade]').empty();
+        $('select[id=cidade]').append('<option value=>Selecione a cidade</option>');
+        $.each(filtros, function (key, value) {
+          $('select[id=cidade]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
+        });
+      });
+    },
+    onChangeCategoria: function onChangeCategoria(event) {
+      var selected = $('#categoria option:selected').val();
+      $.get('/categoria/' + selected, function (filtros) {
+        $('select[id=subcategoria]').empty();
+        $('select[id=subcategoria]').append('<option value=>Selecione a subcategoria</option>');
+        $.each(filtros, function (key, value) {
+          $('select[id=subcategoria]').append('<option value=' + value.id + '>' + value.name + '</option>');
+        });
+      });
+    },
+    submitMessage: function submitMessage() {
+      if (this.message.trim() == '') {
+        return false;
+      }
+
+      $('<li class="sent"><p>' + this.message + '</p></li>').appendTo($('.messages ul'));
+      $('.message-input input').val(null);
+      $('.contact.active .preview').html('<span>Você: </span>' + this.message);
+      $(".messages").animate({
+        scrollTop: $(document).height()
+      }, "fast");
+      axios.post("".concat(this.conversation, "/send"), {
+        _token: this.csrftoken,
+        conversation: this.conversation,
+        message: this.message
+      }).then(function (response) {})["catch"](function (error) {});
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    var cachehidden = $('#cachehidden').val();
+    this.cache = cachehidden;
+    this.csrftoken = $("input[name=_token]").val();
+    this.conversation = $("input[name=conversation]").val();
+  }
 });
 
 /***/ }),

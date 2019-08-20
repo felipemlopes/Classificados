@@ -12,6 +12,8 @@
 */
 
 Route::get('/', ['as' => 'index','uses' => 'IndexController@index']);
+Route::get('/pagseguro/session', ['as' => 'index','uses' => 'PagseguroController.php@session']);
+Route::post('/pagseguro/notification', ['as' => 'checkout.notification','uses' => 'PagseguroController@checkoutNotification']);
 
 Route::get('login', ['as' => 'login','uses' => 'Auth\LoginController@showLoginForm']);
 Route::post('login', ['as' => 'postlogin','uses' => 'Auth\LoginController@login']);
@@ -30,9 +32,20 @@ Route::get('artistas', ['as' => 'artist.index','uses' => 'ArtistsController@inde
 Route::get('artistas/{id}', ['as' => 'artist.show','uses' => 'ArtistsController@show']);
 Route::get('profissionais', ['as' => 'professional.index','uses' => 'ProfessionalsController@index']);
 Route::get('profissionais/{id}', ['as' => 'professional.show','uses' => 'ProfessionalsController@show']);
+
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('anunciar', ['as' => 'advertisement.index','uses' => 'AdvertisementController@create']);
-    Route::post('anunciar', ['as' => 'advertisement.store','uses' => 'AdvertisementController@store']);
+    Route::get('anuncio', ['as' => 'advertisement.index','uses' => 'AdvertisementController@create']);
+    Route::post('anuncio', ['as' => 'advertisement.store','uses' => 'AdvertisementController@store']);
+    Route::get('anuncio/{id}', ['as' => 'advertisement.plan','uses' => 'AdvertisementController@plan']);
+    Route::get('anuncio/plano/sim/{id}', ['as' => 'advertisement.edit.plan.yes','uses' => 'AdvertisementController@updatePlanYes']);
+    Route::get('anuncio/plano/nao/{id}', ['as' => 'advertisement.edit.plan.no','uses' => 'AdvertisementController@updatePlanNo']);
+    Route::post('anuncio/{id}/pagar', ['as' => 'advertisement.plan.pay','uses' => 'AdvertisementController@pagar']);
+    Route::get('checkout/sucesso', ['as' => 'checkout.sucess','uses' => 'PagseguroController@checkoutSuccess']);
+
+    Route::get('mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);
+    Route::get('mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);
+    Route::get('mensagens/{id}/create', ['as' => 'message.create','uses' => 'MessagesController@create']);
+    Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);
 
     Route::post('avaliar/artista/{id}', ['as' => 'review.artist.store','uses' => 'AdvertisementController@storeReviewArtista']);
     Route::post('avaliar/profissional/{id}', ['as' => 'review.professional.store','uses' => 'AdvertisementController@storeReviewProfessional']);
@@ -42,10 +55,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.edit','uses' => 'MyAccountController@advertisementEdit']);
     Route::post('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.update','uses' => 'MyAccountController@advertisementUpdate']);
     Route::post('minha-conta/anuncios/{anuncio_id}/editar/imagem', ['as' => 'myaccount.advertisement.update.image','uses' => 'MyAccountController@advertisementUpdateImage']);
+    Route::get('minha-conta/anuncios/{anuncio_id}/pagar', ['as' => 'myaccount.advertisement.pay','uses' => 'MyAccountController@advertisementPay']);
     Route::delete('minha-conta/anuncios/{anuncio_id}/excluir', ['as' => 'myaccount.advertisement.delete','uses' => 'MyAccountController@advertisementDelete']);
     Route::get('minha-conta/configuracoes', ['as' => 'myaccount.settings','uses' => 'MyAccountController@settings']);
     Route::post('minha-conta/configuracoes/editar', ['as' => 'myaccount.settings.update.details','uses' => 'MyAccountController@settingsupdate']);
     Route::post('minha-conta/configuracoes/editar/senha', ['as' => 'myaccount.settings.update.password','uses' => 'MyAccountController@settingsupdatepassword']);
+    Route::get('minha-conta/plano', ['as' => 'myaccount.plan','uses' => 'MyAccountController@plan']);
+    Route::get('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe','uses' => 'MyAccountController@planSubscribe']);
+    Route::post('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe.post','uses' => 'MyAccountController@planSubscribePost']);
+    Route::get('minha-conta/plano/cancelar', ['as' => 'myaccount.plan.cancel','uses' => 'MyAccountController@planSubscribePost']);
 });
 
 Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'],'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {

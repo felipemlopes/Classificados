@@ -42,7 +42,10 @@ class Artist extends Model
             return false;
         }
     }
-
+    public function hasSocialNetworks()
+    {
+        return (bool) $this->facebook!="" or $this->instagram!="" or $this->youtube!=""? true: false;
+    }
 
     /*
    |--------------------------------------------------------------------------
@@ -65,6 +68,7 @@ class Artist extends Model
    | SCOPES
    |--------------------------------------------------------------------------
    */
+
 
     /*
    |--------------------------------------------------------------------------

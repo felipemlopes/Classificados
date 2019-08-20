@@ -32,6 +32,14 @@ class SettingsTableSeeder extends Seeder
         );
 
         \Illuminate\Support\Facades\DB::table('settings')->insert(
+            ['key' => 'qtd_ads_artist_freeaccount', 'value' => 1]
+        );
+
+        \Illuminate\Support\Facades\DB::table('settings')->insert(
+            ['key' => 'qtd_ads_pro_freeaccount', 'value' => 3]
+        );
+
+        \Illuminate\Support\Facades\DB::table('settings')->insert(
             ['key' => 'qtd_ads_destaque', 'value' => 4]
         );
 
@@ -42,5 +50,10 @@ class SettingsTableSeeder extends Seeder
         \Illuminate\Support\Facades\DB::table('settings')->insert(
             ['key' => 'days_ads_premium', 'value' => 30]
         );
+
+        \Illuminate\Support\Facades\DB::table('settings')->insert(
+            ['key' => 'price_ads_premium', 'value' => '10,00']
+        );
+
     }
 }
