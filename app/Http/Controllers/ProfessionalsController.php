@@ -68,8 +68,13 @@ class ProfessionalsController extends Controller
                 $q->where('cidade_id', "=", "%{$city}%");
             });
         }
-        $professionals = $professionals->paginate($peer_page);
         $destaques = $destaques->take($qtd_destaque)->inRandomOrder()->get();
+        $array = [];
+        foreach ($destaques as $key=>$destaque){
+            $array[$key]= $destaque->id;
+        }
+        $professionals = $professionals->whereNotIn('id', $array)->paginate($peer_page);
+
         if ($category) {
             $professionals->appends(['categoria' => $category]);
         }

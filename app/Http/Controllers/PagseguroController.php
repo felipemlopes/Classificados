@@ -45,30 +45,6 @@ class PagseguroController extends Controller
                 $pagamento->status = $response['status'];
                 $pagamento->save();
             }
-
-
-
-
-
-
-            if($pagamento->paymentable_type=="App\Models\Advertisement"){
-                $dias = setting('days_ads_premium');
-                $data = Carbon::now()->addDays($dias);
-                $anuncio = Advertisement::find($pagamento->recurso_id);
-                if($pagamento->status==3){
-                    $anuncio->is_paid = true;
-                    $anuncio->featured_until = $data;
-                    $anuncio->save;
-                }
-                if($pagamento->status==4){
-                    $anuncio->is_paid = true;
-                    $anuncio->featured_until = $data;
-                    $anuncio->save;
-                }
-            }
-
-
-
         }
     }
 

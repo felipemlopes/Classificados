@@ -69,8 +69,13 @@ class ArtistsController extends Controller
                 $q->where('cidade_id', "=", $city);
             });
         }
-        $artists = $artists->paginate($peer_page);
         $destaques = $destaques->take($qtd_destaque)->inRandomOrder()->get();
+        $array = [];
+        foreach ($destaques as $key=>$destaque){
+            $array[$key]= $destaque->id;
+        }
+        $artists = $artists->whereNotIn('artists.id', $array)->paginate($peer_page);
+
         if ($style) {
             $artists->appends(['estilo' => $style]);
         }
