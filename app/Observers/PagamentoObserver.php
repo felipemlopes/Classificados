@@ -18,7 +18,39 @@ class PagamentoObserver
      */
     public function created(Payment $pagamento)
     {
-        //
+        if($pagamento->paymentable_type=="App\Models\Advertisement"){
+            $dias = setting('days_ads_premium');
+            $data = Carbon::now()->addDays($dias);
+            $anuncio = Advertisement::find($pagamento->paymentable_id);
+            if($pagamento->status==3){
+                $anuncio->is_paid = true;
+                $anuncio->featured_until = $data;
+                $anuncio->save();
+            }
+            if($pagamento->status==4){
+                $anuncio->is_paid = true;
+                $anuncio->featured_until = $data;
+                $anuncio->save();
+            }
+        }
+        if($pagamento->paymentable_type=="App\Models\PlanSubscription"){
+            if($pagamento->status==2){
+                $subscription = PlanSubscription::find($pagamento->paymentable_id);
+                $subscription->is_paid = true;
+                $subscription->starts_on = Carbon::now();
+                $subscription->expires_on = Carbon::now()->addDays(30);
+                $subscription->is_paid = true;
+                $subscription->save();
+            }
+            if($pagamento->status==3){
+                $subscription = PlanSubscription::find($pagamento->paymentable_id);
+                $subscription->is_paid = true;
+                $subscription->starts_on = Carbon::now();
+                $subscription->expires_on = Carbon::now()->addDays(30);
+                $subscription->is_paid = true;
+                $subscription->save();
+            }
+        }
     }
 
     /**

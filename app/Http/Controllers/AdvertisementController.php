@@ -14,6 +14,7 @@ use App\Models\Payment;
 use App\Models\Professional;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PagSeguro;
 
