@@ -10,7 +10,7 @@ use Trexology\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
 
 class Advertisement extends Model implements ReviewRateable
 {
-    use SoftDeletes, ReviewRateableTrait;
+    use ReviewRateableTrait;
 
     /**
      * The attributes that are mass assignable.

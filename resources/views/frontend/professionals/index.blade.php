@@ -1,85 +1,82 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.masterteste')
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="">
             @include('partials.messages')
             <form method="get">
-                <div class="panel panel-default">
-                <div class="panel-body">
-                    <h1 class="text-center">Profissionais</h1>
-
-                    <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="categoria" id="categoria" class="form-control" @change="onChangeCategoria($event)">
-                            <option value="">Selecione a categoria</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}" {{app('request')->input('categoria')==$category->id? 'selected':''}}>
-                                    {{$category->name}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="subcategoria" id="subcategoria" class="form-control">
-                            <option value="">Selecione a subcategoria</option>
-                            @if($subcategories)
-                            @foreach($subcategories as $subcategory)
-                                <option value="{{$subcategory->id}}" {{app('request')->input('subcategoria')==$subcategory->id? 'selected':''}}>
-                                    {{$subcategory->name}}
-                                </option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="estado" id="estado" class="form-control" @change="onChangeEstado($event)">
-                            <option value="">Selecione o estado</option>
-                            @foreach($states as $state)
-                                <option value="{{$state->id}}" {{app('request')->input('estado')==$state->id? 'selected':''}}>
-                                    {{$state->estado}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-3">
-                        <select name="cidade" id="cidade" class="form-control">
-                            <option value="">Selecione a cidade</option>
-                            @foreach($cities as $city)
-                                <option value="{{$city->id}}" {{app('request')->input('cidade')==$city->id? 'selected':''}}>
-                                    {{$city->cidade}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="input-group custom-search-form">
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary pull-right">Enviar</button>
-                                @if (app('request')->input('categoria') != '' || app('request')->input('subcategoria') != '' || app('request')->input('estado') != '' || app('request')->input('cidade') != '')
-                                    <a href="{{ route('professional.index') }}" class="btn btn-default pull-right" type="button" >
-                                        <span class="fa fa-remove"></span> Limpar
-                                    </a>
-                                @endif
-                            </span>
+                <div class="">
+                    <div class="">
+                        <h1 class="text-center">Profissionais</h1>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box-filtros">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 filtro">
+                                <select name="categoria" id="categoria" class="form-control selectpicker" data-live-search="true">
+                                    <option value="">Selecione a categoria</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" {{app('request')->input('categoria')==$category->id? 'selected':''}}>
+                                            {{$category->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 filtro">
+                                <select name="subcategoria" id="subcategoria" class="form-control selectpicker" data-live-search="true">
+                                    <option value="">Selecione a subcategoria</option>
+                                    @if($subcategories)
+                                        @foreach($subcategories as $subcategory)
+                                            <option value="{{$subcategory->id}}" {{app('request')->input('subcategoria')==$subcategory->id? 'selected':''}}>
+                                                {{$subcategory->name}}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 filtro">
+                                <select name="estado" id="estado" class="form-control selectpicker" data-live-search="true">
+                                    <option value="">Selecione o estado</option>
+                                    @foreach($states as $state)
+                                        <option value="{{$state->id}}" {{app('request')->input('estado')==$state->id? 'selected':''}}>
+                                            {{$state->estado}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 filtro">
+                                <select name="cidade" id="cidade" class="form-control selectpicker" data-live-search="true">
+                                    <option value="">Selecione a cidade</option>
+                                    @foreach($cities as $city)
+                                        <option value="{{$city->id}}" {{app('request')->input('cidade')==$city->id? 'selected':''}}>
+                                            {{$city->cidade}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-push-9 col-md-push-9 col-sm-push-9 col-xs-12 col-sm-3 col-md-3 col-lg-3 filtro">
+                                <div class="input-group ">
+                                <span class="input-group-btn btn-block">
+                                    @if (app('request')->input('categoria') != '' || app('request')->input('subcategoria') != '' || app('request')->input('estado') != '' || app('request')->input('cidade') != '')
+                                        <button class="btn btn-primary pull-right btn-block" style="width: 50%;">Enviar</button>
+                                        <a href="{{ route('professional.index') }}" class="btn btn-default pull-right btn-block" type="button" style="width: 50%; bottom: 5px;">
+                                            <span class="fa fa-remove"></span> Limpar
+                                        </a>
+                                    @else
+                                        <button class="btn btn-primary pull-right btn-block">Enviar</button>
+                                    @endif
+                                </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </form>
         </div>
     </div>
 
-
-
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-content col-thin-left">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="category-list">
                     <div class="tab-box ">
-                    </div>
-                    <div class="listing-filter">
                     </div>
                     <div class="col-lg-12">
                     </div>
@@ -88,7 +85,7 @@
                     <div class="adds-wrapper col-md-12">
 
                         @foreach($destaques as $destaque)
-                            <div class="item-list col-md-4">
+                            <div class="item-list col-xs-12 col-sm-4 col-md-3">
                                 <div>
                                     <div class="cornerRibbons topAds">
                                         <a> em destaque</a>
@@ -109,14 +106,15 @@
                                             </a>
                                         </h5>
                                         <span class="info-row">
-                                        <span class="date">
+                                            <p class="category">
+                                                <i class="fa fa-tag"></i>
+                                                {{ $destaque->embedded->category->name }}
+                                            </p>
+                                            <p class="item-location">
+                                                <i class="fa fa-map-marker"></i>
+                                                {{$destaque->city->cidade .' - '. $professional->state->sigla}}
+                                            </p>
                                         </span>
-                                        <span class="category">{{--$dest->categoria->nome--}} </span>
-                                        <span class="item-location">
-                                            <i class="fa fa-map-marker"></i>
-                                            {{$destaque->city->cidade .' - '. $destaque->state->sigla}}
-                                        </span>
-                                    </span>
                                     </div>
                                 </div>
                             <!--<div class="col-sm-3 text-right  price-box">
@@ -126,7 +124,7 @@
                         @endforeach
 
                         @foreach($professionals as $professional)
-                            <div class="item-list col-md-4">
+                            <div class="item-list col-xs-12 col-sm-4 col-md-3">
                                 <div class="no-padding photobox">
                                     <div class="add-image">
                                         <a href="{{route('professional.show',$professional->id)}}">
@@ -142,16 +140,15 @@
                                             </a>
                                         </h5>
                                         <span class="info-row">
-                                        <span class="date">
+                                            <p class="category">
+                                                <i class="fa fa-tag"></i>
+                                                {{ $professional->embedded->category->name }}
+                                            </p>
+                                            <p class="item-location">
+                                                <i class="fa fa-map-marker"></i>
+                                                {{$professional->city->cidade .' - '. $professional->state->sigla}}
+                                            </p>
                                         </span>
-                                        <span class="category">
-                                            {{--$produto->categoria->nome--}}
-                                        </span>
-                                        <span class="item-location">
-                                            <i class="fa fa-map-marker"></i>
-                                            {{$professional->city->cidade .' - '. $professional->state->sigla}}
-                                        </span>
-                                    </span>
                                     </div>
                                 </div>
                             <!--<div class="text-right  price-box">
@@ -166,8 +163,6 @@
         </div>
     </div>
 
-
-
     <div class="container">
         <div class="row">
             <div class="text-center">
@@ -179,24 +174,26 @@
 
 @section('scripts')
     <script>
-        $('#estado').on('change', function (e) {
-            var selected = $('#estado option:selected').val();
-            $.get('/cidades/'+selected, function (filtros) {
-                $('select[id=cidade]').empty();
-                $('select[id=cidade]').append('<option value=>Selecione a cidade</option>');
-                $.each(filtros, function (key,value) {
-                    $('select[id=cidade]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
+        jQuery('#estado').on('changed.bs.select', function (e) {
+            var selected = jQuery('#estado option:selected').val();
+            jQuery.get('/cidades/'+selected, function (filtros) {
+                jQuery('select[id=cidade]').empty();
+                jQuery('select[id=cidade]').append('<option value=>Selecione a cidade</option>');
+                jQuery.each(filtros, function (key,value) {
+                    jQuery('select[id=cidade]').append('<option value=' + value.id + '>' + value.cidade + '</option>');
                 });
+                jQuery('#cidade').selectpicker('refresh');
             });
         });
-        $('#categoria').on('change', function (e) {
-            var selected = $('#categoria option:selected').val();
-            $.get('/categoria/'+selected, function (filtros) {
-                $('select[id=subcategoria]').empty();
-                $('select[id=subcategoria]').append('<option value=>Selecione a subcategoria</option>');
-                $.each(filtros, function (key,value) {
-                    $('select[id=subcategoria]').append('<option value=' + value.id + '>' + value.name + '</option>');
+        jQuery('#categoria').on('changed.bs.select', function (e) {
+            var selected = jQuery('#categoria option:selected').val();
+            jQuery.get('/categoria/'+selected, function (filtros) {
+                jQuery('select[id=subcategoria]').empty();
+                jQuery('select[id=subcategoria]').append('<option value=>Selecione a subcategoria</option>');
+                jQuery.each(filtros, function (key,value) {
+                    jQuery('select[id=subcategoria]').append('<option value=' + value.id + '>' + value.name + '</option>');
                 });
+                jQuery('#subcategoria').selectpicker('refresh');
             });
         });
     </script>

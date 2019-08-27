@@ -37,7 +37,7 @@ class CreateAdvertisementsTable extends Migration
             $table->boolean('is_paid')->default(false);
             $table->boolean('is_featured')->default(false);
             $table->timestamp('featured_until')->nullable();
-            $table->softDeletes();
+            $table->integer('visits')->default(0);
             $table->timestamps();
         });
     }

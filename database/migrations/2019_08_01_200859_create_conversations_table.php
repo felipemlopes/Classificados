@@ -16,17 +16,17 @@ class CreateConversationsTable extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->bigInteger('user_one')->unsigned()->nullable();
+            $table->bigInteger('user_one')->unsigned();
             $table->foreign('user_one')->
                 references('id')->
                 on('users')->
                 onDelete('cascade');
-            $table->bigInteger('user_two')->unsigned()->nullable();
+            $table->bigInteger('user_two')->unsigned();
             $table->foreign('user_two')->
                 references('id')->
                 on('users')->
                 onDelete('cascade');
-            $table->bigInteger('advertisement_id')->unsigned()->nullable();
+            $table->bigInteger('advertisement_id')->unsigned();
             $table->foreign('advertisement_id')->
                 references('id')->
                 on('advertisements')->

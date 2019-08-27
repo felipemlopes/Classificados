@@ -79,9 +79,12 @@ class UsersController extends Controller
         $user->password = $request->password;
         $user->save();
 
-        $role = Role::where('id',$request->role)->first();
-        $user->syncRoles($role->name);
-        $user->save();
+        if($request->role){
+            $role = Role::where('id',$request->role)->first();
+            $user->syncRoles($role->name);
+            $user->save();
+        }
+
 
         return redirect()->route('dashboard.user.list')->withSuccess('Usuário criado com sucesso!');
     }

@@ -11,6 +11,7 @@ use App\Models\Advertisement;
 use App\Models\Category;
 use App\Models\Cidade;
 use App\Models\Estado;
+use App\Models\Message;
 use App\Models\MusicStyle;
 use App\Models\Payment;
 use App\Models\Plan;
@@ -35,7 +36,12 @@ class MyAccountController extends Controller
     public function index()
     {
         $advertisements = Advertisement::where('user_id','=',Auth::User()->id)->count();
-        return view('frontend.myaccount.index', compact('advertisements'));
+        $messages = Message::Unseen()->whereHas('conversation', function (Builder $query) {
+            $query->orwhere('user_one',  Auth::User()->id);
+            $query->orwhere('user_two',  Auth::User()->id);
+        })->count();
+
+        return view('frontend.myaccount.index', compact('advertisements','messages'));
     }
 
     /**
@@ -95,6 +101,7 @@ class MyAccountController extends Controller
         $search = Input::get('search');
         $type = Input::get('tipo');
         $advertisements = Advertisement::Query();
+        $advertisements = $advertisements->where('user_id',Auth::User()->id);
         if ($search <> "") {
             $advertisements->orwhereHasMorph('embedded','*', function (Builder $query) use ($search) {
                 $query->where('title', 'like', "%{$search}%");
@@ -132,6 +139,9 @@ class MyAccountController extends Controller
     {
         $edit = true;
         $advertisement = Advertisement::find($id);
+        if($advertisement->user_id!=Auth::User()->id){
+            return redirect()->back();
+        }
 
         if($advertisement->embedded_type=="App\Models\Artist"){
             $estilos=MusicStyle::all();
@@ -159,6 +169,10 @@ class MyAccountController extends Controller
     public function advertisementUpdate(UpdateAdvertisementRequest $request, $id)
     {
         $advertisement = Advertisement::find($id);
+        if($advertisement->user_id!=Auth::User()->id){
+            return redirect()->back();
+        }
+
         $advertisement->estado_id = $request->estado;
         $advertisement->cidade_id = $request->cidade;
         $advertisement->save();
@@ -201,6 +215,9 @@ class MyAccountController extends Controller
     public function advertisementUpdateImage(UpdateAdvertisementImageRequest $request, $id)
     {
         $advertisement = Advertisement::find($id);
+        if($advertisement->user_id!=Auth::User()->id){
+            return redirect()->back();
+        }
         $embedded = $advertisement->embedded;
         $aux = $embedded->imagepath;
         $file = Input::file('foto');
@@ -219,6 +236,9 @@ class MyAccountController extends Controller
     public function advertisementPay($id)
     {
         $advertisement = Advertisement::find($id);
+        if($advertisement->user_id!=Auth::User()->id){
+            return redirect()->back();
+        }
         $valor = setting('price_ads_premium');
         $valor = str_replace(",", ".", $valor);
 
@@ -318,6 +338,9 @@ class MyAccountController extends Controller
     public function advertisementDelete($id)
     {
         $advertisement = Advertisement::find($id);
+        if($advertisement->user_id!=Auth::User()->id){
+            return redirect()->back();
+        }
         $advertisement->delete();
 
         return redirect()->route('myaccount.advertisement')->withSuccess('Anúncio excluido com sucesso!');

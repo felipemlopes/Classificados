@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.masterteste')
 
 @section('page_name', 'Recurso')
 

@@ -1,6 +1,7 @@
 
 <div class="header">
-    <nav class="navbar navbar-site navbar-default" role="navigation">
+    <div class="container">
+        <nav class="navbar navbar-site navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <a href="{{setting('home_url')}}" class="navbar-brand logo logo-title hidden-xs">
@@ -26,7 +27,7 @@
                         <li><a href="{{route('artist.index')}}">Artistas</a></li>
                         <li><a href="{{route('professional.index')}}">Profissionais</a></li>
                         <li class="hidden-xs"><a href="{{route('advertisement.index')}}" class="btn btn-primary">Anúnciar</a></li>
-                        <li class="visible-xs"><a href="{{route('advertisement.index')}}" class="">Anúnciar</a></li>
+                        <li class="visible-xs"><a href="{{route('advertisement.index')}}" class="">Anúnciar grátis</a></li>
                         <li :class="{'hidden-xs': true==true, 'show':dropdownmenu==true}">
                             <a class="" type="button" id="myaccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" @click.prevent="toggleDropdown()">
                                 <i class="fa fa-ellipsis-h"></i>
@@ -57,9 +58,8 @@
                     @else
                         <li><a href="{{route('artist.index')}}">Artistas</a></li>
                         <li><a href="{{route('professional.index')}}">Profissionais</a></li>
-                        <li class="hidden-xs"><a href="{{route('advertisement.index')}}" class="btn btn-primary">Anúnciar</a></li>
-                        <li class="visible-xs"><a href="{{route('advertisement.index')}}" class="">Anúnciar</a></li>
-                        <li><a href="{{route('login')}}">Entrar</a></li>
+                        <li class="hidden-xs"><a href="{{route('advertisement.index')}}" class="btn btn-primary">Anúnciar grátis</a></li>
+                        <li class="visible-xs"><a href="{{route('advertisement.index')}}" class="">Anúnciar grátis</a></li>
                     @endif
 
                 </ul>
@@ -67,6 +67,7 @@
 
         </div>
     </nav>
+    </div>
 </div>
 <!--<div class="sub-nav">
     <div class="container">

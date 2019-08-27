@@ -1,31 +1,32 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.masterteste')
 
 @section('page_name', 'Assinar')
 
 @section('content')
-    <div class="row" style="color:#666;">
-        <div class="">
+    <div class="row">
+        <div class="container">
+            <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+        </div>
+        <div class="container">
             @include('partials/messages')
         </div>
 
         <form action="{{route('myaccount.plan.subscribe.post',$plano->id)}}" method="post" id="form">
-        @csrf
+            @csrf
             {{--<input type="hidden" name="itemAmount1" value="{{ $plano->price }}">--}}
             <input type="hidden" name="senderHash" id="senderHash">
-
-            <div class="col-md-offset-2 col-md-8">
-                <h2>Métodos de pagamento</h2>
-                <div id="payment_methods" class="center-align"></div>
+            <div class="col-md-offset-2 col-md-8 secao">
+                <h2 class="text-center">Métodos de pagamento</h2>
+                <div id="payment_methods" class="center-align text-center"></div>
             </div>
 
-
-        <div class="col-md-offset-2 col-md-8">
+            <div class="col-md-offset-2 col-md-8">
             <h4 class="text-center">
                 <p>
                     <b>Preencha suas informações</b>
                 </p>
             </h4>
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="col-md-12 form-group">
                         <label class="control-label" for="senderName">
@@ -112,7 +113,7 @@
                         <div class="">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <select class="form-control col-sm-2" id="expirationMonth" name="expirationMonth" style="margin-left:5px;">
+                                    <select class="form-control col-sm-2 selectpicker" id="expirationMonth" name="expirationMonth" style="margin-left:5px;">
                                         <option value="">Mês</option>
                                         @for($m = 1; $m <= 12; $m++)
                                             <option value="{{ (strlen($m) == 1) ? '0' . $m : $m }}">{{ (strlen($m) == 1) ? '0' . $m : $m }}</option>
@@ -120,7 +121,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-6">
-                                    <select class="form-control" id="expirationYear" name="expirationYear">
+                                    <select class="form-control selectpicker" id="expirationYear" name="expirationYear">
                                         <option value="">Ano</option>
                                         @for($y = date("Y"); $y <= date("Y")+30; $y++)
                                             <option value="{{ $y }}">{{ $y }}</option>
@@ -196,7 +197,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="col-md-6 form-group">
+                <div class="col-md-12 form-group">
                     <label class="control-label" for="billingAddressNumber">
                         Número<strong class="text-danger"> *</strong>
                     </label>
@@ -214,7 +215,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="col-md-6 form-group">
+                <div class="col-md-12 form-group">
                     <label class="control-label" for="billingAddressDistrict">
                         Bairro<strong class="text-danger"> *</strong>
                     </label>
@@ -259,12 +260,12 @@
 @section('scripts')
     <script src="{{asset('/js/jquery.mask.min.js')}}"></script>
     <script>
-        $(document).ready(function(){
-            $('#billingAddressPostalCode').mask('00000-000');
-            $('#senderPhone').mask('(00)00000-0000');
-            $('#creditCardHolderBirthDate').mask('00/00/0000');
-            $('#senderCPF').mask('000.000.000-00', {reverse: true});
-            $('#creditCardHolderCPF').mask('000.000.000-00', {reverse: true});
+        jQuery(document).ready(function(){
+            jQuery('#billingAddressPostalCode').mask('00000-000');
+            jQuery('#senderPhone').mask('(00)00000-0000');
+            jQuery('#creditCardHolderBirthDate').mask('00/00/0000');
+            jQuery('#senderCPF').mask('000.000.000-00', {reverse: true});
+            jQuery('#creditCardHolderCPF').mask('000.000.000-00', {reverse: true});
         });
     </script>
     <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
@@ -283,36 +284,36 @@
                 urls.forEach(function (url) {
                     html += '<img src="' + url + '" class="credit_card">'
                 });
-                $('#payment_methods').html(html);
+                jQuery('#payment_methods').html(html);
             });
 
-        $('#senderName').on('change', function () {
+        jQuery('#senderName').on('change', function () {
             pagSeguro.getSenderHash().then(function(data) {
-                $('#senderHash').val(data);
+                jQuery('#senderHash').val(data);
             })
         });
 
-        $('#billingAddressPostalCode').on('change', function () {
-            let cep = $(this).val();
+        jQuery('#billingAddressPostalCode').on('change', function () {
+            let cep = jQuery(this).val();
             cep = cep.replace("-", "");
             if (cep.length == 8) {
-                $.get('https://viacep.com.br/ws/' + cep + '/json/')
+                jQuery.get('https://viacep.com.br/ws/' + cep + '/json/')
                     .then(function (res) {
-                        $('#billingAddressDistrict').val(res.bairro);
-                        $('#billingAddressCity').val(res.localidade);
-                        $('#billingAddressStreet').val(res.logradouro);
-                        $('#billingAddressState').val(res.uf);
+                        jQuery('#billingAddressDistrict').val(res.bairro);
+                        jQuery('#billingAddressCity').val(res.localidade);
+                        jQuery('#billingAddressStreet').val(res.logradouro);
+                        jQuery('#billingAddressState').val(res.uf);
                     })
             }
         });
 
-        $('#cardNumber').on('change', function() {
-            if ($(this).val().length >= 6) {
-                let bin = $(this).val();
+        jQuery('#cardNumber').on('change', function() {
+            if (jQuery(this).val().length >= 6) {
+                let bin = jQuery(this).val();
                 pagSeguro.getBrand(bin)
                     .then(function (res) {
                         paymentData.brand = res.result.brand.name;
-                        $('#card_brand').html('<img src="' + res.url + '" class="credit_card">')
+                        jQuery('#card_brand').html('<img src="' + res.url + '" class="credit_card">')
                         return pagSeguro.getInstallments(paymentData.amount, paymentData.brand);
                     })
                     .then(function(res) {
@@ -320,12 +321,13 @@
                         res.forEach(function (item) {
                             html += '<option value="' + item.quantity + '">' + item.quantity + 'x R$' + item.installmentAmount + ' - total R$' + item.totalAmount + '</option>'
                         });
-                        $('#installmentQuantity').html(html);
-                        $('#installmentValue').val(res[0].installmentAmount);
-                        $('#installmentQuantity').on('change', function () {
-                            let value = res[$('#installmentQuantity').val() - 1].installmentAmount;
-                            $('#installmentValue').val(value);
+                        jQuery('#installmentQuantity').html(html);
+                        jQuery('#installmentValue').val(res[0].installmentAmount);
+                        jQuery('#installmentQuantity').on('change', function () {
+                            let value = res[jQuery('#installmentQuantity').val() - 1].installmentAmount;
+                            jQuery('#installmentValue').val(value);
                         });
+                        jQuery('#installmentQuantity').selectpicker('refresh');
                     })
             }
         });
@@ -338,28 +340,26 @@
         function gerarCreditToken(){
 
             PagSeguroDirectPayment.createCardToken({
-                cardNumber: $("input#cardNumber").val(),
+                cardNumber: jQuery("input#cardNumber").val(),
                 brand: paymentData.brand,
-                cvv: $("input#cvv").val(),
-                expirationMonth: $("#expirationMonth option:selected").val(),
-                expirationYear: $("#expirationYear option:selected").val(),
+                cvv: jQuery("input#cvv").val(),
+                expirationMonth: jQuery("#expirationMonth option:selected").val(),
+                expirationYear: jQuery("#expirationYear option:selected").val(),
                 success: function(response) {
                     console.log(response);
                     //token gerado, esse deve ser usado na chamada da API do Checkout Transparente
-                    $('#creditCardToken').val(response.card.token);
-                    $( "#cardNumber" ).prop( "disabled", true );
-                    $( "#expirationMonth" ).prop( "disabled", true );
-                    $( "#expirationYear" ).prop( "disabled", true );
-                    $( "#cvv" ).prop( "disabled", true );
-                    $('#form').submit();
+                    jQuery('#creditCardToken').val(response.card.token);
+                    jQuery( "#cardNumber" ).prop( "disabled", true );
+                    jQuery( "#expirationMonth" ).prop( "disabled", true );
+                    jQuery( "#expirationYear" ).prop( "disabled", true );
+                    jQuery( "#cvv" ).prop( "disabled", true );
+                    jQuery('#form').submit();
                 },
                 error: function(response) {
                     //tratamento do erro
-                    console.log(response);
                 },
                 complete: function(response) {
                     //tratamento comum para todas chamadas
-                    console.log(response);
                 }
             });
         }

@@ -34,6 +34,9 @@ class Conversation extends Model
    | FUNCTIONS
    |--------------------------------------------------------------------------
    */
+    public function hasMessages(){
+        Return (bool) $this->messages()->count();
+    }
     public function hasUnseenMessages(){
         Return (bool) $this->messages()->Unseen()->first();
     }
@@ -84,6 +87,10 @@ class Conversation extends Model
         return $this->belongsTo('App\Models\User',  'user_two');
     }
 
+    public function advertisement()
+    {
+        return $this->belongsTo('App\Models\Advertisement',  'advertisement_id');
+    }
 
     /*
    |--------------------------------------------------------------------------

@@ -43,7 +43,7 @@ class AdvertisementController extends Controller
      */
     public function store(CreateAnuncioRequest $request)
     {
-        if($request->type==1){
+        /*if($request->type==1){
             if(!Auth::User()->canCreateAdvertisementArtist()){
                 if(Auth::User()->hasActiveSubscription()){
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos.');
@@ -59,7 +59,7 @@ class AdvertisementController extends Controller
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos, assine o plano empresarial para aumentar o limite');
                 }
             }
-        }
+        }*/
 
         $type = $request->type;
         $file = Input::file('foto');

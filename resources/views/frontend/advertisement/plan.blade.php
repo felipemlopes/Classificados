@@ -1,10 +1,10 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.masterteste')
 
 
 @section('content')
     <div class="row">
 
-        <h1 class="text-center">Deseja destacar o seu naúncio?</h1>
+        <h1 class="text-center">Deseja destacar o seu anúncio?</h1>
         <div class="text-center">
             <p>Pelo valor de R${{setting('price_ads_premium')}}</p>
             <p>por {{setting('days_ads_premium')}} dias</p>

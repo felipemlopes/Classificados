@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);
     Route::get('mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);
-    Route::get('mensagens/{id}/create', ['as' => 'message.create','uses' => 'MessagesController@create']);
+    Route::get('mensagens/{id}/enviar', ['as' => 'message.create','uses' => 'MessagesController@create']);
     Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);
 
     Route::post('avaliar/artista/{id}', ['as' => 'review.artist.store','uses' => 'AdvertisementController@storeReviewArtista']);
@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.update','uses' => 'MyAccountController@advertisementUpdate']);
     Route::post('minha-conta/anuncios/{anuncio_id}/editar/imagem', ['as' => 'myaccount.advertisement.update.image','uses' => 'MyAccountController@advertisementUpdateImage']);
     Route::get('minha-conta/anuncios/{anuncio_id}/pagar', ['as' => 'myaccount.advertisement.pay','uses' => 'MyAccountController@advertisementPay']);
-    Route::delete('minha-conta/anuncios/{anuncio_id}/excluir', ['as' => 'myaccount.advertisement.delete','uses' => 'MyAccountController@advertisementDelete']);
+    Route::get('minha-conta/anuncios/{anuncio_id}/excluir', ['as' => 'myaccount.advertisement.delete','uses' => 'MyAccountController@advertisementDelete']);
     Route::get('minha-conta/configuracoes', ['as' => 'myaccount.settings','uses' => 'MyAccountController@settings']);
     Route::post('minha-conta/configuracoes/editar', ['as' => 'myaccount.settings.update.details','uses' => 'MyAccountController@settingsupdate']);
     Route::post('minha-conta/configuracoes/editar/senha', ['as' => 'myaccount.settings.update.password','uses' => 'MyAccountController@settingsupdatepassword']);

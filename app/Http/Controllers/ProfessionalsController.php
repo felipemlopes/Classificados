@@ -20,7 +20,7 @@ class ProfessionalsController extends Controller
      */
     public function index()
     {
-        $peer_page = 15;
+        $peer_page = 12;
         $category= Input::get('categoria');
         $subcategory= Input::get('subcategoria');
         $state= Input::get('estado');
@@ -112,6 +112,8 @@ class ProfessionalsController extends Controller
     {
         $professional = Advertisement::with('ratings','embedded')->Professional()
             ->where('id','=',$id)->first();
+        $professional->increment('visits');
+        $professional->save();
 
         return view('frontend.professionals.show', compact('professional'));
     }

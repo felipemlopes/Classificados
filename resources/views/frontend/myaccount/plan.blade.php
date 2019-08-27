@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.masterteste')
 
 
 @section('css')
@@ -33,29 +33,43 @@
 
                 @include('partials.messages')
 
-                <div class="col-xs-6 col-md-6 col-lg-6">
-                    <h3>Detalhes</h3>
-                    <div class="panel-body">
-                        @if(Auth::User()->hasActiveSubscription())
-                            <h3>Plano: {{ Auth::User()->currentSubscription()->first()->plan->name }}</h3>
-                            <h3>Expira em: {{ date('d/m/Y', strtotime(Auth::User()->currentSubscription()->first()->expires_on)) }}</h3>
-                            <a href="{{route('myaccount.plan.cancel')}}" class="btn btn-primary" id="cancelar">Cancelar</a>
-                        @else
-                            <h3>Plano: {{ $plano->name }}</h3>
-                            <h3>Preço: R${{ $plano->price }}</h3>
-                            <ul>
-                                @foreach($plano->features as $feature)
-                                    @if($feature->name=="qtd_ads_art")
-                                        <li>{{$feature->limit}} anúncios de artistas</li>
-                                    @endif
-                                    @if($feature->name=="qtd_ads_pro")
-                                        <li>{{$feature->limit}} anúncios de profissionais</li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                            <a href="{{route('myaccount.plan.subscribe',$plano->id)}}" class="btn btn-primary">Assinar</a>
-                        @endif
-                    </div>
+                <div class="col-xs-12 col-md-12 col-lg-12">
+
+                    @if(Auth::User()->hasActiveSubscription())
+                        <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted text-uppercase text-center">{{ $plano->name }}</h5>
+                                    <h6 class="card-price text-center">R${{ $plano->price }}<span class="period">/mês</span></h6>
+                                    <hr>
+                                    <p class="text-center">Expira em: {{ date('d/m/Y', strtotime(Auth::User()->currentSubscription()->first()->expires_on)) }}</p>
+                                    <a href="{{route('myaccount.plan.cancel')}}" class="btn btn-primary btn-block" id="cancelar">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted text-uppercase text-center">{{ $plano->name }}</h5>
+                                    <h6 class="card-price text-center">R${{ $plano->price }}<span class="period">/mês</span></h6>
+                                    <hr>
+                                    <ul class="fa-ul">
+                                        @foreach($plano->features as $feature)
+                                            @if($feature->name=="qtd_ads_art")
+                                                <li><span class="fa-li"></span><strong>{{$feature->limit}} anúncios de artistas</strong></li>
+                                            @endif
+                                            @if($feature->name=="qtd_ads_pro")
+                                                <li><span class="fa-li"></span><strong>{{$feature->limit}} anúncios de profissionais</strong></li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                    <a href="{{route('myaccount.plan.subscribe',$plano->id)}}" class="btn btn-primary btn-block">Assinar</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>

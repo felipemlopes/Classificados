@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.masterteste')
 
 
 @section('css')
@@ -32,7 +32,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 secao-minhaconta">
 
 
-                <div class="row tab-search">
+                <div class="row tab-search secao">
                     <div class="col-md-2 col-xs-2">
                     </div>
                     <div class="col-md-5 col-xs-3">
@@ -50,7 +50,7 @@
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" name="search" value="{{ app('request')->input('search') }}" placeholder="Procure por anúncios...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit" id="search-users-btn">
+                                    <button class="btn btn-default" type="submit" id="search-users-btn" style="height: 40px;">
                                         <span class="fa fa-search"></span>
                                     </button>
                                     @if (app('request')->input('search') != '' || app('request')->input('tipo')!='')
@@ -72,6 +72,7 @@
                         <th>Título</th>
                         <th>Tipo</th>
                         <th>Link</th>
+                        <th>Visitas</th>
                         <th class="text-center">Ações</th>
                     </tr>
                     @if (count($advertisements))
@@ -90,19 +91,20 @@
                                         </a>
                                     @endif
                                 </td>
+                                <td>{{ $advertisement->visits }}</td>
                                 <td class="text-center">
+                                    @if(!$advertisement->isActiveFeatured())
+                                    <a href="{{route('myaccount.advertisement.pay',$advertisement->id)}}" class="btn btn-primary btn-circle edit" title="Colocar anúncio em destaque"
+                                       data-toggle="tooltip" data-placement="top">
+                                        <i class="fa fa-certificate"></i>
+                                    </a>
+                                    @endif
                                     <a href="{{ route('myaccount.advertisement.edit', $advertisement->id) }}" class="btn btn-primary btn-circle edit" title="Editar anúncio"
                                        data-toggle="tooltip" data-placement="top">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="{{ route('myaccount.advertisement.delete', $advertisement->id) }}" class="btn btn-danger btn-circle" title="Excluir anúncio"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       data-method="DELETE"
-                                       data-confirm-title="Por favor confirme"
-                                       data-confirm-text="Tem certeza que deseja excluir esse anúncio?"
-                                       data-cancel-text="Tem certeza que deseja excluir esse anúncio?"
-                                       data-confirm-delete="Sim">
+                                    <a id="deletebtn{{$advertisement->id}}" href="{{route('myaccount.advertisement.delete',$advertisement->id)}}" onclick="deleteads({{$advertisement->id}})"  class="btn btn-danger btn-circle excluir" title="Excluir anúncio"
+                                       data-toggle="tooltip" data-placement="top">
                                         <i class="fa fa-remove"></i>
                                     </a>
                                 </td>
@@ -126,10 +128,31 @@
 
 @section('scripts')
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('js/delete.handler.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
     <script>
-        $("#tipo").change(function () {
-            $("#ads-form").submit();
+        jQuery("#tipo").change(function () {
+            jQuery("#ads-form").submit();
         });
+        jQuery('.excluir').click(function(e){
+            e.preventDefault();
+        });
+        function deleteads(id){
+            console.log(id)
+            swal({
+                title: 'Você tem certeza?',
+                text: "Isso vai excluir permanentemente o seu anúncio !",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, excluir!'
+            }).then(function(teste) {
+                console.log();
+                if(teste.value){
+                    window.location.href = jQuery('#deletebtn'+id).attr('href');
+                }else{
+                }
+            })
+        }
     </script>
 @endsection

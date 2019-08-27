@@ -1,10 +1,10 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.masterteste')
 
 @section('page-title', 'Cadastrar')
 
 @section('content')
 <div class="row">
-    <div class="col-sm-5 login-box">
+    <div class="col-xs-6 col-sm-5 col-md-5 login-box">
         @include('partials/messages')
 
         <div class="panel panel-default">
@@ -17,35 +17,35 @@
                 <form method="POST" action="{{ route('postregister') }}">
                     @csrf
 
-                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                    <div class="">
                         <div class="form-group">
                             <label class="h6" for="first_name">Nome</label>
                             <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}">
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                    <div class="">
                         <div class="form-group">
                             <label class="h6" for="last_name">Sobrenome</label>
                             <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}">
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                    <div class="">
                         <div class="form-group">
                             <label class="h6" for="email">E-mail</label>
                             <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                    <div class="">
                         <div class="form-group">
                             <label class="h6" for="password">Senha</label>
                             <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                    <div class="">
                         <div class="form-group">
                             <label class="h6" for="password_confirmation">Confirmar senha</label>
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}">
@@ -62,8 +62,8 @@
                     @endif
 
                     <div class="form-group text-center">
-                        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
-                            <button type="submit" class="btn btn-primary">
+                        <div class="">
+                            <button type="submit" class="btn btn-primary btn-block">
                                 Criar conta
                             </button>
                         </div>

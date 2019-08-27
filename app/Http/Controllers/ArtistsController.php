@@ -23,7 +23,7 @@ class ArtistsController extends Controller
      */
     public function index()
     {
-        $peer_page = 15;
+        $peer_page = 12;
         $style= Input::get('estilo');
         $state= Input::get('estado');
         $city= Input::get('cidade');
@@ -104,6 +104,8 @@ class ArtistsController extends Controller
     {
         $artist = Advertisement::with('ratings','embedded','embedded.musicalstyles')->Artist()
             ->where('id','=',$id)->first();
+        $artist->increment('visits');
+        $artist->save();
         $url=$artist->embedded->video;
         parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
         $videoyoutube = $my_array_of_vars['v'];

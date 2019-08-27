@@ -15,7 +15,7 @@ class MessagesController extends Controller
     {
 
         $user = Auth::User();
-        $conversations = Conversation::with('messages')->where(
+        $conversations = Conversation::with('advertisement', 'advertisement.embedded','messages')->where(
             function ($query) use ($user) {
                 $query->where(
                     function ($q) use ($user) {
@@ -24,15 +24,14 @@ class MessagesController extends Controller
                 )
                     ->orWhere(
                         function ($q) use ($user) {
-                            $q->where('user_one', $user);
+                            $q->where('user_one', $user->id);
                         }
                     );
             }
-        )->get();
-        $messages = null;
-        $conversation = null;
+        );
+        $conversations = $conversations->has('messages')->get();
 
-        return view('frontend.message.index', compact('messages','conversation','conversations'));
+        return view('frontend.message.index', compact('conversations'));
     }
 
     public function create($id)
@@ -90,27 +89,9 @@ class MessagesController extends Controller
         if(!$advertisement){
             return redirect()->back();
         }
-        $user1 = User::find($advertisement->user_id);
-        $user2 = Auth::User();
-
-        $conversations = Conversation::with('messages')->where(
-            function ($query) use ($user2) {
-                $query->where(
-                    function ($q) use ($user2) {
-                        $q->where('user_two', $user2->id);
-                    }
-                )
-                    ->orWhere(
-                        function ($q) use ($user2) {
-                            $q->where('user_one', $user2->id);
-                        }
-                    );
-            }
-        )->get();
-
         $conversation->seeAllUnseenMessages();
 
-        return view('frontend.message.index', compact('messages','conversation','conversations'));
+        return view('frontend.message.show', compact('messages','conversation'));
     }
 
     public function send(Request $request)

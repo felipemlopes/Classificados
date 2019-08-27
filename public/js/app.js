@@ -49111,6 +49111,9 @@ var app = new Vue({
     this.cache = cachehidden;
     this.csrftoken = $("input[name=_token]").val();
     this.conversation = $("input[name=conversation]").val();
+    $('#cache').mask('000.000.000.000.000,00', {
+      reverse: true
+    });
   }
 });
 
