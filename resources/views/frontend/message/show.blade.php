@@ -34,9 +34,9 @@
                             <div class="text-left">
                                 Relacionado ao anúncio:
                                 @if($conversation->advertisement->embedded_type=='App\Models\Artist')
-                                    <a href="{{route('artist.show',$conversation->advertisement->embedded_id)}}">Clique aqui para ver</a>
+                                    <a href="{{route('artist.show',$conversation->advertisement->id)}}">Clique aqui para ver</a>
                                 @else
-                                    <a href="{{route('professional.show',$conversation->advertisement->embedded_id)}}">Clique aqui para ver</a>
+                                    <a href="{{route('professional.show',$conversation->advertisement->id)}}">Clique aqui para ver</a>
                                 @endif
                             </div>
                             <hr>
