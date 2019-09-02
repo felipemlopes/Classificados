@@ -178,7 +178,7 @@
                         Envie uma mensagem ao anunciante
                     </h4>
                 </div>
-                <form role="form" method="POST" action="{{route('message.send',$artist->id)}}" id="formmessage">
+                <form role="form" method="POST" action="{{route('message.send',$professional->id)}}" id="formmessage">
                     @csrf
                     <div class="modal-body">
                         {{--@if(Auth::Check())
@@ -217,7 +217,7 @@
                             </label>
                             <textarea id="message" name="message" class="form-control required" placeholder="Sua mensagem..." rows="5"></textarea>
                         </div>
-                        <input type="hidden" id="advertisement_id" value="{{$artist->id}}">
+                        <input type="hidden" id="advertisement_id" value="{{$professional->id}}">
                     </div>
                 </form>
                 <div class="modal-footer">
