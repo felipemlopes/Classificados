@@ -90,7 +90,7 @@ class ArtistsController extends Controller
         $styles = MusicStyle::all();
         $states=Estado::all();
         $cities=Cidade::where('estado_id','=',$state)->get();
-        
+
         return view('frontend.artists.index', compact('styles','states','cities',
             'artists','destaques'));
     }
