@@ -63,7 +63,8 @@ class User extends Authenticatable
     public function canCreateAdvertisementArtist()
     {
         if($this->hasActiveSubscription()){
-            $premium = Plan::first();
+            $subscription = $this->currentSubscription()->first();
+            $premium = Plan::find($subscription->plan_id);
             $qtd_ads_art = PlanFeature::where('plan_id',$premium->id)->where('name','qtd_ads_art')->first();
             $count = Advertisement::where('user_id',$this->id)->Artist()->Published()->count();
         }else{
@@ -80,7 +81,8 @@ class User extends Authenticatable
     public function canCreateAdvertisementProfessional()
     {
         if($this->hasActiveSubscription()){
-            $premium = Plan::first();
+            $subscription = $this->currentSubscription()->first();
+            $premium = Plan::find($subscription->plan_id);
             $qtd_ads_pro = PlanFeature::where('plan_id',$premium->id)->where('name','qtd_ads_pro')->first();
             $count = Advertisement::where('user_id',$this->id)->Professional()->Published()->count();
         }else{

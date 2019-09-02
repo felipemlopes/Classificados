@@ -24,11 +24,15 @@ class CreateAnuncioRequest extends FormRequest
      */
     public function rules()
     {
+        $edit = $this->request->get('edit');
         $type = $this->request->get('type');
         $foto = $this->request->get('foto');
         if($foto==null){
             $img = 'required|image|mimes:jpg,jpeg,bmp,png|max:2048';
         }else{
+            $img = 'required|image|mimes:jpg,jpeg,bmp,png|max:2048';
+        }
+        if($edit==1 and $foto==null){
             $img = 'image|mimes:jpg,jpeg,bmp,png|max:2048';
         }
         $rule = null;
@@ -84,6 +88,7 @@ class CreateAnuncioRequest extends FormRequest
                 'foto.image' => 'A foto deve ser uma imagem',
                 'foto.mimes' => 'A foto deve ser um arquivo do tipo jpg, png ou bmp',
                 'foto.max' => 'A foto não pode ser maior que 2048 kilobytes (2mb)',
+                'foto.uploaded' => 'A foto falhou ao ser enviada, verifique se ela não ultrapassa o limite de 2Mb e tente novamente',
             ];
         }else{   //profissional
             $msg = [
@@ -97,6 +102,7 @@ class CreateAnuncioRequest extends FormRequest
                 'foto.image' => 'A foto deve ser uma imagem',
                 'foto.mimes' => 'A foto deve ser um arquivo do tipo jpg, png ou bmp',
                 'foto.max' => 'A foto não pode ser maior que 2048 kilobytes (2mb)',
+                'foto.uploaded' => 'A foto falhou ao ser enviada, verifique se ela não ultrapassa o limite de 2Mb e tente novamente',
             ];
         }
         return $msg;

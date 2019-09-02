@@ -44,7 +44,7 @@ class Message extends Notification  implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $link = route('message.index');
+        $link = route('message.show',$this->message->conversation_id);
 
         return ( new MailMessage )
             ->subject( 'Nova mensagem' )

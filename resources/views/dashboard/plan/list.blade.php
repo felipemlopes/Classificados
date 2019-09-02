@@ -15,6 +15,12 @@
 
 <div class="row tab-search">
     <div class="col-md-2 col-xs-2">
+        @can('Criar planos')
+            <a href="{{ route('dashboard.plan.create') }}" class="btn btn-success" id="add-user">
+                <i class="glyphicon glyphicon-plus"></i>
+                Adicionar plano
+            </a>
+        @endcan
     </div>
     <div class="col-md-5 col-xs-3"></div>
     <form method="GET" action="" accept-charset="UTF-8" id="link-form">
@@ -64,6 +70,17 @@
                                         data-toggle="tooltip" data-placement="top">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </a>
+                                    @endcan
+                                    @can('Excluir planos')
+                                        <a href="{{ route('dashboard.plan.destroy', $plan->id) }}" class="btn btn-danger btn-circle" title="Excluir plano"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           data-method="DELETE"
+                                           data-confirm-title="Por favor confirme"
+                                           data-confirm-text="Tem certeza que deseja excluir esse plano?"
+                                           data-confirm-delete="Sim">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
                                     @endcan
                                 </td>
                             </tr>

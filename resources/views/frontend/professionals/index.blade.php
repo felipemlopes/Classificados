@@ -51,7 +51,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-push-9 col-md-push-9 col-sm-push-9 col-xs-12 col-sm-3 col-md-3 col-lg-3 filtro">
+                            <div class="col-lg-push-9 col-md-push-9 col-sm-push-6 col-xs-12 col-sm-6 col-md-3 col-lg-3 filtro">
                                 <div class="input-group ">
                                 <span class="input-group-btn btn-block">
                                     @if (app('request')->input('categoria') != '' || app('request')->input('subcategoria') != '' || app('request')->input('estado') != '' || app('request')->input('cidade') != '')
@@ -60,7 +60,7 @@
                                             <span class="fa fa-remove"></span> Limpar
                                         </a>
                                     @else
-                                        <button class="btn btn-primary pull-right btn-block">Enviar</button>
+                                        <button class="btn btn-primary pull-right btn-block">Buscar</button>
                                     @endif
                                 </span>
                                 </div>
@@ -76,16 +76,10 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="category-list">
-                    <div class="tab-box ">
-                    </div>
-                    <div class="col-lg-12">
-                    </div>
-                    <div class="">
-                    </div>
+                    @if(count($destaques) or count($professionals))
                     <div class="adds-wrapper col-md-12">
-
                         @foreach($destaques as $destaque)
-                            <div class="item-list col-xs-12 col-sm-4 col-md-3">
+                            <div class="item-list col-xs-12 col-sm-4 col-md-3 anuncio">
                                 <div>
                                     <div class="cornerRibbons topAds">
                                         <a> em destaque</a>
@@ -124,7 +118,7 @@
                         @endforeach
 
                         @foreach($professionals as $professional)
-                            <div class="item-list col-xs-12 col-sm-4 col-md-3">
+                            <div class="item-list col-xs-12 col-sm-4 col-md-3 anuncio">
                                 <div class="no-padding photobox">
                                     <div class="add-image">
                                         <a href="{{route('professional.show',$professional->id)}}">
@@ -158,6 +152,7 @@
                         @endforeach
 
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -23,7 +23,15 @@
         @endcan
     </div>
     <div class="col-md-5 col-xs-3"></div>
-    <form method="GET" action="" accept-charset="UTF-8" id="link-form">
+    <form method="GET" action="" accept-charset="UTF-8" id="categoryform">
+        <div class="col-md-2 col-xs-4">
+            <select name="category" id="categoria" class="form-control">
+                <option value="">Categoria</option>
+                @foreach($categoriaspai as $categoria)
+                    <option value="{{$categoria->id}}" {{app('request')->input('category')==$categoria->id?'selected':''}}>{{$categoria->name}}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="col-md-3 col-xs-4">
             <div class="input-group custom-search-form">
                 <input type="text" class="form-control" name="search" value="{{ app('request')->input('search') }}" placeholder="Procure por categorias...">
@@ -104,4 +112,9 @@
 
 @section('js')
     <script src="{{ asset('js/delete.handler.js') }}"></script>
+    <script>
+        $("#categoria").change(function () {
+            $("#categoryform").submit();
+        });
+    </script>
 @stop

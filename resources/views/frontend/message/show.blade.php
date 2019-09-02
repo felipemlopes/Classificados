@@ -4,39 +4,123 @@
 @endsection
 
 @section('content')
-    <div class="container" style="padding-bottom: 50px !important;">
-        <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
-        <h1 class="text-center">{{$conversation->advertisement->embedded->title}}</h1>
-        <div id="chat" class="chat">
-            <div class="messages">
-                <ul>
-                    @if($messages)
-                        @foreach($messages as $message)
-                            @if($message->user_id == Auth::User()->id)
-                                <li class="sent">
-                                    <p>{{$message->message}}</p>
-                                </li>
-                            @else
-                                <li class="replies">
-                                    <p>{{$message->message}}</p>
-                                </li>
-                            @endif
-                        @endforeach
-                    @endif
-                </ul>
+    <div class="container">
+        <div class="row">
+            <div class="container secao">
+                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
             </div>
-            <div class="message-input">
-                <div class="wrap">
-                    @if($conversation)
-                        <form id="form-message">
-                            <input type="text" id="message-input-form" name="message" class="form-control" placeholder="Digite a sua mensagem..." v-model="message"/>
-                            @csrf
-                            <input type="hidden" id="conversation_id" name="conversation" value="{{$conversation->id}}">
-                            <button class="submit" onclick="submitMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                        </form>
-                    @endif
+            <div class="container secao">
+                <h1 class="text-center">Mensagens</h1>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box" style="padding-bottom: 10px;">
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-left" data-sort-ignore="true" colspan="3">
+                            {{$conversation->advertisement->embedded->title}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                            <div class="text-left"><strong>Remetente Nome:</strong>
+                                {{$conversation->sender->first_name.' '.$conversation->sender->last_name}}
+                            </div>
+                            <hr>
+                            <p class="text-left">{{$messages->first()->message}}</p>
+                            <div class="text-left">
+                                Relacionado ao anúncio:
+                                @if($conversation->advertisement->embedded_type=='App\Models\Artist')
+                                    <a href="{{route('artist.show',$conversation->advertisement->embedded_id)}}">Clique aqui para ver</a>
+                                @else
+                                    <a href="{{route('professional.show',$conversation->advertisement->embedded_id)}}">Clique aqui para ver</a>
+                                @endif
+                            </div>
+                            <hr>
+                            <div class="text-left">
+                                <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalmessage">
+                                    <i class="icon-reply"></i>
+                                    Resposta
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @foreach($messages as $message)
+                        @if($messages->first()->id!=$message->id)
+                        <tr>
+                            <td style="width:88%;">
+                                <div class="text-left" style="word-break:break-all;">
+                                    <strong>
+                                        <i class="icon-reply"></i>
+                                        {{$message->user->first_name.' '.$message->user->last_name}}:
+                                    </strong>
+                                    <br>
+                                    {{$message->message}}
+                                    <br>
+                                    <div class="text-left">
+                                        Relacionado ao anúncio:
+                                        @if($conversation->advertisement->embedded_type=='App\Models\Artist')
+                                            <a href="{{route('artist.show',$conversation->advertisement->embedded_id)}}">Clique aqui para ver</a>
+                                        @else
+                                            <a href="{{route('professional.show',$conversation->advertisement->embedded_id)}}">Clique aqui para ver</a>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="text-left">
+                                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalmessage">
+                                        <i class="icon-reply"></i>
+                                        Resposta
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="modalmessage" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Fechar</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <i class="icon-mail-2"></i>
+                        Envie uma resposta
+                    </h4>
+                </div>
+                <form role="form" method="POST" action="{{route('message.send',$conversation->advertisement_id)}}" id="formmessage">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group required ">
+                            <label for="message" class="control-label">Mensagem
+                            </label>
+                            <textarea id="message" name="message" class="form-control required" placeholder="Sua mensagem..." rows="5"></textarea>
+                        </div>
+                        <input type="hidden" id="advertisement_id" value="{{$conversation->advertisement_id}}">
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary pull-right" id="sendmessage">Enviar mensagem</button>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
@@ -46,30 +130,27 @@
 @section('scripts')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        jQuery("#form-message").submit(function(e){
+        jQuery("#formmessage").submit(function(e){
             e.preventDefault();
         });
-        function submitMessage() {
-            var message = jQuery('#message-input-form').val();
-            var conversation = jQuery('#conversation_id').val();
-            var csrftoken = jQuery('input[name=_token]').val();
-            if(message.trim() == '') {
-                return false;
-            }
-            jQuery('<li class="sent"><p>' + message + '</p></li>').appendTo(jQuery('.messages ul'));
-            jQuery('.message-input input').val(null);
-            jQuery(".messages").animate({ scrollTop: jQuery(document).height() }, "fast");
+        jQuery('#sendmessage').on('click', function (e) {
 
-            axios.post(`${this.conversation}/send`, {
+
+            var advertisement = jQuery('#advertisement_id').val();
+            var message = jQuery('#message').val();
+            var csrftoken = jQuery('input[name=_token]').val();
+
+            axios.post(`/mensagens/${advertisement}/send`, {
                 _token: csrftoken,
-                conversation: conversation,
                 message: message,
             })
                 .then(response => {
+                    jQuery('#message').val('');
+                    jQuery('#modalmessage').modal('hide');
+                    location.reload();
                 })
                 .catch(error => {
                 });
-            jQuery('#conversation_id').val(conversation);
-        }
+        });
     </script>
 @endsection

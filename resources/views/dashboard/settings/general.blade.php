@@ -65,19 +65,15 @@
                             <input type="text" class="form-control" id="price_ads_premium"
                                    name="price_ads_premium" value="{{ setting('price_ads_premium')!=""?setting('price_ads_premium'):old('price_ads_premium') }}">
                         </div>
+                        <div class="form-group">
+                            <label for="peer_page">Quantidade de anúncios por página</label>
+                            <input type="text" class="form-control" id="peer_page"
+                                   name="peer_page" value="{{ setting('peer_page')!=""?setting('peer_page'):old('peer_page') }}">
+                        </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-refresh"></i>
                             Atualizar configurações
                         </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading"></div>
-                    <div class="panel-body">
-
                     </div>
                 </div>
             </div>

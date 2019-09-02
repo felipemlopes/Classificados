@@ -85,7 +85,7 @@
     <div id="Side_slide" class="right dark enabled" data-width="250">
         <div class="close-wrapper">
             <a href="#" class="close">
-                <i class="fa fa-bars"></i>
+                <i class="fa fa-close"></i>
             </a>
         </div>
         <div class="extras">

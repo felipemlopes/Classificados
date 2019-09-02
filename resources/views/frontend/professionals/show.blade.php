@@ -7,6 +7,9 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="container secao">
+                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-9 secao">
                 <div class="inner inner-box ads-details-wrapper secao">
                     <h2> {{$professional->embedded->title}} </h2>
@@ -23,7 +26,7 @@
                         </div>
                     </div>
                     <div class="Ads-Details secao">
-                        <div class="row">
+                        <div class="">
                             <h5 class="list-title">
                                 <strong>Descrição</strong>
                             </h5>
@@ -31,7 +34,7 @@
                         <div class="row">
                             <div class="ads-details-info col-sm-8 col-md-8">
                                 <p>
-                                    {{$professional->embedded->description}}
+                                    {!! $professional->embedded->description !!}
                                 </p>
                             </div>
                             <div class="col-md-4">
@@ -44,34 +47,6 @@
                                             </p>
                                         </li>
                                     </ul>
-                                    @if($professional->embedded->hasSocialNetworks())
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Redes sociais:</strong>
-                                        </li>
-                                        @if($professional->embedded->facebook)
-                                        <li>
-                                            <a class="linksocialnetowrk" href="{{$professional->embedded->facebook}}" target="_blank">
-                                                <i class="fa fa-lg fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        @endif
-                                        @if($professional->embedded->instagram)
-                                        <li>
-                                            <a class="linksocialnetowrk" href="{{$professional->embedded->instagram}}" target="_blank">
-                                                <i class="fa fa-instagram"></i>
-                                            </a>
-                                        </li>
-                                        @endif
-                                        @if($professional->embedded->youtube)
-                                        <li>
-                                            <a class="linksocialnetowrk" href="{{$professional->embedded->youtube}}" target="_blank">
-                                                <i class="fa fa-youtube-square"></i>
-                                            </a>
-                                        </li>
-                                        @endif
-                                    </ul>
-                                    @endif
                                 </aside>
                             </div>
                         </div>
@@ -94,55 +69,165 @@
                                     </p>
                                 </div>
                                 <div class="user-ads-action">
-                                    <a href="{{route('message.create',$professional->id)}}" class="btn btn-default btn-block">
+                                    {{--<a href="{{route('message.create',$professional->id)}}" class="btn btn-default btn-block">
                                         <i class=" icon-mail-2"></i>
                                         Envie uma menssagem
-                                    </a>
+                                    </a>--}}
+                                    @if(Auth::Check())
+                                        <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modalmessage">
+                                            <i class=" icon-mail-2"></i>
+                                            Envie uma menssagem
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-default btn-block" disabled>
+                                            <i class=" icon-mail-2"></i>
+                                            Envie uma menssagem
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 </aside>
+                @if($professional->embedded->hasSocialNetworks())
+                    <ul class="list-inline text-center">
+                        @if($professional->embedded->facebook)
+                            <li>
+                                <a class="facebook" href="{{$professional->embedded->facebook}}" target="_blank">
+                                    <i class="fa fa-lg fa-facebook"></i>
+                                </a>
+                            </li>
+                        @endif
+                        @if($professional->embedded->instagram)
+                            <li>
+                                <a class="instagram" href="{{$professional->embedded->instagram}}" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                        @endif
+                        @if($professional->embedded->youtube)
+                            <li>
+                                <a class="youtube" href="{{$professional->embedded->youtube}}" target="_blank">
+                                    <i class="fa fa-youtube-square"></i>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                @endif
             </div>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                <h3>Avalie este artista</h3>
-                @include('partials.messages')
-                @if(Auth::Check())
-                    <form action="{{route('review.professional.store',$professional->id)}}" method="post">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name">Título</label>
-                            <input type="text" class="form-control" id="title"
-                                   name="title" placeholder="Título da avaliação" value="">
-                        </div>
-                        <div class='starrr'></div>
-                        <div class="form-group">
-                            <label for="name">Sua opnião</label>
-                            <textarea type="text" class="form-control" id="body"
-                                      name="body" placeholder="" value=""></textarea>
-                        </div>
-                        <input type="hidden" name="rating" value="0" id="rating_input">
-                        <button type="submit" class="btn btn-primary">Avaliar</button>
-                    </form>
-                @else
-                    <p>Faça <a href="{{route('login')}}">Login</a> para avaliar</p>
-                @endif
-
+                <div class="inner inner-box ads-details-wrapper secao">
+                    <h3>Avalie este artista</h3>
+                    @include('partials.messages')
+                    @if(Auth::Check())
+                        <form action="{{route('review.professional.store',$professional->id)}}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name">Título</label>
+                                <input type="text" class="form-control" id="title"
+                                       name="title" placeholder="Título da avaliação" value="">
+                            </div>
+                            <div class='starrr'></div>
+                            <div class="form-group">
+                                <label for="name">Sua opnião</label>
+                                <textarea type="text" class="form-control" id="body"
+                                          name="body" placeholder="" value=""></textarea>
+                            </div>
+                            <input type="hidden" name="rating" value="0" id="rating_input">
+                            <button type="submit" class="btn btn-primary">Avaliar</button>
+                        </form>
+                    @else
+                        <p>Faça <a href="{{route('login')}}">Login</a> para avaliar</p>
+                    @endif
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reviews">
-                <h3>Avaliações</h3>
-                <p> {{$professional->countRating()}} avaliações <span class="rating">{!! $professional->getRating() !!}</span></p>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 reviews">
+                <div class="inner inner-box ads-details-wrapper secao">
+                    <h3>Avaliações</h3>
+                    <p> {{$professional->countRating()}} avaliações <span class="rating">{!! $professional->getRating() !!}</span></p>
 
-                @foreach($professional->ratings as $review)
-                    <div class="col-md-9" style="background-color: #cfcfcf; margin-bottom: 15px;">
-                        <h4>{{$review->title}}</h4>
-                        <div class="">
+                    @foreach($professional->ratings as $review)
+                        <div class="col-md-9" style="background-color: #cfcfcf; margin-bottom: 15px;">
+                            <h4>{{$review->title}}</h4>
+                            <div class="">
+                            </div>
+                            <p class="review-text">{{$review->body}}</p>
+                            <small class="review-date">{{ date('d/m/Y', strtotime($review->created_at)) }} Por {{$review->author->first_name.' '.$review->author->last_name}}</small>
                         </div>
-                        <p class="review-text">{{$review->body}}</p>
-                        <small class="review-date">{{ date('d/m/Y', strtotime($review->created_at)) }} Por {{$review->author->first_name.' '.$review->author->last_name}}</small>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div id="modalmessage" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Fechar</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <i class="icon-mail-2"></i>
+                        Envie uma mensagem ao anunciante
+                    </h4>
+                </div>
+                <form role="form" method="POST" action="{{route('message.send',$artist->id)}}" id="formmessage">
+                    @csrf
+                    <div class="modal-body">
+                        {{--@if(Auth::Check())
+                            <input type="hidden" name="from_name" value="Felipe">
+                            <input type="hidden" name="from_email" value="felipemarcanthlopes@gmail.com">
+                        @else
+                            <div class="form-group required ">
+                                <label for="from_name" class="control-label">
+                                    Nome <sup>*</sup>
+                                </label>
+                                <input id="from_name" name="from_name" class="form-control" placeholder="Seu nome" type="text" value="">
+                            </div>
+                            <div class="form-group required ">
+                                <label for="from_email" class="control-label">
+                                    E-mail <sup>*</sup>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-mail"></i>
+                                    </span>
+                                    <input id="from_email" name="from_email" type="text" placeholder="i.e. you@gmail.com" class="form-control" value="">
+                                </div>
+                            </div>
+                        @endif--}}
+                        {{--<div class="form-group required ">
+                            <label for="phone" class="control-label">Numero de telefone </label>
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="icon-phone-1"></i>
+                                        </span>
+                                <input id="phone" name="phone" type="text" placeholder="Numero de telefone" maxlength="60" class="form-control" value="">
+                            </div>
+                        </div>--}}
+                        <div class="form-group required ">
+                            <label for="message" class="control-label">Mensagem
+                            </label>
+                            <textarea id="message" name="message" class="form-control required" placeholder="Sua mensagem..." rows="5"></textarea>
+                        </div>
+                        <input type="hidden" id="advertisement_id" value="{{$artist->id}}">
                     </div>
-                @endforeach
+                </form>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary pull-right" id="sendmessage">Enviar mensagem</button>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 @endsection
@@ -155,6 +240,27 @@
         });
         jQuery('.starrr').on('starrr:change', function(e, value){
             jQuery('#rating_input').val(value)
+        });
+        jQuery("#formmessage").submit(function(e){
+            e.preventDefault();
+        });
+        jQuery('#sendmessage').on('click', function (e) {
+
+
+            var advertisement = jQuery('#advertisement_id').val();
+            var message = jQuery('#message').val();
+            var csrftoken = jQuery('input[name=_token]').val();
+
+            axios.post(`/mensagens/${advertisement}/send`, {
+                _token: csrftoken,
+                message: message,
+            })
+                .then(response => {
+                    jQuery('#message').val('');
+                    jQuery('#modalmessage').modal('hide');
+                })
+                .catch(error => {
+                });
         });
     </script>
 @endsection

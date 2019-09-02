@@ -13,7 +13,7 @@ class Conversation extends Model
      * @var array
      */
     protected $fillable = [
-        'user_one','user_two','advertisement_id'
+        'sender_id','advertiser_id','advertisement_id'
     ];
 
     /**
@@ -73,18 +73,18 @@ class Conversation extends Model
      *
      * return collection
      * */
-    public function userone()
+    public function sender()
     {
-        return $this->belongsTo('App\Models\User',  'user_one');
+        return $this->belongsTo('App\Models\User',  'sender_id');
     }
     /*
    * make a relation between second user from conversation
    *
    * return collection
    * */
-    public function usertwo()
+    public function advertiser()
     {
-        return $this->belongsTo('App\Models\User',  'user_two');
+        return $this->belongsTo('App\Models\User',  'advertiser_id');
     }
 
     public function advertisement()

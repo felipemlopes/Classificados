@@ -20,7 +20,8 @@ class ProfessionalsController extends Controller
      */
     public function index()
     {
-        $peer_page = 12;
+        $setting_peerpage = setting('peer_page');
+        $peer_page = $setting_peerpage == 0?12:$setting_peerpage;
         $category= Input::get('categoria');
         $subcategory= Input::get('subcategoria');
         $state= Input::get('estado');
@@ -73,7 +74,7 @@ class ProfessionalsController extends Controller
         foreach ($destaques as $key=>$destaque){
             $array[$key]= $destaque->id;
         }
-        $professionals = $professionals->whereNotIn('id', $array)->paginate($peer_page);
+        $professionals = $professionals->orderBy('created_at', 'desc')->whereNotIn('id', $array)->paginate($peer_page);
 
         if ($category) {
             $professionals->appends(['categoria' => $category]);

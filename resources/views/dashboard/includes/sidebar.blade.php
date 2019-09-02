@@ -31,6 +31,13 @@
                 </a>
             </li>
             @endcan
+            @can('Visualizar pagamentos')
+                <li class="">
+                    <a href="{{ route('dashboard.payment.list') }}">
+                        <i class="fa fa-credit-card"></i> <span>Pagamentos</span>
+                    </a>
+                </li>
+            @endcan
             @can('Visualizar anúncios')
                 <li class="">
                     <a href="{{ route('dashboard.advertisement.list') }}">

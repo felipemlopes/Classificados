@@ -3,15 +3,16 @@
 @section('page_name', 'Assinar')
 
 @section('content')
-    <div class="row">
-        <div class="container">
-            <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
-        </div>
-        <div class="container">
-            @include('partials/messages')
-        </div>
-
-        <form action="{{route('myaccount.plan.subscribe.post',$plano->id)}}" method="post" id="form">
+    <div class="container">
+        <div class="row">
+            <div class="container secao">
+                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+            </div>
+            <div class="container secao">
+                @include('partials/messages')
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box" style="padding-bottom: 10px">
+                <form action="{{route('myaccount.plan.subscribe.post',$plano->id)}}" method="post" id="form">
             @csrf
             {{--<input type="hidden" name="itemAmount1" value="{{ $plano->price }}">--}}
             <input type="hidden" name="senderHash" id="senderHash">
@@ -133,7 +134,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="col-sm-7 form-group">
+                    <div class="col-md-6 col-lg-6 form-group">
                         <label class="control-label" for="cvv">
                             Código de segurança<strong class="text-danger"> *</strong>
                         </label>
@@ -143,13 +144,13 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="col-sm-7">
+                    <div class="col-xs-12 col-md-6 col-lg-6">
                         <div class="form-group">
                             <label>CPF do Titular<strong class="text-danger"> *</strong></label>
                             <input type="text" id="creditCardHolderCPF" name="creditCardHolderCPF" class="form-control">
                         </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-xs-12 col-md-6 col-lg-6">
                         <div class="form-group">
                             <label>Data de Nasc. do Titular<strong class="text-danger"> *</strong></label>
                             <input type="text" id="creditCardHolderBirthDate" name="creditCardHolderBirthDate" class="form-control">
@@ -252,7 +253,8 @@
 
         </div>
         </form>
-
+            </div>
+        </div>
     </div>
 @stop
 

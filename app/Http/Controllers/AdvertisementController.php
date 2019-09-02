@@ -8,6 +8,7 @@ use App\Http\Requests\Frontend\Anuncio\PagarAnuncioRequest;
 use App\Models\Advertisement;
 use App\Models\Artist;
 use App\Models\Category;
+use App\Models\Cidade;
 use App\Models\Estado;
 use App\Models\MusicStyle;
 use App\Models\Payment;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PagSeguro;
+use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
 {
@@ -31,8 +33,9 @@ class AdvertisementController extends Controller
         $estilos = MusicStyle::all();
         $estados = Estado::all();
         $categorias = Category::where('parent_id','=',null)->get();
+        $edit=false;
 
-        return view('frontend.advertisement.index', compact('estilos','estados','categorias'));
+        return view('frontend.advertisement.index', compact('estilos','estados','categorias','edit'));
     }
 
     /**
@@ -113,7 +116,6 @@ class AdvertisementController extends Controller
         }
     }
 
-
     public function plan($id)
     {
         $advertisement = Advertisement::find($id);
@@ -121,31 +123,159 @@ class AdvertisementController extends Controller
         return view('frontend.advertisement.plan', compact('advertisement'));
     }
 
-    public function updatePlanYes($id)
+    public function back($id)
     {
         $advertisement = Advertisement::find($id);
-        $advertisement->is_published = true;
-        $advertisement->is_featured = true;
-        $advertisement->save();
-        $valor = setting('price_ads_premium');
-        $valor = str_replace(",", ".", $valor);
+        $estilos = MusicStyle::all();
+        $estados = Estado::all();
+        $cidades = Cidade::where('estado_id','=',$advertisement->estado_id)->get();
+        $categorias = Category::where('parent_id','=',null)->get();
+        $categorias = Category::where('parent_id','=',null)->get();
+        if($advertisement->embedded_type=='App\Models\Professional'){
+            $subcategorias = Category::where('parent_id','=',$advertisement->embedded->category_id)->get();
+        }else{
+            $subcategorias=null;
+        }
 
-        return view('frontend.advertisement.pagar', compact('advertisement','valor'));
+        $edit= true;
+
+        return view('frontend.advertisement.index', compact('estilos','estados','cidades','categorias','subcategorias','edit','advertisement'));
+
     }
 
-    public function updatePlanNo($id)
+    public function choosePlan(Request $request,$id)
     {
-        $advertisement = Advertisement::find($id);
-        $advertisement->is_published = true;
-        $advertisement->save();
+        if($request->plantype==1){
+            $advertisement = Advertisement::find($id);
+            $advertisement->is_published = true;
+            $advertisement->save();
 
-        if($advertisement->embedded_type=="App\Models\Artist"){
-            return redirect()->route('artist.index')->withSuccess('Anúncio criado com sucesso!');
+            if($advertisement->embedded_type=="App\Models\Artist"){
+                return redirect()->route('artist.index')->withSuccess('Anúncio criado com sucesso!');
+            }else{
+                return redirect()->route('professional.index')->withSuccess('Anúncio criado com sucesso!');
+            }
+        }elseif($request->plantype==2){
+            $advertisement = Advertisement::find($id);
+            $advertisement->is_published = true;
+            $advertisement->is_featured = true;
+            $advertisement->save();
+            $valor = setting('price_ads_premium');
+            $valor = str_replace(",", ".", $valor);
+
+            return view('frontend.advertisement.pagar', compact('advertisement','valor'));
         }else{
-            return redirect()->route('professional.index')->withSuccess('Anúncio criado com sucesso!');
+            return redirect()->back()->withErrors('Selecione o tipo de anúncio!');
         }
     }
 
+    public function update(CreateAnuncioRequest $request, $id)
+    {
+        $advertisement = Advertisement::find($id);
+
+        $aux = $advertisement->embedded->imagepath;
+        $file = Input::file('foto');
+        $path = '';
+        if($request->hasFile('foto')){
+            $path = Storage::disk('public_uploads')->put('/', $file);
+        }
+        $type = $request->type;
+        if($type==1 and $advertisement->embedded_type=="App\Models\Artist"){
+            $advertisement->estado_id = $request->estado;
+            $advertisement->cidade_id = $request->cidade;
+            $advertisement->save();
+
+            $artist = Artist::find($advertisement->embedded_id);
+            $artist->title = $request->title;
+            $artist->description = $request->description;
+            $artist->cache = $request->cache;
+            $artist->video = $request->videoyoutube;
+            $artist->facebook = $request->facebook;
+            $artist->instagram = $request->instagram;
+            $artist->youtube = $request->youtube;
+            if($path!=''){
+                $artist->imagepath = $path;
+            }
+            $artist->save();
+            $artist->musicalstyles()->sync($request->estilos);
+            if($request->hasFile('foto')){
+                Storage::disk('public_uploads')->delete($aux);
+            }
+
+            return redirect()->route('advertisement.plan',$advertisement->id);
+        }elseif($type==2 and $advertisement->embedded_type=="App\Models\Professional"){
+            $advertisement->estado_id = $request->estado;
+            $advertisement->cidade_id = $request->cidade;
+            $advertisement->save();
+
+            $professional = Professional::find($advertisement->embedded_id);
+            $professional->title = $request->title;
+            $professional->description = $request->description;
+            $professional->category_id = $request->categoria;
+            $professional->subcategory_id = $request->subcategoria;
+            $professional->facebook = $request->facebook;
+            $professional->instagram = $request->instagram;
+            $professional->youtube = $request->youtube;
+            if($path!=''){
+                $professional->imagepath = $path;
+            }
+            $professional->save();
+            if($request->hasFile('foto')){
+                Storage::disk('public_uploads')->delete($aux);
+            }
+
+            return redirect()->route('advertisement.plan',$advertisement->id);
+        }elseif($type==1 and $advertisement->embedded_type=="App\Models\Professional"){
+            $professional = Professional::find($advertisement->embedded_id);
+            if($path==''){
+                $path = $professional->imagepath;
+            }
+            $professional->delete();
+            $artist = new Artist();
+            $artist->title = $request->title;
+            $artist->description = $request->description;
+            $artist->cache = $request->cache;
+            $artist->video = $request->videoyoutube;
+            $artist->facebook = $request->facebook;
+            $artist->instagram = $request->instagram;
+            $artist->youtube = $request->youtube;
+            $artist->imagepath = $path;
+            $artist->save();
+            $artist->musicalstyles()->sync($request->estilos);
+
+            $advertisement->estado_id = $request->estado;
+            $advertisement->cidade_id = $request->cidade;
+            $advertisement->embedded_type='App\Models\Artist';
+            $advertisement->embedded_id=$artist->id;
+            $advertisement->save();
+
+            return redirect()->route('advertisement.plan',$advertisement->id);
+        }elseif($type==2 and $advertisement->embedded_type=="App\Models\Artist"){
+            $artist = Artist::find($advertisement->embedded_id);
+            if($path==''){
+                $path = $artist->imagepath;
+            }
+            $artist->delete();
+            $professional = new Professional();
+            $professional->title = $request->title;
+            $professional->description = $request->description;
+            $professional->category_id = $request->categoria;
+            $professional->subcategory_id = $request->subcategoria;
+            $professional->facebook = $request->facebook;
+            $professional->instagram = $request->instagram;
+            $professional->youtube = $request->youtube;
+            $professional->imagepath = $path;
+            $professional->save();
+
+            $advertisement->estado_id = $request->estado;
+            $advertisement->cidade_id = $request->cidade;
+            $advertisement->embedded_type='App\Models\Professional';
+            $advertisement->embedded_id=$professional->id;
+            $advertisement->save();
+
+            return redirect()->route('advertisement.plan',$advertisement->id);
+        }
+    }
 
     public function pagar(PagarAnuncioRequest $request, $id)
     {

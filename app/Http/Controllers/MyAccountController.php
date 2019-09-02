@@ -37,8 +37,8 @@ class MyAccountController extends Controller
     {
         $advertisements = Advertisement::where('user_id','=',Auth::User()->id)->count();
         $messages = Message::Unseen()->whereHas('conversation', function (Builder $query) {
-            $query->orwhere('user_one',  Auth::User()->id);
-            $query->orwhere('user_two',  Auth::User()->id);
+            $query->orwhere('sender_id',  Auth::User()->id);
+            $query->orwhere('advertiser_id',  Auth::User()->id);
         })->count();
 
         return view('frontend.myaccount.index', compact('advertisements','messages'));
@@ -248,9 +248,9 @@ class MyAccountController extends Controller
 
     public function plan()
     {
-        $plano = Plan::first();
+        $planos = Plan::all();
 
-        return view('frontend.myaccount.plan', compact('plano'));
+        return view('frontend.myaccount.plan', compact('planos'));
     }
 
     public function planSubscribe($id)
@@ -300,6 +300,7 @@ class MyAccountController extends Controller
         $subscription->charging_price = $plano->price;
         $subscription->is_recurring = true;
         $subscription->reference = $response[0];
+        $subscription->status = 'PENDING';
         $subscription->save();
 
         $pagamento = new Payment();

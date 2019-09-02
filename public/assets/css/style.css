@@ -62,7 +62,6 @@ body {
   font-weight: 400;
   letter-spacing: 0px;
   font-family: "Roboto",Arial,Tahoma,sans-serif;
-
   margin: 0;
   padding: 0;
   color: #333;
@@ -345,7 +344,7 @@ p.required,
   background: none;
 }
 
-.btn-default {
+/*.btn-default {
   background-color: #CACFD2;
   color: #666;
 }
@@ -382,7 +381,7 @@ fieldset[disabled] .btn-default:active,
 .btn-default.active[disabled],
 fieldset[disabled] .btn-default.active {
   background-color: #BDC3C7;
-}
+}*/
 
 .btn-primary {
   background-color: #ff0f50;
@@ -799,8 +798,8 @@ fieldset[disabled] .btn-inverse.active {
   }
 }
 
-body {
-  background: #fff;
+body, html {
+  background-color: #F4F5F9 !important;
 }
 
 .logo,
@@ -1217,6 +1216,9 @@ button.btn-search {
   height: auto;
   overflow: auto;
   width: 100%;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
 }
 
 .item-list {
@@ -1237,7 +1239,7 @@ button.btn-search {
 }
 
 .adds-wrapper .item-list:last-child {
-  border-bottom: none;
+  /*border-bottom: none;*/
 }
 
 .category-list {
@@ -2144,7 +2146,7 @@ h1.trtri span {
 }
 
 .ads-details-wrapper.inner-box {
-  padding-bottom: 0;
+  padding-bottom: 10px;
 }
 
 .label.adlistingtype {
@@ -4662,7 +4664,7 @@ nav.slider-nav a.next {
 
 /* Minha conta */
 .menu-minhaconta{
-  margin-top: 40px;
+  /*margin-top: 40px;*/
 }
 .li-menuminhaconta{
   margin-top: 25px;
@@ -4703,6 +4705,7 @@ nav.slider-nav a.next {
 }
 .secao-minhaconta{
   margin-top: 40px;
+  margin-bottom: 20px;
 }
 .small-box {
   border-radius: 2px;
@@ -4753,6 +4756,11 @@ nav.slider-nav a.next {
   z-index: 10;
   background: rgba(0,0,0,0.1);
   text-decoration: none;
+}
+@media (max-width: 767px) {
+  .menu-minhaconta ul li{
+    display: block;
+  }
 }
 
 
@@ -5067,7 +5075,7 @@ nav.slider-nav a.next {
 }
 
 .secao{
-  margin-bottom: 25px;
+  margin-bottom: 25px !important;
 }
 
 .category{
@@ -5097,9 +5105,14 @@ nav.slider-nav a.next {
 
 
 
+@media only screen and (max-width: 500px) {
+  #content{
+    min-height: 500px !important;
+    margin-bottom: 0px !important;
+  }
+}
 
-
-@media only screen and (max-width: 767px) {
+@media only screen and (min-width: 500px) and (max-width: 767px) {
   .logo{
     width: 286px !important;
     height: 60px !important;
@@ -5108,7 +5121,7 @@ nav.slider-nav a.next {
     height: auto !important;
   }
   #content{
-    min-height: 700px !important;
+    min-height: 600px !important;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 959px) {
@@ -5149,10 +5162,71 @@ nav.slider-nav a.next {
 
 
 
+.anuncio{
+  border: 1px #F4F5F9 solid;
+}
+.anuncio:hover{
+  background-color: #f9f9f9;
+}
 
 
+.facebook {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+  background: #3B5998;
+}
+.facebook:hover, .facebook:focus, .facebook:active {
+  color: white;
+}
+.youtube {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+  background: #bb0000;
+}
+.youtube:hover, .youtube:focus, .youtube:active {
+  color: white;
+}
+.instagram {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+  background: #CB2693;
+}
+.instagram:hover, .instagram:focus, .instagram:active {
+  color: white;
+}
 
 
+.box{
+  background-color: #fff;
+  margin-left: 15px;
+  padding-top: 20px;
+}
 
 
+.card{
+  border: 1px solid #F20E4C;
+  padding: 5px;
+  margin-top: 10px;
+}
 
+table th {
+  background-color: #fff !important;
+}
+table td {
+  background-color: #fff !important;
+}
+table tr:first-child td{
+  box-shadow: none !important;
+}

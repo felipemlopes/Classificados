@@ -2,138 +2,249 @@
 
 
 @section('content')
-    <div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="container secao">
+                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 15px;">
+                <h1 class="text-center">Criar anúncio</h1>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box">
+                <div>
+                    <form action="{{$edit?route('advertisement.update',$advertisement->id):route('advertisement.post')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @if($edit)
+                            <input type="hidden" name="edit" value="1">
+                        @else
+                            <input type="hidden" name="edit" value="0">
+                        @endif
+                        <div class="form-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
+                            @include('partials.messages')
 
-        <h1 class="text-center">Criar anúncio</h1>
+                            <h2>Detalhes do anúncio:</h2>
 
-        <form action="{{route('advertisement.store')}}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
-                @include('partials.messages')
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <label for="type">Tipo de anúncio:</label>
+                                <select class="form-control selectpicker" id="type" name="type">
+                                    <option value="">Selecione</option>
+                                    @if($edit)
+                                        <option value="1" {{$advertisement->embedded_type=='App\Models\Artist'?"selected":""}}>Artista</option>
+                                        <option value="2" {{$advertisement->embedded_type=='App\Models\Professional'?"selected":""}}>Profissional</option>
+                                    @else
+                                    <option value="1" {{old('type')=='1'?"selected":""}}>Artista</option>
+                                    <option value="2" {{old('type')=='2'?"selected":""}}>Profissional</option>
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <label for="title">Título:</label>
+                                @if($edit)
+                                    <input type="text" class="form-control" id="title" name="title"
+                                           value="{{$advertisement->embedded->title}}" placeholder="título do anúncio...">
+                                @else
+                                    <input type="text" class="form-control" id="title" name="title"
+                                           value="{{old('title')}}" placeholder="título do anúncio...">
+                                @endif
 
-                <h2>Detalhes do anúncio:</h2>
-
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="type">Tipo de anúncio:</label>
-                    <select class="form-control selectpicker" id="type" name="type">
-                        <option value="">Selecione</option>
-                        <option value="1" {{old('type')=='1'?"selected":""}}>Artista</option>
-                        <option value="2" {{old('type')=='2'?"selected":""}}>Profissional</option>
-                    </select>
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="title">Título:</label>
-                    <input type="text" class="form-control" id="title" name="title"
-                           value="{{old('title')}}" placeholder="título do anúncio...">
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="description">Descrição:</label>
-                    <textarea class="form-control" rows="5" id="description" name="description">{{old('description')}}</textarea>
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divcache">
-                    <label for="title">Cachê:</label>
-                    <input type="text" class="form-control" id="cache" name="cache"
-                           value="{{old('cache')}}" placeholder="00,00">
-
-                </div>
-                <div id="divestilos">
-                    <label class="col-xs-12 col-sm-12 col-md-12">Estilo musical:</label>
-                    @foreach($estilos as $estilo)
-                        <div class="checkbox col-xs-12 col-sm-12 col-md-12">
-                            <label>
-                                <input type="checkbox" value="{{$estilo->id}}" name="estilos[]" >{{$estilo->name}}
-                            </label>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <label for="description">Descrição:</label>
+                                @if($edit)
+                                    <textarea class="form-control" rows="5" id="description" name="description">{{$advertisement->embedded->description}}</textarea>
+                                @else
+                                    <textarea class="form-control" rows="5" id="description" name="description">{{old('description')}}</textarea>
+                                @endif
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divcache">
+                                <label for="title">Cachê:</label>
+                                @if($edit)
+                                    <input type="text" class="form-control" id="cache" name="cache"
+                                           value="{{$advertisement->embedded_type=='App\Models\Artist'?$advertisement->embedded->cache:''}}" placeholder="00,00">
+                                @else
+                                    <input type="text" class="form-control" id="cache" name="cache"
+                                           value="{{old('cache')}}" placeholder="00,00">
+                                @endif
+                            </div>
+                            <div id="divestilos">
+                                <label class="col-xs-12 col-sm-12 col-md-12">Estilo musical:</label>
+                                @if($edit and $advertisement->embedded_type=='App\Models\Artist')
+                                    @foreach($estilos as $estilo)
+                                        <div class="checkbox col-xs-12 col-sm-12 col-md-12">
+                                            <label>
+                                                <input type="checkbox" value="{{$estilo->id}}" name="estilos[]"
+                                                        {{$advertisement->embedded->checkMusicStyle($estilo->id)==true?'checked':''}}>{{$estilo->name}}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    @foreach($estilos as $estilo)
+                                        <div class="checkbox col-xs-12 col-sm-12 col-md-12">
+                                            <label>
+                                                <input type="checkbox" value="{{$estilo->id}}" name="estilos[]" >{{$estilo->name}}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divvideo">
+                                <label for="youtube">video do youtube:</label>
+                                @if($edit)
+                                    <input type="text" class="form-control" id="videoyoutube" name="videoyoutube"
+                                           value="{{$advertisement->embedded_type=='App\Models\Artist'?$advertisement->embedded->video:''}}" placeholder="informe um link de vídeo do youtube">
+                                @else
+                                    <input type="text" class="form-control" id="videoyoutube" name="videoyoutube"
+                                           value="{{old('videoyoutube')}}" placeholder="informe um link de vídeo do youtube">
+                                @endif
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divcategoria">
+                                <label for="categoria">Categoria:</label>
+                                @if($edit and $advertisement->embedded_type=='App\Models\Professional')
+                                    <select class="form-control selectpicker" id="categoria" name="categoria" data-live-search="true">
+                                        <option value="">Selecione a categoria</option>
+                                        @foreach($categorias as $categoria)
+                                            <option value="{{$categoria->id}}" {{$advertisement->embedded->category_id==$categoria->id?"selected":""}}>{{$categoria->name}}</option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <select class="form-control selectpicker" id="categoria" name="categoria" data-live-search="true">
+                                        <option value="">Selecione a categoria</option>
+                                        @foreach($categorias as $categoria)
+                                            <option value="{{$categoria->id}}" {{old('categoria')==$categoria->id?"selected":""}}>{{$categoria->name}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divsubcategoria">
+                                <label for="subcategoria">Sub categoria:</label>
+                                @if($edit and $advertisement->embedded_type=='App\Models\Professional')
+                                    <select class="form-control selectpicker" id="subcategoria" name="subcategoria" data-live-search="true">
+                                        <option value="">Selecione a subcategoria</option>
+                                        @foreach($subcategorias as $subcategoria)
+                                            <option value="{{$subcategoria->id}}" {{$advertisement->embedded->subcategory_id==$subcategoria->id?"selected":""}}>{{$subcategoria->name}}</option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <select class="form-control selectpicker" id="subcategoria" name="subcategoria" data-live-search="true">
+                                        <option value="">Selecione a subcategoria</option>
+                                    </select>
+                                @endif
+                            </div>
                         </div>
-                    @endforeach
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divvideo">
-                    <label for="youtube">video do youtube:</label>
-                    <input type="text" class="form-control" id="videoyoutube" name="videoyoutube"
-                           value="{{old('videoyoutube')}}" placeholder="informe um link de vídeo do youtube">
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divcategoria">
-                    <label for="categoria">Categoria:</label>
-                    <select class="form-control selectpicker" id="categoria" name="categoria" @change="onChangeCategoria($event)">
-                        <option value="">Selecione a categoria</option>
-                        @foreach($categorias as $categoria)
-                            <option value="{{$categoria->id}}" {{old('categoria')==$categoria->id?"selected":""}}>{{$categoria->name}}</option>
-                        @endforeach
-                    </select>
 
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12" id="divsubcategoria">
-                    <label for="subcategoria">Sub categoria:</label>
-                    <select class="form-control selectpicker" id="subcategoria" name="subcategoria">
-                        <option value="">Selecione a subcategoria</option>
-                    </select>
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
+                            <h2>Local:</h2>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <label for="estado">Estado:</label>
+                                @if($edit)
+                                    <select class="form-control selectpicker" id="estado" name="estado" data-live-search="true">
+                                        <option value="">Selecione o estado</option>
+                                        @foreach($estados as $estado)
+                                            <option value="{{$estado->id}}" {{$advertisement->estado_id==$estado->id?"selected":""}}>{{$estado->estado}}</option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <select class="form-control selectpicker" id="estado" name="estado" data-live-search="true">
+                                        <option value="">Selecione o estado</option>
+                                        @foreach($estados as $estado)
+                                            <option value="{{$estado->id}}" {{old('estado')==$estado->id?"selected":""}}>{{$estado->estado}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <label for="cidade">Cidade:</label>
+                                @if($edit)
+                                    <select class="form-control selectpicker" id="cidade" name="cidade" data-live-search="true">
+                                        <option value="">Selecione a cidade</option>
+                                        @foreach($cidades as $cidade)
+                                            <option value="{{$cidade->id}}" {{$advertisement->cidade_id==$cidade->id?"selected":""}}>{{$cidade->cidade}}</option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <select class="form-control selectpicker" id="cidade" name="cidade" data-live-search="true">
+                                        <option value="">Selecione a cidade</option>
+                                    </select>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
+                            <h2>Fotos:</h2>
+                            @if($edit)
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                    <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px;">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                    <label class="btn btn-primary" for="my-file-selector">
+                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+                                        Procurar foto
+                                    </label>
+                                    <span class='label label-info' id="upload-file-info"></span>
+                                </div>
+                            @else
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                    <label class="btn btn-primary" for="my-file-selector">
+                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+                                        Procurar foto
+                                    </label>
+                                    <span class='label label-info' id="upload-file-info"></span>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
+                            <h2>Redes sociais:</h2>
+                            @if($edit)
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                    <label for="facebook">Facebook:</label>
+                                    <input type="text" class="form-control" id="facebook" name="facebook"
+                                           value="{{$advertisement->embedded->facebook}}" placeholder="informe seu facebook">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                    <label for="instagram">Instagram:</label>
+                                    <input type="text" class="form-control" id="instagram" name="instagram"
+                                           value="{{$advertisement->embedded->instagram}}" placeholder="informe seu instagram">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                    <label for="youtube">Youtube:</label>
+                                    <input type="text" class="form-control" id="youtube" name="youtube"
+                                           value="{{$advertisement->embedded->youtube}}" placeholder="informe seu canal do yotube">
+                                </div>
+                            @else
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                    <label for="facebook">Facebook:</label>
+                                    <input type="text" class="form-control" id="facebook" name="facebook"
+                                           value="{{old('facebook')}}" placeholder="informe seu facebook">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                    <label for="instagram">Instagram:</label>
+                                    <input type="text" class="form-control" id="instagram" name="instagram"
+                                           value="{{old('instagram')}}" placeholder="informe seu instagram">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                    <label for="youtube">Youtube:</label>
+                                    <input type="text" class="form-control" id="youtube" name="youtube"
+                                           value="{{old('youtube')}}" placeholder="informe seu canal do yotube">
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
-                <h2>Local:</h2>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="estado">Estado:</label>
-                    <select class="form-control selectpicker" id="estado" name="estado" @change="onChangeEstado($event)">
-                        <option value="">Selecione o estado</option>
-                        @foreach($estados as $estado)
-                            <option value="{{$estado->id}}" {{old('estado')==$estado->id?"selected":""}}>{{$estado->estado}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="cidade">Cidade:</label>
-                    <select class="form-control selectpicker" id="cidade" name="cidade">
-                        <option value="">Selecione a cidade</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
-                <h2>Fotos:</h2>
-
-                <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
-                    <label class="btn btn-primary" for="my-file-selector">
-                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
-                        Procurar foto
-                    </label>
-                    <span class='label label-info' id="upload-file-info"></span>
-                </div>
-            </div>
-
-
-
-            <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
-                <h2>Redes sociais:</h2>
-
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="facebook">Facebook:</label>
-                    <input type="text" class="form-control" id="facebook" name="facebook"
-                           value="{{old('facebook')}}" placeholder="informe seu facebook">
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="instagram">Instagram:</label>
-                    <input type="text" class="form-control" id="instagram" name="instagram"
-                           value="{{old('instagram')}}" placeholder="informe seu instagram">
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="youtube">Youtube:</label>
-                    <input type="text" class="form-control" id="youtube" name="youtube"
-                           value="{{old('youtube')}}" placeholder="informe seu canal do yotube">
-                </div>
-            </div>
-
-            <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-                </div>
-            </div>
-
-        </form>
+        </div>
     </div>
 @endsection
 
 @section('scripts')
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
+    <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
     <script>
         jQuery('#cache').mask('000.000.000.000.000,00', {reverse: true});
 
@@ -190,5 +301,32 @@
             });
         });
 
+        CKEDITOR.replace( 'description' );
+
+        jQuery('#type').on('rendered.bs.select', function (e) {
+            var selected = jQuery('#type option:selected').val();
+            if(selected==1){
+                jQuery('#divcache').show();
+                jQuery('#divestilos').show();
+                jQuery('#divvideo').show();
+                jQuery('#divcategoria').hide();
+                jQuery('#divsubcategoria').hide();
+
+            }
+            if(selected==2){
+                jQuery('#divcache').hide();
+                jQuery('#divestilos').hide();
+                jQuery('#divvideo').hide();
+                jQuery('#divcategoria').show();
+                jQuery('#divsubcategoria').show();
+            }
+            if(selected==''){
+                jQuery('#divcache').hide();
+                jQuery('#divestilos').hide();
+                jQuery('#divvideo').hide();
+                jQuery('#divcategoria').hide();
+                jQuery('#divsubcategoria').hide();
+            }
+        });
     </script>
 @endsection

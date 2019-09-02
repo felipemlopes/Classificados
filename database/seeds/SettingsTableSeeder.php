@@ -55,5 +55,9 @@ class SettingsTableSeeder extends Seeder
             ['key' => 'price_ads_premium', 'value' => '10,00']
         );
 
+        \Illuminate\Support\Facades\DB::table('settings')->insert(
+            ['key' => 'peer_page', 'value' => 12]
+        );
+
     }
 }

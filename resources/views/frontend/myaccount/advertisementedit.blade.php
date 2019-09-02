@@ -9,237 +9,238 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 menu-minhaconta">
-                <ul class="list-inline text-center">
-                    <li class="li-menuminhaconta">
-                        <a href="{{ route('myaccount.index') }}" class="link-myaccount">
-                            <i class="fa fa-home"></i> Minha conta</a>
-                    </li>
-                    <li class="li-menuminhaconta">
-                        <a href="{{ route('myaccount.advertisement') }}" class="link-myaccount active">
-                            <i class="fa fa-tags"></i> Anúncios</a>
-                    </li>
-                    <li class="li-menuminhaconta">
-                        <a href="{{ route('myaccount.plan') }}" class="link-myaccount">
-                            <i class="fa fa-credit-card"></i> Plano</a>
-                    </li>
-                    <li class="li-menuminhaconta">
-                        <a href="{{ route('myaccount.settings') }}" class="link-myaccount">
-                            <i class="fa fa-cog"></i> Configurações</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-sm-12 col-md-12 col-lg-12 secao-minhaconta">
-
-                @include('partials.messages')
-                <div class="nav-tabs-custom">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#details" aria-controls="details" role="tab" data-toggle="tab">
-                                <i class="fa fa-info"></i>
-                                Detalhes
-                            </a>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box">
+                <div class="col-sm-12 col-md-12 col-lg-12 menu-minhaconta">
+                    <ul class="list-inline text-center">
+                        <li class="li-menuminhaconta">
+                            <a href="{{ route('myaccount.index') }}" class="link-myaccount">
+                                <i class="fa fa-home"></i> Minha conta</a>
                         </li>
-                        <li role="presentation">
-                            <a href="#image" aria-controls="image" role="tab" data-toggle="tab">
-                                <i class="fa fa-picture-o"></i>
-                                Alterar imagem
-                            </a>
+                        <li class="li-menuminhaconta">
+                            <a href="{{ route('myaccount.advertisement') }}" class="link-myaccount active">
+                                <i class="fa fa-tags"></i> Anúncios</a>
+                        </li>
+                        <li class="li-menuminhaconta">
+                            <a href="{{ route('myaccount.plan') }}" class="link-myaccount">
+                                <i class="fa fa-credit-card"></i> Plano</a>
+                        </li>
+                        <li class="li-menuminhaconta">
+                            <a href="{{ route('myaccount.settings') }}" class="link-myaccount">
+                                <i class="fa fa-cog"></i> Configurações</a>
                         </li>
                     </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active secao-ajuste" id="details">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 secao-ajuste-topo">
-                                    <div class="col-md-12">
-                                        <form action="{{route('myaccount.advertisement.update',$advertisement->id)}}" method="post">
-                                            @csrf
-                                            <h2 class="text-center">Editar detalhes</h2>
-                                            <div class="col-md-12">
-                                                <input type="hidden" name="type" value="{{$advertisement->embedded_type=="App\Models\Artist"?1:2}}">
-                                                @if($advertisement->embedded_type=="App\Models\Artist")
-                                                    <div class="form-group">
-                                                        <label for="name">Título</label>
-                                                        <input type="text" class="form-control" id="title"
-                                                               name="title" placeholder="Título do anúncio" value="{{ $edit ? $advertisement->embedded->title : old('title') }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="description">Descrição:</label>
-                                                        <textarea class="form-control" rows="5" id="description" name="description">{{ $edit ? $advertisement->embedded->description : old('description') }}</textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="title">Cachê:</label>
-                                                        <input type="text" class="form-control" name="cache"
-                                                               id="cache" value="{{ $edit ? $advertisement->embedded->cache : old('cache') }}">
-                                                    </div>
-                                                    <div>
-                                                        <label>Estilo musical:</label>
-                                                        @foreach($estilos as $estilo)
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" value="{{$estilo->id}}" name="estilos[]"
-                                                                            {{$advertisement->embedded->checkMusicStyle($estilo->id)==true?'checked':''}}>{{$estilo->name}}
-                                                                </label>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 secao-minhaconta">
+
+                    @include('partials.messages')
+                    <div class="nav-tabs-custom">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#details" aria-controls="details" role="tab" data-toggle="tab">
+                                    <i class="fa fa-info"></i>
+                                    Detalhes
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#image" aria-controls="image" role="tab" data-toggle="tab">
+                                    <i class="fa fa-picture-o"></i>
+                                    Alterar imagem
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active secao-ajuste" id="details">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 secao-ajuste-topo">
+                                        <div class="col-md-12">
+                                            <form action="{{route('myaccount.advertisement.update',$advertisement->id)}}" method="post">
+                                                @csrf
+                                                <h2 class="text-center">Editar detalhes</h2>
+                                                <div class="col-md-12">
+                                                    <input type="hidden" name="type" value="{{$advertisement->embedded_type=="App\Models\Artist"?1:2}}">
+                                                    @if($advertisement->embedded_type=="App\Models\Artist")
+                                                        <div class="form-group">
+                                                            <label for="name">Título</label>
+                                                            <input type="text" class="form-control" id="title"
+                                                                   name="title" placeholder="Título do anúncio" value="{{ $edit ? $advertisement->embedded->title : old('title') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="description">Descrição:</label>
+                                                            <textarea class="form-control" rows="5" id="description" name="description">{{ $edit ? $advertisement->embedded->description : old('description') }}</textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="title">Cachê:</label>
+                                                            <input type="text" class="form-control" name="cache"
+                                                                   id="cache" value="{{ $edit ? $advertisement->embedded->cache : old('cache') }}">
+                                                        </div>
+                                                        <div>
+                                                            <label>Estilo musical:</label>
+                                                            @foreach($estilos as $estilo)
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <input type="checkbox" value="{{$estilo->id}}" name="estilos[]"
+                                                                                {{$advertisement->embedded->checkMusicStyle($estilo->id)==true?'checked':''}}>{{$estilo->name}}
+                                                                    </label>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="youtube">video do youtube:</label>
+                                                            <input type="text" class="form-control" id="videoyoutube" name="videoyoutube"
+                                                                   value="{{ $edit ? $advertisement->embedded->video : old('videoyoutube') }}" placeholder="informe um link de vídeo do youtube">
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label for="estado">Estado:</label>
+                                                                <select class="form-control" id="estado" name="estado" @change="onChangeEstado($event)">
+                                                                    <option value="">Selecione</option>
+                                                                    @foreach($estados as $estado)
+                                                                        <option value="{{$estado->id}}" {{$advertisement->estado_id==$estado->id?"selected":""}}>{{$estado->estado}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
-                                                        @endforeach
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="youtube">video do youtube:</label>
-                                                        <input type="text" class="form-control" id="videoyoutube" name="videoyoutube"
-                                                               value="{{ $edit ? $advertisement->embedded->video : old('videoyoutube') }}" placeholder="informe um link de vídeo do youtube">
-                                                    </div>
-                                                    <div>
+                                                            <div class="form-group">
+                                                                <label for="cidade">Cidade:</label>
+                                                                <select class="form-control" id="cidade" name="cidade">
+                                                                    <option value="">Selecione</option>
+                                                                    @foreach($cidades as $cidade)
+                                                                        <option value="{{$cidade->id}}" {{$advertisement->cidade_id==$cidade->id?"selected":""}}>{{$cidade->cidade}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label for="facebook">Facebook:</label>
+                                                                <input type="text" class="form-control" id="facebook" name="facebook"
+                                                                       value="{{ $edit ? $advertisement->embedded->facebook : old('facebook') }}" placeholder="informe seu facebook">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="instagram">Instagram:</label>
+                                                                <input type="text" class="form-control" id="instagram" name="instagram"
+                                                                       value="{{ $edit ? $advertisement->embedded->instagram : old('instagram') }}" placeholder="informe seu instagram">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="youtube">Youtube:</label>
+                                                                <input type="text" class="form-control" id="youtube" name="youtube"
+                                                                       value="{{ $edit ? $advertisement->embedded->youtube : old('youtube') }}" placeholder="informe seu canal do yotube">
+                                                            </div>
+                                                        </div>
+                                                    @else
                                                         <div class="form-group">
-                                                            <label for="estado">Estado:</label>
-                                                            <select class="form-control" id="estado" name="estado" @change="onChangeEstado($event)">
+                                                            <label for="name">Título</label>
+                                                            <input type="text" class="form-control" id="title"
+                                                                   name="title" placeholder="Título do anúncio" value="{{ $edit ? $advertisement->embedded->title : old('title') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="description">Descrição:</label>
+                                                            <textarea class="form-control" rows="5" id="description" name="description">{{ $edit ? $advertisement->embedded->description : old('description') }}</textarea>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="categoria">Categoria:</label>
+                                                            <select class="form-control" id="categoria" name="categoria" @change="onChangeCategoria($event)">
                                                                 <option value="">Selecione</option>
-                                                                @foreach($estados as $estado)
-                                                                    <option value="{{$estado->id}}" {{$advertisement->estado_id==$estado->id?"selected":""}}>{{$estado->estado}}</option>
+                                                                @foreach($categorias as $categoria)
+                                                                    <option value="{{$categoria->id}}" {{$advertisement->embedded->category_id==$categoria->id?"selected":""}}>{{$categoria->name}}</option>
                                                                 @endforeach
                                                             </select>
+
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="cidade">Cidade:</label>
-                                                            <select class="form-control" id="cidade" name="cidade">
+                                                            <label for="subcategoria">Sub categoria:</label>
+                                                            <select class="form-control" id="subcategoria" name="subcategoria">
                                                                 <option value="">Selecione</option>
-                                                                @foreach($cidades as $cidade)
-                                                                    <option value="{{$cidade->id}}" {{$advertisement->cidade_id==$cidade->id?"selected":""}}>{{$cidade->cidade}}</option>
+                                                                @foreach($subcategorias as $subcategoria)
+                                                                    <option value="{{$subcategoria->id}}" {{$advertisement->embedded->subcategory_id==$subcategoria->id?"selected":""}}>{{$subcategoria->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-group">
-                                                            <label for="facebook">Facebook:</label>
-                                                            <input type="text" class="form-control" id="facebook" name="facebook"
-                                                                   value="{{ $edit ? $advertisement->embedded->facebook : old('facebook') }}" placeholder="informe seu facebook">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="instagram">Instagram:</label>
-                                                            <input type="text" class="form-control" id="instagram" name="instagram"
-                                                                   value="{{ $edit ? $advertisement->embedded->instagram : old('instagram') }}" placeholder="informe seu instagram">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="youtube">Youtube:</label>
-                                                            <input type="text" class="form-control" id="youtube" name="youtube"
-                                                                   value="{{ $edit ? $advertisement->embedded->youtube : old('youtube') }}" placeholder="informe seu canal do yotube">
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="form-group">
-                                                        <label for="name">Título</label>
-                                                        <input type="text" class="form-control" id="title"
-                                                               name="title" placeholder="Título do anúncio" value="{{ $edit ? $advertisement->embedded->title : old('title') }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="description">Descrição:</label>
-                                                        <textarea class="form-control" rows="5" id="description" name="description">{{ $edit ? $advertisement->embedded->description : old('description') }}</textarea>
-                                                    </div>
 
-                                                    <div class="form-group">
-                                                        <label for="categoria">Categoria:</label>
-                                                        <select class="form-control" id="categoria" name="categoria" @change="onChangeCategoria($event)">
-                                                            <option value="">Selecione</option>
-                                                            @foreach($categorias as $categoria)
-                                                                <option value="{{$categoria->id}}" {{$advertisement->embedded->category_id==$categoria->id?"selected":""}}>{{$categoria->name}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label for="estado">Estado:</label>
+                                                                <select class="form-control" id="estado" name="estado" @change="onChangeEstado($event)">
+                                                                    <option value="">Selecione o estado</option>
+                                                                    @foreach($estados as $estado)
+                                                                        <option value="{{$estado->id}}" {{$advertisement->estado_id==$estado->id?"selected":""}}>{{$estado->estado}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="cidade">Cidade:</label>
+                                                                <select class="form-control" id="cidade" name="cidade">
+                                                                    <option value="">Selecione a cidade</option>
+                                                                    @foreach($cidades as $cidade)
+                                                                        <option value="{{$cidade->id}}" {{$advertisement->cidade_id==$cidade->id?"selected":""}}>{{$cidade->cidade}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label for="facebook">Facebook:</label>
+                                                                <input type="text" class="form-control" id="facebook" name="facebook"
+                                                                       value="{{ $edit ? $advertisement->embedded->facebook : old('facebook') }}" placeholder="informe seu facebook">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="instagram">Instagram:</label>
+                                                                <input type="text" class="form-control" id="instagram" name="instagram"
+                                                                       value="{{ $edit ? $advertisement->embedded->instagram : old('instagram') }}" placeholder="informe seu instagram">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="youtube">Youtube:</label>
+                                                                <input type="text" class="form-control" id="youtube" name="youtube"
+                                                                       value="{{ $edit ? $advertisement->embedded->youtube : old('youtube') }}" placeholder="informe seu canal do yotube">
+                                                            </div>
+                                                        </div>
+                                                    @endif
 
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="subcategoria">Sub categoria:</label>
-                                                        <select class="form-control" id="subcategoria" name="subcategoria">
-                                                            <option value="">Selecione</option>
-                                                            @foreach($subcategorias as $subcategoria)
-                                                                <option value="{{$subcategoria->id}}" {{$advertisement->embedded->subcategory_id==$subcategoria->id?"selected":""}}>{{$subcategoria->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-                                                    <div>
-                                                        <div class="form-group">
-                                                            <label for="estado">Estado:</label>
-                                                            <select class="form-control" id="estado" name="estado" @change="onChangeEstado($event)">
-                                                                <option value="">Selecione o estado</option>
-                                                                @foreach($estados as $estado)
-                                                                    <option value="{{$estado->id}}" {{$advertisement->estado_id==$estado->id?"selected":""}}>{{$estado->estado}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="cidade">Cidade:</label>
-                                                            <select class="form-control" id="cidade" name="cidade">
-                                                                <option value="">Selecione a cidade</option>
-                                                                @foreach($cidades as $cidade)
-                                                                    <option value="{{$cidade->id}}" {{$advertisement->cidade_id==$cidade->id?"selected":""}}>{{$cidade->cidade}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="form-group">
-                                                            <label for="facebook">Facebook:</label>
-                                                            <input type="text" class="form-control" id="facebook" name="facebook"
-                                                                   value="{{ $edit ? $advertisement->embedded->facebook : old('facebook') }}" placeholder="informe seu facebook">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="instagram">Instagram:</label>
-                                                            <input type="text" class="form-control" id="instagram" name="instagram"
-                                                                   value="{{ $edit ? $advertisement->embedded->instagram : old('instagram') }}" placeholder="informe seu instagram">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="youtube">Youtube:</label>
-                                                            <input type="text" class="form-control" id="youtube" name="youtube"
-                                                                   value="{{ $edit ? $advertisement->embedded->youtube : old('youtube') }}" placeholder="informe seu canal do yotube">
-                                                        </div>
+                                                </div>
+                                                @if ($edit)
+                                                    <div class="col-md-12">
+                                                        <button type="submit" class="btn btn-primary" id="update-details-btn">
+                                                            <i class="fa fa-refresh"></i>
+                                                            Atualizar anúncio
+                                                        </button>
                                                     </div>
                                                 @endif
-
-                                            </div>
-                                            @if ($edit)
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-primary" id="update-details-btn">
-                                                        <i class="fa fa-refresh"></i>
-                                                        Atualizar anúncio
-                                                    </button>
-                                                </div>
-                                            @endif
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="image">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 secao-ajuste-topo">
-                                    <div class="col-md-12">
-                                        <h2 class="text-center">Alterar imagem</h2>
+                            <div role="tabpanel" class="tab-pane" id="image">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 secao-ajuste-topo">
+                                        <div class="col-md-12">
+                                            <h2 class="text-center">Alterar imagem</h2>
 
-                                        <div>
-                                            <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px; margin:0 auto;">
-                                        </div>
-
-                                        <form action="{{route('myaccount.advertisement.update.image',$advertisement->id)}}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="text-center" style="padding-bottom:10px;">
-                                                <label class="btn btn-primary" for="my-file-selector">
-                                                    <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
-                                                    Procurar foto
-                                                </label>
-                                                <span class='label label-info' id="upload-file-info"></span>
+                                            <div>
+                                                <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px; margin:0 auto;">
                                             </div>
-                                            @if ($edit)
-                                                <div class="text-center">
-                                                    <button type="submit" class="btn btn-primary" id="update-details-btn">
-                                                        <i class="fa fa-refresh"></i>
-                                                        Atualizar imagem
-                                                    </button>
+
+                                            <form action="{{route('myaccount.advertisement.update.image',$advertisement->id)}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="text-center" style="padding-bottom:10px;">
+                                                    <label class="btn btn-primary" for="my-file-selector">
+                                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+                                                        Procurar foto
+                                                    </label>
+                                                    <span class='label label-info' id="upload-file-info"></span>
                                                 </div>
-                                            @endif
-                                        </form>
+                                                @if ($edit)
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-primary" id="update-details-btn">
+                                                            <i class="fa fa-refresh"></i>
+                                                            Atualizar imagem
+                                                        </button>
+                                                    </div>
+                                                @endif
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -254,7 +255,9 @@
 
 @section('scripts')
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
+    <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
     <script>
-        $('#cache').mask('000.000.000.000.000,00', {reverse: true});
+        jQuery('#cache').mask('000.000.000.000.000,00', {reverse: true});
+        CKEDITOR.replace( 'description' );
     </script>
 @endsection

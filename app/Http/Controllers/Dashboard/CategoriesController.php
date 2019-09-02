@@ -27,18 +27,28 @@ class CategoriesController extends Controller
         }
         $peer_page = 15;
         $search = Input::get('search');
+        $categoria = Input::get('category');
         $categories = Category::Query();
         if ($search <> "") {
             $categories->where(function ($q) use ($search) {
                 $q->where('name', "like", "%{$search}%");
             });
         }
+        if ($categoria <> "") {
+            $categories->where(function ($q) use ($categoria) {
+                $q->where('parent_id', $categoria);
+            });
+        }
         $categories = $categories->paginate($peer_page);
         if ($search) {
             $categories->appends(['search' => $search]);
         }
+        if ($categoria) {
+            $categories->appends(['category' => $categoria]);
+        }
+        $categoriaspai = Category::where('parent_id',null)->get();
 
-        return view('dashboard.category.list', compact('categories'));
+        return view('dashboard.category.list', compact('categories','categoriaspai'));
     }
 
     /**

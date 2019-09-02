@@ -16,13 +16,13 @@ class CreateConversationsTable extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->bigInteger('user_one')->unsigned();
-            $table->foreign('user_one')->
+            $table->bigInteger('sender_id')->unsigned();
+            $table->foreign('sender_id')->
                 references('id')->
                 on('users')->
                 onDelete('cascade');
-            $table->bigInteger('user_two')->unsigned();
-            $table->foreign('user_two')->
+            $table->bigInteger('advertiser_id')->unsigned();
+            $table->foreign('advertiser_id')->
                 references('id')->
                 on('users')->
                 onDelete('cascade');

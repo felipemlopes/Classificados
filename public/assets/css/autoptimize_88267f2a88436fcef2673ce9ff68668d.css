@@ -26382,7 +26382,8 @@ body {
         display: none
     }
     #Top_bar #logo img.logo-mobile {
-        display: inline-block
+        display: inline-block;
+        margin-top: 7px !important;
     }
     #Top_bar #logo img.logo-mobile-sticky {
         display: none

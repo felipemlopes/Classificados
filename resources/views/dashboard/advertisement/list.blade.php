@@ -56,6 +56,7 @@
                     <table class="table table-hover table-striped">
                         <tbody>
                             <tr>
+                                <th>Imagem</th>
                                 <th>Título</th>
                                 <th>Tipo</th>
                                 <th>Usuário</th>
@@ -65,6 +66,7 @@
                             @if (count($advertisements))
                             @foreach ($advertisements as $advertisement)
                             <tr>
+                                <td><img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="width:50px;"></td>
                                 <td>{{ $advertisement->embedded->title }}</td>
                                 <td>{{ $advertisement->getType() }}</td>
                                 <td>{{ $advertisement->user->email }}</td>

@@ -53,6 +53,7 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="imagem">
             <div class="col-lg-4 col-md-5">
+                <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px;">
                 <form action="{{route('dashboard.advertisement.updateimage',$advertisement->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div style="padding-bottom:10px;">

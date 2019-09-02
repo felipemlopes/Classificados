@@ -19,63 +19,20 @@ class MessagesController extends Controller
             function ($query) use ($user) {
                 $query->where(
                     function ($q) use ($user) {
-                        $q->where('user_two', $user->id);
+                        $q->where('advertiser_id', $user->id);
                     }
                 )
                     ->orWhere(
                         function ($q) use ($user) {
-                            $q->where('user_one', $user->id);
+                            $q->where('sender_id', $user->id);
                         }
                     );
             }
         );
-        $conversations = $conversations->has('messages')->get();
+        $conversations = $conversations->has('messages')->paginate(15);
 
         return view('frontend.message.index', compact('conversations'));
     }
-
-    public function create($id)
-    {
-
-        $advertisement = Advertisement::where('id','=',$id)->firstOrFail();
-        if(!$advertisement){
-            return redirect()->back();
-        }
-        $user1 = User::find($advertisement->user_id);
-        $user2 = Auth::User();
-
-        $conversation = Conversation::with('messages')->where(
-            function ($query) use ($user1, $user2) {
-                $query->orwhere(
-                    function ($q) use ($user1, $user2) {
-                        $q->where('user_one', $user1->id)
-                            ->where('user_two', $user2->id);
-                    }
-                )
-                    ->orWhere(
-                        function ($q) use ($user1, $user2) {
-                            $q->where('user_one', $user2->id)
-                                ->where('user_two', $user1->id);
-                        }
-                    );
-            }
-        )->where('advertisement_id','=',$id)->first();
-
-        $messages = null;
-        if($conversation){
-            $messages = $conversation->messages;
-        }else{
-            $conversation = new Conversation();
-            $conversation->advertisement_id = $advertisement->id;
-            $conversation->user_one = Auth::User()->id;
-            $conversation->user_two = $advertisement->user_id;
-            $conversation->save();
-        }
-
-        return redirect()->route('message.show',$conversation->id);
-    }
-
-
 
     public function show($id)
     {
@@ -94,17 +51,67 @@ class MessagesController extends Controller
         return view('frontend.message.show', compact('messages','conversation'));
     }
 
-    public function send(Request $request)
+    public function send(Request $request,$id)
     {
+        $advertisement = Advertisement::where('id','=',$id)->firstOrFail();
+        if(!$advertisement){
+            return false;
+        }
+        $advertiser = User::find($advertisement->user_id);
+        $sender = Auth::User();
+
+        $conversation = Conversation::with('messages')->where(
+            function ($query) use ($advertiser, $sender) {
+                $query->orwhere(
+                    function ($q) use ($advertiser, $sender) {
+                        $q->where('sender_id', $advertiser->id)
+                            ->where('advertiser_id', $sender->id);
+                    }
+                )
+                    ->orWhere(
+                        function ($q) use ($advertiser, $sender) {
+                            $q->where('sender_id', $sender->id)
+                                ->where('advertiser_id', $advertiser->id);
+                        }
+                    );
+            }
+        )->where('advertisement_id','=',$id)->first();
+
+        $messages = null;
+        if($conversation){
+            $messages = $conversation->messages;
+        }else{
+            $conversation = new Conversation();
+            $conversation->advertisement_id = $advertisement->id;
+            $conversation->sender_id = Auth::User()->id;
+            $conversation->advertiser_id = $advertisement->user_id;
+            $conversation->save();
+        }
+
         $user_id = Auth::User()->id;
         $message = new Message();
         $message->user_id = $user_id;
-        $message->conversation_id = $request->conversation;
+        $message->conversation_id = $conversation->id;
         $message->message = $request->message;
         $message->save();
 
-        //envia email dizendo que o usuario recebeu uma mensagem
-
+        if($message->user_id!=$conversation->sender_id){
+            $usernotify = User::find($conversation->sender_id);
+            $usernotify->notify(new \App\Notifications\Message($message));
+        }else{
+            $usernotify = User::find($conversation->advertiser_id);
+            $usernotify->notify(new \App\Notifications\Message($message));
+        }
         return response()->json(['message'=>$message]);
+    }
+
+    public function delete($id){
+        $conversation = Conversation::find($id);
+        if($conversation->sender_id==Auth::User()->id or $conversation->advertiser_id==Auth::User()->id){
+            $conversation->delete();
+            return redirect()->route('message.index')->withSuccess('Conversa excluida com sucesso!');
+        }else{
+            return redirect()->route('message.index')->withErrors('Você não pode excluir essa conversa!');
+        }
     }
 }

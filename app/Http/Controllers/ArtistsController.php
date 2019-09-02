@@ -23,7 +23,8 @@ class ArtistsController extends Controller
      */
     public function index()
     {
-        $peer_page = 12;
+        $setting_peerpage = setting('peer_page');
+        $peer_page = $setting_peerpage == 0?12:$setting_peerpage;
         $style= Input::get('estilo');
         $state= Input::get('estado');
         $city= Input::get('cidade');
@@ -74,7 +75,7 @@ class ArtistsController extends Controller
         foreach ($destaques as $key=>$destaque){
             $array[$key]= $destaque->id;
         }
-        $artists = $artists->whereNotIn('artists.id', $array)->paginate($peer_page);
+        $artists = $artists->orderBy('advertisements.created_at', 'desc')->whereNotIn('artists.id', $array)->paginate($peer_page);
 
         if ($style) {
             $artists->appends(['estilo' => $style]);

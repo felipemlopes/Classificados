@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="">
             @include('partials.messages')
             <form method="get">
                 <div class="">
@@ -49,7 +49,7 @@
                                             <span class="fa fa-remove"></span> Limpar
                                         </a>
                                     @else
-                                        <button class="btn btn-primary pull-right btn-block">Enviar</button>
+                                        <button class="btn btn-primary pull-right btn-block">Buscar</button>
                                     @endif
                                 </span>
                                 </div>
@@ -66,15 +66,10 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="category-list">
-                    <div class="tab-box ">
-                    </div>
-                    <div class="col-lg-12">
-                    </div>
-                    <div class="">
-                    </div>
+                    @if(count($destaques) or count($artists))
                     <div class="adds-wrapper col-md-12">
                         @foreach($destaques as $destaque)
-                        <div class="item-list col-xs-12 col-sm-4 col-md-3">
+                        <div class="item-list col-xs-12 col-sm-4 col-md-3 anuncio">
                             <div>
                                 <div class="cornerRibbons topAds">
                                     <a> em destaque</a>
@@ -111,43 +106,42 @@
                             </div>-->
                         </div>
                         @endforeach
-
                         @foreach($artists as $artist)
-                        <div class="item-list col-xs-12 col-sm-4 col-md-3">
-                            <div class="no-padding photobox">
-                                <div class="add-image">
-                                    <a href="{{route('artist.show',$artist->id)}}">
-                                        <img class="thumbnail no-margin" src="{{asset('uploads/'.$artist->embedded->imagepath)}}" alt="img" style="height:186px;">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="add-desc-box">
-                                <div class="add-details">
-                                    <h5 class="add-title">
+                            <div class="item-list col-xs-12 col-sm-4 col-md-3 anuncio">
+                                <div class="no-padding photobox">
+                                    <div class="add-image">
                                         <a href="{{route('artist.show',$artist->id)}}">
-                                            {{$artist->embedded->title}}
+                                            <img class="thumbnail no-margin" src="{{asset('uploads/'.$artist->embedded->imagepath)}}" alt="img" style="height:186px;">
                                         </a>
-                                    </h5>
-                                    <span class="info-row">
-                                        <p class="category">
-                                            <i class="fa fa-music"></i>
-                                            {{ $artist->embedded->musicalstyles->first()->name }}
-                                        </p>
-                                        <p class="item-location">
-                                            <i class="fa fa-map-marker"></i>
-                                            {{$artist->city->cidade .' - '. $artist->state->sigla}}
-                                        </p>
-                                    </span>
-
+                                    </div>
                                 </div>
-                            </div>
-                            <!--<div class="text-right  price-box">
-                                <h2 class="item-price">Cachê R$ 2000,00{{--number_format($produto->preco, 2, ',', '')--}} </h2>
-                            </div>-->
-                        </div>
-                        @endforeach
+                                <div class="add-desc-box">
+                                    <div class="add-details">
+                                        <h5 class="add-title">
+                                            <a href="{{route('artist.show',$artist->id)}}">
+                                                {{$artist->embedded->title}}
+                                            </a>
+                                        </h5>
+                                        <span class="info-row">
+                                    <p class="category">
+                                        <i class="fa fa-music"></i>
+                                        {{ $artist->embedded->musicalstyles->first()->name }}
+                                    </p>
+                                    <p class="item-location">
+                                        <i class="fa fa-map-marker"></i>
+                                        {{$artist->city->cidade .' - '. $artist->state->sigla}}
+                                    </p>
+                                </span>
 
+                                    </div>
+                                </div>
+                            <!--<div class="text-right  price-box">
+                            <h2 class="item-price">Cachê R$ 2000,00{{--number_format($produto->preco, 2, ',', '')--}} </h2>
+                        </div>-->
+                            </div>
+                        @endforeach
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

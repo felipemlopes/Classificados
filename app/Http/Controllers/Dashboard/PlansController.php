@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\dashboard\plan\CreatePlanRequest;
 use App\Http\Requests\dashboard\plan\UpdatePlanRequest;
 use App\Models\Plan;
 use App\Models\PlanFeature;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use PagSeguroRecorrente;
 
 class PlansController extends Controller
 {
@@ -39,8 +41,64 @@ class PlansController extends Controller
         if ($search) {
             $plans->appends(['search' => $search]);
         }
-        //dd($plans,$plans[0]->subscriptions_count,$plans[1]->subscriptions_count);
+
         return view('dashboard.plan.list', compact('plans'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        if(!Auth::user()->can('Criar planos')){
+            return redirect()->back();
+        }
+
+
+        return view('dashboard.plan.add');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CreatePlanRequest $request)
+    {
+        if(!Auth::user()->can('Criar planos')){
+            return redirect()->route('dashboard.plan.list')->withErrors('Você não esta autorizado para executar esta ação.');
+        }
+        $preco = str_replace(",", ".", $request->price);
+        $reference = md5(str_random(15) . microtime());
+        $response = PagSeguroRecorrente::setReference($reference)
+            ->sendPreApprovalRequest([
+                'preApprovalName' => (string)$request->name,
+                'preApprovalCharge' => 'Auto',
+                'preApprovalPeriod' => 'MONTHLY',
+                'preApprovalAmountPerPayment' => (string)$preco,
+            ]);
+        $plan = new Plan();
+        $plan->name = $request->name;
+        $plan->price = $request->price;
+        $plan->reference = $response;
+        $plan->save();
+
+        \App\Models\PlanFeature::create([
+            'plan_id' => $plan->id,
+            'name' => 'qtd_ads_art',
+            'limit' => $request->qtd_ads_art,
+        ]);
+        \App\Models\PlanFeature::create([
+            'plan_id' => $plan->id,
+            'name' => 'qtd_ads_pro',
+            'limit' => $request->qtd_ads_pro,
+        ]);
+
+
+        return redirect()->route('dashboard.plan.list')->withSuccess('Plano criado com sucesso!');
     }
 
     /**
@@ -90,4 +148,20 @@ class PlansController extends Controller
         return redirect()->back()->withSuccess('Plano atualizado com sucesso!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($plan_id)
+    {
+        if(!Auth::user()->can('Excluir planos')){
+            return redirect()->back()->withErrors('Você não esta autorizado para executar esta ação.');
+        }
+        $plan = Plan::find($plan_id);
+        $plan->delete();
+
+        return redirect()->route('dashboard.plan.list')->withSuccess('Plano excluido com sucesso!');
+    }
 }

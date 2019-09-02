@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <label for="name">Nome</label>
                     <input type="text" class="form-control" id="name"
-                           name="name" placeholder="Nome da categoria" value="{{ $edit ? $plan->name : old('name') }}">
+                           name="name" placeholder="Nome do plano" value="{{ $edit ? $plan->name : old('name') }}">
                 </div>
                 <div class="form-group">
                     <label for="name">Preço</label>
