@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="no-padding photobox">
                                     <div class="add-image">
-                                        <a href="{{route('artist.show',$destaque->id)}}">
+                                        <a href="{{route('artist.show',$destaque->ads_id)}}">
                                             <img class="thumbnail no-margin" src="{{asset('uploads/'.$destaque->embedded->imagepath)}}" alt="img" style="height:186px;">
                                         </a>
                                     </div>
@@ -85,7 +85,7 @@
                             <div class="add-desc-box">
                                 <div class="add-details">
                                     <h5 class="add-title">
-                                        <a href="{{route('artist.show',$destaque->id)}}">
+                                        <a href="{{route('artist.show',$destaque->ads_id)}}">
                                             {{$destaque->embedded->title}}
                                         </a>
                                     </h5>
@@ -110,7 +110,7 @@
                             <div class="item-list col-xs-12 col-sm-4 col-md-3 anuncio">
                                 <div class="no-padding photobox">
                                     <div class="add-image">
-                                        <a href="{{route('artist.show',$artist->id)}}">
+                                        <a href="{{route('artist.show',$artist->ads_id)}}">
                                             <img class="thumbnail no-margin" src="{{asset('uploads/'.$artist->embedded->imagepath)}}" alt="img" style="height:186px;">
                                         </a>
                                     </div>
@@ -118,7 +118,7 @@
                                 <div class="add-desc-box">
                                     <div class="add-details">
                                         <h5 class="add-title">
-                                            <a href="{{route('artist.show',$artist->id)}}">
+                                            <a href="{{route('artist.show',$artist->ads_id)}}">
                                                 {{$artist->embedded->title}}
                                             </a>
                                         </h5>

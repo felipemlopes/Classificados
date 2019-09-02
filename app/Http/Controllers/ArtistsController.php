@@ -34,12 +34,12 @@ class ArtistsController extends Controller
 
 
         $artists = Advertisement::query()->Published();
-        $artists = $artists->select('advertisements.*','artists.*')
+        $artists = $artists->select('advertisements.*','artists.*','advertisements.id as ads_id')
             ->join('artists', function ($join) {
                 $join->on('artists.id', '=', 'advertisements.embedded_id');
                 $join->where('embedded_type','=', 'App\Models\Artist');
             });
-        $destaques->select('advertisements.*','artists.*')
+        $destaques->select('advertisements.*','artists.*','advertisements.id as ads_id')
             ->join('artists', function ($join) {
                 $join->on('artists.id', '=', 'advertisements.embedded_id');
                 $join->where('embedded_type','=', 'App\Models\Artist');
@@ -90,7 +90,7 @@ class ArtistsController extends Controller
         $styles = MusicStyle::all();
         $states=Estado::all();
         $cities=Cidade::where('estado_id','=',$state)->get();
-
+        
         return view('frontend.artists.index', compact('styles','states','cities',
             'artists','destaques'));
     }
