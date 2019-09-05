@@ -34,7 +34,7 @@ class PagamentoObserver
             }
         }
         if($pagamento->paymentable_type=="App\Models\PlanSubscription"){
-            if($pagamento->status==2){
+            if($pagamento->status==3){
                 $subscription = PlanSubscription::find($pagamento->paymentable_id);
                 $subscription->is_paid = true;
                 $subscription->starts_on = Carbon::now();
@@ -42,7 +42,7 @@ class PagamentoObserver
                 $subscription->is_paid = true;
                 $subscription->save();
             }
-            if($pagamento->status==3){
+            if($pagamento->status==4){
                 $subscription = PlanSubscription::find($pagamento->paymentable_id);
                 $subscription->is_paid = true;
                 $subscription->starts_on = Carbon::now();
@@ -78,7 +78,7 @@ class PagamentoObserver
             }
         }
         if($pagamento->paymentable_type=="App\Models\PlanSubscription"){
-            if($pagamento->status==2){
+            if($pagamento->status==3){
                 $subscription = PlanSubscription::find($pagamento->paymentable_id);
                 $subscription->is_paid = true;
                 $subscription->starts_on = Carbon::now();
@@ -86,7 +86,7 @@ class PagamentoObserver
                 $subscription->is_paid = true;
                 $subscription->save();
             }
-            if($pagamento->status==3){
+            if($pagamento->status==4){
                 $subscription = PlanSubscription::find($pagamento->paymentable_id);
                 $subscription->is_paid = true;
                 $subscription->starts_on = Carbon::now();

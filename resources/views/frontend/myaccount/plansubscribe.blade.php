@@ -261,6 +261,11 @@
 
 @section('scripts')
     <script src="{{asset('/js/jquery.mask.min.js')}}"></script>
+    @if (env('PAGSEGURO_SANDBOX')=='true')
+        <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    @else
+        <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    @endif
     <script>
         jQuery(document).ready(function(){
             jQuery('#billingAddressPostalCode').mask('00000-000');
@@ -270,7 +275,6 @@
             jQuery('#creditCardHolderCPF').mask('000.000.000-00', {reverse: true});
         });
     </script>
-    <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
     <script src="/js/pagseguro.js"></script>
     <script>
         const paymentData = {
@@ -280,14 +284,14 @@
 
         PagSeguroDirectPayment.setSessionId('{{ PagSeguro::startSession() }}');
 
-        pagSeguro.getPaymentMethods(paymentData.amount)
+        /*pagSeguro.getPaymentMethods(paymentData.amount)
             .then(function (urls) {
                 let html = '';
                 urls.forEach(function (url) {
                     html += '<img src="' + url + '" class="credit_card">'
                 });
                 jQuery('#payment_methods').html(html);
-            });
+            });*/
 
         jQuery('#senderName').on('change', function () {
             pagSeguro.getSenderHash().then(function(data) {
@@ -359,9 +363,11 @@
                 },
                 error: function(response) {
                     //tratamento do erro
+                    console.log(response);
                 },
                 complete: function(response) {
                     //tratamento comum para todas chamadas
+                    console.log(response);
                 }
             });
         }

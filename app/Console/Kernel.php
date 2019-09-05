@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Console\Commands\CheckUsersPlans;
 use App\Console\Commands\RemoveAdvertisements;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -16,7 +15,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\RemoveAdvertisements::class,
-        Commands\CheckUsersPlans::class,
     ];
 
     /**
@@ -28,8 +26,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command(RemoveAdvertisements::class)->daily('2:00')
-            ->timezone('America/Sao_Paulo');
-        $schedule->command(CheckUsersPlans::class)->daily('1:00')
             ->timezone('America/Sao_Paulo');
     }
 

@@ -5230,3 +5230,26 @@ table td {
 table tr:first-child td{
   box-shadow: none !important;
 }
+
+.panel-primary{
+  background-color: #F20E4C !important;
+  color: #fff;
+}
+
+.img-anuncio{
+  height: auto;
+  width: auto;
+}
+
+.bg-titulo-interno{
+  height: 150px;
+  color:#fff;
+  background: url('/assets/images/top-img-1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.titulo-interno{
+  position:relative;
+  padding-top: 50px;
+}

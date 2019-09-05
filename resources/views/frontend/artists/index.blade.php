@@ -1,65 +1,64 @@
 @extends('frontend.layouts.masterteste')
 
+@section('titulo-interno')
+    <div class="bg-titulo-interno">
+        <h1 class="text-center titulo-interno">Artistas</h1>
+    </div>
+@endsection
 
 @section('content')
     <div class="container">
-        <div class="">
-            @include('partials.messages')
-            <form method="get">
-                <div class="">
-                    <div class="">
-                        <h1 class="text-center">Artistas</h1>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box-filtros">
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 filtro">
-                                <select name="estilo" id="estilo" class="form-control selectpicker" data-live-search="true">
-                                    <option value="">Selecione o estilo</option>
-                                    @foreach($styles as $style)
-                                        <option value="{{$style->id}}" {{app('request')->input('estilo')==$style->id? 'selected':''}}>
-                                            {{$style->name}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 filtro">
-                                <select name="estado" id="estado" class="form-control selectpicker" data-live-search="true">
-                                    <option value="">Selecione o estado</option>
-                                    @foreach($states as $state)
-                                        <option value="{{$state->id}}" {{app('request')->input('estado')==$state->id? 'selected':''}}>
-                                            {{$state->estado}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 filtro">
-                                <select name="cidade" id="cidade" class="form-control selectpicker" data-live-search="true">
-                                    <option value="">Selecione a cidade</option>
-                                    @foreach($cities as $city)
-                                        <option value="{{$city->id}}" {{app('request')->input('cidade')==$city->id? 'selected':''}}>
-                                            {{$city->cidade}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-push-8 col-md-push-8 col-sm-push-8 col-xs-12 col-sm-4 col-md-4 col-lg-4 filtro">
-                                <div class="input-group ">
-                                <span class="input-group-btn btn-block">
-                                    @if (app('request')->input('estilo') != '' || app('request')->input('estado') != '' || app('request')->input('cidade') != '')
-                                        <button class="btn btn-primary pull-right btn-block" style="width: 50%;">Enviar</button>
-                                        <a href="{{ route('artist.index') }}" class="btn btn-default pull-right btn-block" type="button" style="width: 50%; bottom: 5px;">
-                                            <span class="fa fa-remove"></span> Limpar
-                                        </a>
-                                    @else
-                                        <button class="btn btn-primary pull-right btn-block">Buscar</button>
-                                    @endif
-                                </span>
-                                </div>
-                            </div>
+        @include('partials.messages')
+        <form method="get">
+            <div class="">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box-filtros">
+                    <div class="col-xs-12 col-sm-4 col-md-4-artistas col-lg-4-artistas filtro">
+                        <select name="estilo" id="estilo" class="form-control selectpicker" data-live-search="true">
+                            <option value="">Selecione o estilo</option>
+                            @foreach($styles as $style)
+                                <option value="{{$style->id}}" {{app('request')->input('estilo')==$style->id? 'selected':''}}>
+                                    {{$style->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4-artistas col-lg-4-artistas filtro">
+                        <select name="estado" id="estado" class="form-control selectpicker" data-live-search="true">
+                            <option value="">Selecione o estado</option>
+                            @foreach($states as $state)
+                                <option value="{{$state->id}}" {{app('request')->input('estado')==$state->id? 'selected':''}}>
+                                    {{$state->estado}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4-artistas col-lg-4-artistas filtro">
+                        <select name="cidade" id="cidade" class="form-control selectpicker" data-live-search="true">
+                            <option value="">Selecione a cidade</option>
+                            @foreach($cities as $city)
+                                <option value="{{$city->id}}" {{app('request')->input('cidade')==$city->id? 'selected':''}}>
+                                    {{$city->cidade}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-push-0 col-md-push-0 col-sm-push-8 col-xs-12 col-sm-4-artistas col-md-4-artistas col-lg-4-artistas filtro">
+                        <div class="input-group ">
+                        <span class="input-group-btn btn-block">
+                            @if (app('request')->input('estilo') != '' || app('request')->input('estado') != '' || app('request')->input('cidade') != '')
+                                <button class="btn btn-primary pull-right btn-block" style="width: 50%;">Enviar</button>
+                                <a href="{{ route('artist.index') }}" class="btn btn-default pull-right btn-block" type="button" style="width: 50%; bottom: 5px;">
+                                    <span class="fa fa-remove"></span> Limpar
+                                </a>
+                            @else
+                                <button class="btn btn-primary pull-right btn-block">Buscar</button>
+                            @endif
+                        </span>
                         </div>
-
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
     <div class="container">
@@ -169,6 +168,5 @@
                 jQuery('#cidade').selectpicker('refresh');
             });
         });
-
     </script>
 @endsection

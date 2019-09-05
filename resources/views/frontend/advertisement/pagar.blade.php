@@ -164,8 +164,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Parcelas<strong class="text-danger"> *</strong></label>
-                                    <select name="installmentQuantity" id="installmentQuantity" class="form-control browser-default selectpicker">
-                                        <option disabled selected>Parcelamento</option>
+                                    <select name="installmentQuantity" id="installmentQuantity" class="form-control">
+                                        <option value="" selected>Parcelamento</option>
                                     </select>
                                 </div>
                             </div>
@@ -262,6 +262,12 @@
 
 
 @section('scripts')
+    @if (env('PAGSEGURO_SANDBOX')=='true')
+        <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    @else
+        <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    @endif
+
     <script src="{{asset('/js/jquery.mask.min.js')}}"></script>
     <script>
         jQuery(document).ready(function(){
@@ -272,7 +278,6 @@
             jQuery('#creditCardHolderCPF').mask('000.000.000-00', {reverse: true});
         });
     </script>
-    <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
     <script src="/js/pagseguro.js"></script>
     <script>
         const paymentData = {
@@ -282,14 +287,28 @@
 
         PagSeguroDirectPayment.setSessionId('{{ PagSeguro::startSession() }}');
 
-        pagSeguro.getPaymentMethods(paymentData.amount)
+        /*pagSeguro.getPaymentMethods(paymentData.amount)
             .then(function (urls) {
                 let html = '';
                 urls.forEach(function (url) {
                     html += '<img src="' + url + '" class="credit_card">'
                 });
                 jQuery('#payment_methods').html(html);
-            });
+            });*/
+        /*PagSeguroDirectPayment.getPaymentMethods({
+            amount: 500.00,
+            success: function(response) {
+                // Retorna os meios de pagamento disponíveis.
+            },
+            error: function(response) {
+                // Callback para chamadas que falharam.
+            },
+            complete: function(response) {
+                // Callback para todas chamadas.
+            }
+        });*/
+
+
 
         jQuery('#senderName').on('change', function () {
             pagSeguro.getSenderHash().then(function(data) {
@@ -314,35 +333,46 @@
         jQuery('#cardNumber').on('change', function() {
             if (jQuery(this).val().length >= 6) {
                 let bin = jQuery(this).val();
-                pagSeguro.getBrand(bin)
-                    .then(function (res) {
-                        paymentData.brand = res.result.brand.name;
-                        jQuery('#card_brand').html('<img src="' + res.url + '" class="credit_card">')
-                        return pagSeguro.getInstallments(paymentData.amount, paymentData.brand);
-                    })
-                    .then(function(res) {
-                        let html = '';
-                        res.forEach(function (item) {
-                            html += '<option value="' + item.quantity + '">' + item.quantity + 'x R$' + item.installmentAmount + ' - total R$' + item.totalAmount + '</option>'
+                PagSeguroDirectPayment.getBrand({
+                    cardBin: 411111,
+                    success: function(response) {
+                        paymentData.brand = response.brand.name;
+                        let url = 'https://stc.pagseguro.uol.com.br//public/img/payment-methods-flags/42x20/';
+                        jQuery('#card_brand').html('<img src="' + url+response.brand.name+'.png' + '" class="credit_card">')
+                        PagSeguroDirectPayment.getInstallments({
+                            amount: paymentData.amount,
+                            maxInstallmentNoInterest: 0,
+                            brand: response.brand.name,
+                            success: function(response){
+                                let html = '';
+                                response.installments[paymentData.brand].forEach(function (item) {
+                                    html = html + '<option value="' + item.quantity + '">' + item.quantity + 'x R$' + item.installmentAmount + ' - total R$' + item.totalAmount + '</option>';
+                                });
+                                jQuery('#installmentQuantity').html(html);
+                                jQuery('#installmentValue').val(response.installments[paymentData.brand][0].installmentAmount);
+                                jQuery('#installmentQuantity').on('change', function () {
+                                    let value = response[jQuery('#installmentQuantity').val() - 1].installmentAmount;
+                                    jQuery('#installmentValue').val(value);
+                                });
+                            },
+                            error: function(response) {
+                            },
+                            complete: function(response){
+                            }
                         });
-                        jQuery('#installmentQuantity').html(html);
-                        jQuery('#installmentValue').val(res[0].installmentAmount);
-                        jQuery('#installmentQuantity').on('change', function () {
-                            let value = res[jQuery('#installmentQuantity').val() - 1].installmentAmount;
-                            jQuery('#installmentValue').val(value);
-                        });
-                        jQuery('#installmentQuantity').selectpicker('refresh');
-                    })
+                    },
+                    error: function(response) {
+                    },
+                    complete: function(response) {
+                    }
+                });
             }
         });
-
 
         function pagar(){
             gerarCreditToken();
         }
-
         function gerarCreditToken(){
-
             PagSeguroDirectPayment.createCardToken({
                 cardNumber: jQuery("input#cardNumber").val(),
                 brand: paymentData.brand,
@@ -350,8 +380,6 @@
                 expirationMonth: jQuery("#expirationMonth option:selected").val(),
                 expirationYear: jQuery("#expirationYear option:selected").val(),
                 success: function(response) {
-                    console.log(response);
-                    //token gerado, esse deve ser usado na chamada da API do Checkout Transparente
                     jQuery('#creditCardToken').val(response.card.token);
                     jQuery( "#cardNumber" ).prop( "disabled", true );
                     jQuery( "#expirationMonth" ).prop( "disabled", true );
@@ -360,17 +388,10 @@
                     jQuery('#form').submit();
                 },
                 error: function(response) {
-                    //tratamento do erro
-                    console.log(response);
                 },
                 complete: function(response) {
-                    //tratamento comum para todas chamadas
-                    console.log(response);
                 }
             });
         }
-
-
-
     </script>
 @endsection

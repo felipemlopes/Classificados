@@ -27,8 +27,6 @@ const pagSeguro = {
                         let url = creditCards[key].images.MEDIUM.path;
                         brandsUrls.push('https://stc.pagseguro.uol.com.br/' + url);
                     });
-
-                    resolve(brandsUrls)
                 }
             });
         });

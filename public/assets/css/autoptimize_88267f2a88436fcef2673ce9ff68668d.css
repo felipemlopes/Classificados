@@ -3874,7 +3874,7 @@ body.admin-bar {
 #Content {
     width: 100%;
     padding-top: 30px;
-    margin-top: 40px;
+    /*margin-top: 40px;*/
     margin-bottom: 40px;
 }
 

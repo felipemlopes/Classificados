@@ -73,6 +73,7 @@
                 </div>
             </header>
         </div>
+        @yield('titulo-interno')
         <div id="Content">
             <div class="content_wrapper clearfix">
                 <div class="">

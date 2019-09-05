@@ -105,7 +105,7 @@
             <div class="col-xs-12 col-sm-12 col-md-3  page-sidebar-right">
                 <aside>
                     <div class="panel sidebar-panel panel-contact-seller">
-                        <div class="panel-heading">Contato do anunciante</div>
+                        <div class="panel-heading panel-primary">Contato do anunciante</div>
                         <div class="panel-content user-info">
                             <div class="panel-body text-center">
                                 <div class="seller-info">
@@ -119,12 +119,12 @@
                                 </div>
                                 <div class="user-ads-action">
                                     @if(Auth::Check())
-                                        <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modalmessage">
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalmessage">
                                             <i class=" icon-mail-2"></i>
                                             Envie uma menssagem
                                         </button>
                                     @else
-                                        <button type="button" class="btn btn-default btn-block" disabled>
+                                        <button type="button" class="btn btn-primary btn-block" disabled>
                                             <i class=" icon-mail-2"></i>
                                             Envie uma menssagem
                                         </button>

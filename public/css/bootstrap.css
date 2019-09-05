@@ -1805,6 +1805,9 @@ pre code {
   .col-sm-4 {
     width: 33.33333333%;
   }
+  .col-sm-4-artistas {
+    width: 33.33333333%;
+  }
   .col-sm-3 {
     width: 25%;
   }
@@ -1963,8 +1966,14 @@ pre code {
   .col-md-4 {
     width: 33.33333333%;
   }
+  .col-md-4-artistas {
+    width: 25%;
+  }
   .col-md-3 {
     width: 25%;
+  }
+  .col-md-3-profissionais {
+    width: 20%;
   }
   .col-md-2 {
     width: 16.66666667%;
@@ -2121,8 +2130,14 @@ pre code {
   .col-lg-4 {
     width: 33.33333333%;
   }
+  .col-lg-4-artistas {
+    width: 25%;
+  }
   .col-lg-3 {
     width: 25%;
+  }
+  .col-lg-3-profissionais {
+    width: 20%;
   }
   .col-lg-2 {
     width: 16.66666667%;
