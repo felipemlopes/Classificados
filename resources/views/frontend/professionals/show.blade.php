@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="container secao">
-                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+                <a href="{{ url()->previous() }}" class="btn btn-primary voltar">Voltar</a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-9 secao">
                 <div class="inner inner-box ads-details-wrapper secao">
@@ -21,8 +21,41 @@
                     </span>
                     <div class="text-center">
                         <!--<h1 class="pricetag"> R$ 2000 </h1>-->
-                        <div  class="text-center">
+                        {{--<div  class="text-center">
                             <img src="{{asset('uploads/'.$professional->embedded->imagepath)}}" class="img-anuncio">
+                        </div>--}}
+                        <div id="carousel" class="carousel slide" >
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="{{asset('uploads/'.$professional->embedded->imagepath)}}" class="img-anuncio">
+                                </div>
+
+                                <div class="item">
+                                    <img src="{{asset('uploads/'.$professional->embedded->imagepath2)}}" class="img-anuncio">
+                                </div>
+
+                                <div class="item">
+                                    <img src="{{asset('uploads/'.$professional->embedded->imagepath3)}}" class="img-anuncio">
+                                </div>
+                            </div>
+
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#carousel" data-slide="prev">
+                                <span class="fa fa-chevron-left" style="position: relative; top:50%;"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel" data-slide="next">
+                                <span class="fa fa-chevron-right" style="position: relative; top:50%;"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
                     </div>
                     <div class="Ads-Details secao">
@@ -90,7 +123,7 @@
                     </div>
                 </aside>
                 @if($professional->embedded->hasSocialNetworks())
-                    <ul class="list-inline text-center">
+                    <ul class="list-inline text-center socialnetworks">
                         @if($professional->embedded->facebook)
                             <li>
                                 <a class="facebook" href="{{$professional->embedded->facebook}}" target="_blank">

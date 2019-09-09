@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <div class="container">
+    <div class="container divplano">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 15px;">
                 <h1 class="text-center">Selecione o tipo de anuncio que você deseja</h1>

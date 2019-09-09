@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="container secao">
-                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+                <a href="{{ url()->previous() }}" class="btn btn-primary voltar">Voltar</a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-9 secao">
                 <div class="inner inner-box ads-details-wrapper secao">
@@ -140,7 +140,7 @@
                     </div>
                 </aside>
                 @if($artist->embedded->hasSocialNetworks())
-                    <ul class="list-inline text-center">
+                    <ul class="list-inline text-center socialnetworks">
                         @if($artist->embedded->facebook)
                             <li>
                                 <a class="facebook" href="{{$artist->embedded->facebook}}" target="_blank">

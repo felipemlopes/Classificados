@@ -9,12 +9,16 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box box-minhaconta">
                 <div class="col-sm-12 col-md-12 col-lg-12 menu-minhaconta">
                     <ul class="list-inline text-center">
                         <li class="li-menuminhaconta">
                             <a href="{{ route('myaccount.index') }}" class="link-myaccount">
                                 <i class="fa fa-home"></i> Minha conta</a>
+                        </li>
+                        <li class="li-menuminhaconta">
+                            <a href="{{ route('message.index') }}" class="link-myaccount">
+                                <i class="fa fa-envelope"></i> Mensagens</a>
                         </li>
                         <li class="li-menuminhaconta">
                             <a href="{{ route('myaccount.advertisement') }}" class="link-myaccount active">

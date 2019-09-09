@@ -9,12 +9,16 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box box-minhaconta">
                 <div class="col-sm-12 col-md-12 col-lg-12 menu-minhaconta">
                     <ul class="list-inline text-center">
                         <li class="li-menuminhaconta">
                             <a href="{{ route('myaccount.index') }}" class="link-myaccount">
                                 <i class="fa fa-home"></i> Minha conta</a>
+                        </li>
+                        <li class="li-menuminhaconta">
+                            <a href="{{ route('message.index') }}" class="link-myaccount">
+                                <i class="fa fa-envelope"></i> Mensagens</a>
                         </li>
                         <li class="li-menuminhaconta">
                             <a href="{{ route('myaccount.advertisement') }}" class="link-myaccount active">
@@ -218,24 +222,74 @@
                                         <div class="col-md-12">
                                             <h2 class="text-center">Alterar imagem</h2>
 
-                                            <div>
-                                                <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px; margin:0 auto;">
-                                            </div>
-
                                             <form action="{{route('myaccount.advertisement.update.image',$advertisement->id)}}" method="post" enctype="multipart/form-data">
                                                 @csrf
+                                                <div>
+                                                    <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px; margin:0 auto;">
+                                                </div>
                                                 <div class="text-center" style="padding-bottom:10px;">
                                                     <label class="btn btn-primary" for="my-file-selector">
-                                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
-                                                        Procurar foto
+                                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="jQuery('#upload-file-info').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                        Procurar foto 1
                                                     </label>
                                                     <span class='label label-info' id="upload-file-info"></span>
                                                 </div>
+                                                @if($advertisement->embedded_type=="App\Models\Professional")
+                                                    @if($advertisement->embedded->imagepath2)
+                                                    <div>
+                                                        <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath2)}}" alt="img" style="height:186px; margin:0 auto;">
+                                                    </div>
+                                                    @endif
+                                                    <div class="text-center" style="padding-bottom:10px;">
+                                                        <label class="btn btn-primary" for="my-file-selector2">
+                                                            <input name="foto2" id="my-file-selector2" type="file" style="display:none;" onchange="jQuery('#upload-file-info2').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                            Procurar foto 2
+                                                        </label>
+                                                        <span class='label label-info' id="upload-file-info2"></span>
+                                                    </div>
+                                                    @if($advertisement->embedded->imagepath3)
+                                                        <div>
+                                                            <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath3)}}" alt="img" style="height:186px; margin:0 auto;">
+                                                        </div>
+                                                    @endif
+                                                    <div class="text-center" style="padding-bottom:10px;">
+                                                        <label class="btn btn-primary" for="my-file-selector3">
+                                                            <input name="foto3" id="my-file-selector3" type="file" style="display:none;" onchange="jQuery('#upload-file-info3').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                            Procurar foto 3
+                                                        </label>
+                                                        <span class='label label-info' id="upload-file-info3"></span>
+                                                    </div>
+                                                    @if($advertisement->embedded->imagepath4)
+                                                        <div>
+                                                            <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath4)}}" alt="img" style="height:186px; margin:0 auto;">
+                                                        </div>
+                                                    @endif
+                                                    <div class="text-center" style="padding-bottom:10px;">
+                                                        <label class="btn btn-primary" for="my-file-selector4">
+                                                            <input name="foto4" id="my-file-selector4" type="file" style="display:none;" onchange="jQuery('#upload-file-info4').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                            Procurar foto 4
+                                                        </label>
+                                                        <span class='label label-info' id="upload-file-info4"></span>
+                                                    </div>
+                                                    @if($advertisement->embedded->imagepath5)
+                                                        <div>
+                                                            <img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath5)}}" alt="img" style="height:186px; margin:0 auto;">
+                                                        </div>
+                                                    @endif
+                                                    <div class="text-center" style="padding-bottom:10px;">
+                                                        <label class="btn btn-primary" for="my-file-selector5">
+                                                            <input name="foto5" id="my-file-selector5" type="file" style="display:none;" onchange="jQuery('#upload-file-info5').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                            Procurar foto 5
+                                                        </label>
+                                                        <span class='label label-info' id="upload-file-info5"></span>
+                                                    </div>
+                                                @endif
+                                                <input type="hidden" name="id" value="{{$advertisement->id}}">
                                                 @if ($edit)
                                                     <div class="text-center">
                                                         <button type="submit" class="btn btn-primary" id="update-details-btn">
                                                             <i class="fa fa-refresh"></i>
-                                                            Atualizar imagem
+                                                            Atualizar fotos
                                                         </button>
                                                     </div>
                                                 @endif

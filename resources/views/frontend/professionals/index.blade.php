@@ -1,5 +1,7 @@
 @extends('frontend.layouts.masterteste')
 
+@section('ajuste-content','ajuste-content')
+
 @section('titulo-interno')
     <div class="bg-titulo-interno">
         <h1 class="text-center titulo-interno">Profissionais</h1>
@@ -8,6 +10,7 @@
 
 @section('content')
     <div class="container">
+
         @include('partials.messages')
         <form method="get">
             <div class="">

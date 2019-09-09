@@ -26347,7 +26347,7 @@ body {
         background: none!important
     }
     #Top_bar a.responsive-menu-toggle {
-        right: 10px
+        right: 10px;
     }
     #Top_bar a.responsive-menu-toggle.is-sticky {
         position: fixed;
@@ -26372,7 +26372,8 @@ body {
         float: left;
         width: 100%;
         text-align: center;
-        margin: 0
+        margin: 0;
+        /*margin-top: 5px;*/
     }
     #Top_bar .logo #logo {
         padding: 0!important;
@@ -29689,7 +29690,7 @@ h6 {
 .header-transparent #Top_bar #logo {
     height: 60px;
     line-height: 60px;
-    padding: 20px 0;
+    padding: 25px 0;
 }
 
 
@@ -29713,7 +29714,7 @@ h6 {
 
 @media only screen and (max-width:767px) {
     #Top_bar a.responsive-menu-toggle {
-        top: 40px
+        top: 40px;
     }
     .mobile-header-mini #Top_bar #logo {
         height: 50px!important;
@@ -29727,3 +29728,8 @@ h6 {
 }
 
 
+@media only screen and (min-width:415px) and (max-width:768px) {
+    #Top_bar a.responsive-menu-toggle {
+        padding-left: 35px;
+    }
+}

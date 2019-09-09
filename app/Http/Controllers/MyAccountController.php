@@ -224,10 +224,47 @@ class MyAccountController extends Controller
         $path = '';
         if($file){
             $path = Storage::disk('public_uploads')->put('/', $file);
+            $embedded->imagepath = $path;
+            Storage::disk('public_uploads')->delete($aux);
         }
-        $embedded->imagepath = $path;
+        if($advertisement->embedded_type=="App\Models\Professional"){
+            $aux2 = $advertisement->embedded->imagepath2;
+            $aux3 = $advertisement->embedded->imagepath3;
+            $aux4 = $advertisement->embedded->imagepath4;
+            $aux5 = $advertisement->embedded->imagepath5;
+
+            $file2 = Input::file('foto2');
+            $path2 = '';
+            if($file2){
+                $path2 = Storage::disk('public_uploads')->put('/', $file2);
+                $embedded->imagepath2 = $path2;
+                Storage::disk('public_uploads')->delete($aux2);
+            }
+
+            $file3 = Input::file('foto3');
+            $path3 = '';
+            if($file3){
+                $path3 = Storage::disk('public_uploads')->put('/', $file3);
+                $embedded->imagepath3 = $path3;
+                Storage::disk('public_uploads')->delete($aux3);
+            }
+            $file4 = Input::file('foto4');
+            $path4 = '';
+            if($file4){
+                $path4 = Storage::disk('public_uploads')->put('/', $file4);
+                $embedded->imagepath4 = $path4;
+                Storage::disk('public_uploads')->delete($aux4);
+            }
+            $file5 = Input::file('foto5');
+            $path5 = '';
+            if($file5){
+                $path5 = Storage::disk('public_uploads')->put('/', $file5);
+                $embedded->imagepath5 = $path5;
+                Storage::disk('public_uploads')->delete($aux5);
+            }
+
+        }
         $embedded->save();
-        Storage::disk('public_uploads')->delete($aux);
 
         return redirect()->back()->withSuccess('Anúncio atualizado com sucesso!');
     }

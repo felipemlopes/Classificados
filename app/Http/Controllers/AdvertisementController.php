@@ -102,6 +102,30 @@ class AdvertisementController extends Controller
             $professional->instagram = $request->instagram;
             $professional->youtube = $request->youtube;
             $professional->imagepath = $path;
+            $file2 = Input::file('foto2');
+            $path2 = '';
+            if($file2){
+                $path2 = Storage::disk('public_uploads')->put('/', $file2);
+            }
+            $file3 = Input::file('foto3');
+            $path3 = '';
+            if($file3){
+                $path3 = Storage::disk('public_uploads')->put('/', $file3);
+            }
+            $file4 = Input::file('foto4');
+            $path4 = '';
+            if($file4){
+                $path4 = Storage::disk('public_uploads')->put('/', $file4);
+            }
+            $file5 = Input::file('foto5');
+            $path5 = '';
+            if($file5){
+                $path5 = Storage::disk('public_uploads')->put('/', $file5);
+            }
+            $professional->imagepath2 = $path2;
+            $professional->imagepath3 = $path3;
+            $professional->imagepath4 = $path4;
+            $professional->imagepath5 = $path5;
             $professional->save();
 
             $advertisement = new Advertisement();
@@ -208,6 +232,11 @@ class AdvertisementController extends Controller
             $advertisement->cidade_id = $request->cidade;
             $advertisement->save();
 
+            $aux2 = $advertisement->embedded->imagepath2;
+            $aux3 = $advertisement->embedded->imagepath3;
+            $aux4 = $advertisement->embedded->imagepath4;
+            $aux5 = $advertisement->embedded->imagepath5;
+
             $professional = Professional::find($advertisement->embedded_id);
             $professional->title = $request->title;
             $professional->description = $request->description;
@@ -219,9 +248,54 @@ class AdvertisementController extends Controller
             if($path!=''){
                 $professional->imagepath = $path;
             }
+            $file2 = Input::file('foto2');
+            $path2 = '';
+            if($file2){
+                $path2 = Storage::disk('public_uploads')->put('/', $file2);
+            }
+            $file3 = Input::file('foto3');
+            $path3 = '';
+            if($file3){
+                $path3 = Storage::disk('public_uploads')->put('/', $file3);
+            }
+            $file4 = Input::file('foto4');
+            $path4 = '';
+            if($file4){
+                $path4 = Storage::disk('public_uploads')->put('/', $file4);
+            }
+            $file5 = Input::file('foto5');
+            $path5 = '';
+            if($file5){
+                $path5 = Storage::disk('public_uploads')->put('/', $file5);
+            }
+            if($path2!=''){
+                $professional->imagepath2 = $path2;
+            }
+            if($path3!=''){
+                $professional->imagepath3 = $path3;
+            }
+            if($path4!=''){
+                $professional->imagepath4 = $path4;
+            }
+            if($path5!=''){
+                $professional->imagepath5 = $path5;
+            }
             $professional->save();
+
             if($request->hasFile('foto')){
                 Storage::disk('public_uploads')->delete($aux);
+            }
+            if($request->hasFile('foto2')){
+                Storage::disk('public_uploads')->delete($aux2);
+            }
+            if($request->hasFile('foto3')){
+                Storage::disk('public_uploads')->delete($aux3);
+            }
+            if($request->hasFile('foto4')){
+                Storage::disk('public_uploads')->delete($aux4);
+            }
+            if($request->hasFile('foto5')){
+                Storage::disk('public_uploads')->delete($aux5);
             }
 
             return redirect()->route('advertisement.plan',$advertisement->id);
@@ -265,6 +339,30 @@ class AdvertisementController extends Controller
             $professional->instagram = $request->instagram;
             $professional->youtube = $request->youtube;
             $professional->imagepath = $path;
+            $file2 = Input::file('foto2');
+            $path2 = '';
+            if($file2){
+                $path2 = Storage::disk('public_uploads')->put('/', $file2);
+            }
+            $file3 = Input::file('foto3');
+            $path3 = '';
+            if($file3){
+                $path3 = Storage::disk('public_uploads')->put('/', $file3);
+            }
+            $file4 = Input::file('foto4');
+            $path4 = '';
+            if($file4){
+                $path4 = Storage::disk('public_uploads')->put('/', $file4);
+            }
+            $file5 = Input::file('foto5');
+            $path5 = '';
+            if($file5){
+                $path5 = Storage::disk('public_uploads')->put('/', $file5);
+            }
+            $professional->imagepath2 = $path2;
+            $professional->imagepath3 = $path3;
+            $professional->imagepath4 = $path4;
+            $professional->imagepath5 = $path5;
             $professional->save();
 
             $advertisement->estado_id = $request->estado;

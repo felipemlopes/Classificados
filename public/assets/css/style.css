@@ -2269,6 +2269,14 @@ div.login-box {
   float: none;
   margin: 0 auto;
   clear: both;
+  margin-top: 25px;
+}
+
+@media only screen and (max-width:450px) {
+  div.login-box {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+  }
 }
 
 .panel-intro {
@@ -5077,6 +5085,13 @@ nav.slider-nav a.next {
 .secao{
   margin-bottom: 25px !important;
 }
+.secao .voltar{
+  margin-top: 20px;
+}
+
+.socialnetworks{
+  margin-bottom: 15px;
+}
 
 .category{
   padding-bottom: 0;
@@ -5107,8 +5122,14 @@ nav.slider-nav a.next {
 
 @media only screen and (max-width: 500px) {
   #content{
-    min-height: 500px !important;
+    min-height: 535px !important;
     margin-bottom: 0px !important;
+  }
+  .category-list{
+    margin-bottom: 30px;
+  }
+  .box-minhaconta{
+    margin-bottom: 50px !important;
   }
 }
 
@@ -5133,7 +5154,10 @@ nav.slider-nav a.next {
     height: auto !important;
   }
   #content{
-    min-height: 700px !important;
+    min-height: 755px ;
+  }
+  .ajuste-content{
+    min-height: 650px !important;
   }
 }
 @media only screen and (min-width: 960px) {
@@ -5145,7 +5169,10 @@ nav.slider-nav a.next {
     height: auto !important;
   }
   #content{
-    min-height: 700px !important;
+    min-height: 700px;
+  }
+  .ajuste-content{
+    min-height: 550px !important;
   }
 }
 
@@ -5210,7 +5237,7 @@ nav.slider-nav a.next {
 
 .box{
   background-color: #fff;
-  margin-left: 15px;
+  /*margin-left: 15px;*/
   padding-top: 20px;
 }
 
@@ -5237,8 +5264,8 @@ table tr:first-child td{
 }
 
 .img-anuncio{
-  height: auto;
-  width: auto;
+  height: auto !important;
+  width: 100% !important;
 }
 
 .bg-titulo-interno{
@@ -5252,4 +5279,20 @@ table tr:first-child td{
 .titulo-interno{
   position:relative;
   padding-top: 50px;
+}
+
+.divplano{
+  margin-top: 50px !important;
+}
+
+.checkout-success{
+  margin-top: 50px !important;
+}
+
+.box-minhaconta{
+  margin-top: 50px !important;
+}
+
+.box-mensagens{
+  margin-bottom: 20px;
 }

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="container secao">
-                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+                <a href="{{ url()->previous() }}" class="btn btn-primary voltar">Voltar</a>
             </div>
             <div class="container secao">
                 @include('partials/messages')
@@ -18,7 +18,9 @@
             <input type="hidden" name="senderHash" id="senderHash">
             <div class="col-md-offset-2 col-md-8 secao">
                 <h2 class="text-center">Métodos de pagamento</h2>
-                <div id="payment_methods" class="center-align text-center"></div>
+                <div id="payment_methods" class="center-align text-center">
+                    <img src="{{asset('assets/images/bandeiras-pagseguro.png')}}" style="height: 150px;">
+                </div>
             </div>
 
             <div class="col-md-offset-2 col-md-8">

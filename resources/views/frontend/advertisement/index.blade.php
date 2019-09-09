@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="container secao">
-                <a href="{{ url()->previous() }}" class="btn btn-primary">Voltar</a>
+                <a href="{{ url()->previous() }}" class="btn btn-primary voltar">Voltar</a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 15px;">
                 <h1 class="text-center">Criar anúncio</h1>
@@ -172,23 +172,103 @@
                         <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 secao">
                             <h2>Fotos:</h2>
                             @if($edit)
-                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                    <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px;">
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
-                                    <label class="btn btn-primary" for="my-file-selector">
-                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
-                                        Procurar foto
-                                    </label>
-                                    <span class='label label-info' id="upload-file-info"></span>
-                                </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                        <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}" alt="img" style="height:186px;">
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                        <label class="btn btn-primary" for="my-file-selector">
+                                            <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="jQuery('#upload-file-info').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                            Procurar foto 1
+                                        </label>
+                                        <span class='label label-info' id="upload-file-info"></span>
+                                    </div>
+                                    <div id="fotosprofissionais">
+                                        @if($advertisement->embedded->imagepath2)
+                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath2)}}" alt="img" style="height:186px;">
+                                            </div>
+                                        @endif
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                            <label class="btn btn-primary" for="my-file-selector2">
+                                                <input name="foto2" id="my-file-selector2" type="file" style="display:none;" onchange="jQuery('#upload-file-info2').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                Procurar foto 2
+                                            </label>
+                                            <span class='label label-info' id="upload-file-info2"></span>
+                                        </div>
+                                        @if($advertisement->embedded->imagepath3)
+                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath3)}}" alt="img" style="height:186px;">
+                                            </div>
+                                        @endif
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                            <label class="btn btn-primary" for="my-file-selector3">
+                                                <input name="foto3" id="my-file-selector3" type="file" style="display:none;" onchange="jQuery('#upload-file-info3').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                Procurar foto 3
+                                            </label>
+                                            <span class='label label-info' id="upload-file-info3"></span>
+                                        </div>
+                                        @if($advertisement->embedded->imagepath4)
+                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath4)}}" alt="img" style="height:186px;">
+                                            </div>
+                                        @endif
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                            <label class="btn btn-primary" for="my-file-selector4">
+                                                <input name="foto4" id="my-file-selector4" type="file" style="display:none;" onchange="jQuery('#upload-file-info4').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                Procurar foto 4
+                                            </label>
+                                            <span class='label label-info' id="upload-file-info4"></span>
+                                        </div>
+                                        @if($advertisement->embedded->imagepath5)
+                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                <img class="thumbnail no-margin" src="{{asset('uploads/'.$advertisement->embedded->imagepath5)}}" alt="img" style="height:186px;">
+                                            </div>
+                                        @endif
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                            <label class="btn btn-primary" for="my-file-selector5">
+                                                <input name="foto5" id="my-file-selector5" type="file" style="display:none;" onchange="jQuery('#upload-file-info5').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                                Procurar foto 5
+                                            </label>
+                                            <span class='label label-info' id="upload-file-info5"></span>
+                                        </div>
+                                    </div>
                             @else
                                 <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
                                     <label class="btn btn-primary" for="my-file-selector">
-                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
-                                        Procurar foto
+                                        <input name="foto" id="my-file-selector" type="file" style="display:none;" onchange="jQuery('#upload-file-info').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                        Procurar foto 1
                                     </label>
                                     <span class='label label-info' id="upload-file-info"></span>
+                                </div>
+                                <div id="fotosprofissionais">
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                        <label class="btn btn-primary" for="my-file-selector2">
+                                            <input name="foto2" id="my-file-selector2" type="file" style="display:none;" onchange="jQuery('#upload-file-info2').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                            Procurar foto 2
+                                        </label>
+                                        <span class='label label-info' id="upload-file-info2"></span>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                        <label class="btn btn-primary" for="my-file-selector3">
+                                            <input name="foto3" id="my-file-selector3" type="file" style="display:none;" onchange="jQuery('#upload-file-info3').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                            Procurar foto 3
+                                        </label>
+                                        <span class='label label-info' id="upload-file-info3"></span>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                        <label class="btn btn-primary" for="my-file-selector4">
+                                            <input name="foto4" id="my-file-selector4" type="file" style="display:none;" onchange="jQuery('#upload-file-info4').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                            Procurar foto 4
+                                        </label>
+                                        <span class='label label-info' id="upload-file-info4"></span>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="padding-bottom:10px;">
+                                        <label class="btn btn-primary" for="my-file-selector5">
+                                            <input name="foto5" id="my-file-selector5" type="file" style="display:none;" onchange="jQuery('#upload-file-info5').html(jQuery(this).val().replace('C:\\fakepath\\', ''));">
+                                            Procurar foto 5
+                                        </label>
+                                        <span class='label label-info' id="upload-file-info5"></span>
+                                    </div>
                                 </div>
                             @endif
                         </div>
@@ -261,7 +341,7 @@
                 jQuery('#divvideo').show();
                 jQuery('#divcategoria').hide();
                 jQuery('#divsubcategoria').hide();
-
+                jQuery('#fotosprofissionais').hide();
             }
             if(selected==2){
                 jQuery('#divcache').hide();
@@ -269,6 +349,7 @@
                 jQuery('#divvideo').hide();
                 jQuery('#divcategoria').show();
                 jQuery('#divsubcategoria').show();
+                jQuery('#fotosprofissionais').show();
             }
             if(selected==''){
                 jQuery('#divcache').hide();
@@ -276,6 +357,7 @@
                 jQuery('#divvideo').hide();
                 jQuery('#divcategoria').hide();
                 jQuery('#divsubcategoria').hide();
+                jQuery('#fotosprofissionais').hide();
             }
         });
         jQuery('#estado').on('changed.bs.select', function (e) {
@@ -311,6 +393,7 @@
                 jQuery('#divvideo').show();
                 jQuery('#divcategoria').hide();
                 jQuery('#divsubcategoria').hide();
+                jQuery('#fotosprofissionais').hide();
 
             }
             if(selected==2){
@@ -319,6 +402,7 @@
                 jQuery('#divvideo').hide();
                 jQuery('#divcategoria').show();
                 jQuery('#divsubcategoria').show();
+                jQuery('#fotosprofissionais').show();
             }
             if(selected==''){
                 jQuery('#divcache').hide();
@@ -326,6 +410,7 @@
                 jQuery('#divvideo').hide();
                 jQuery('#divcategoria').hide();
                 jQuery('#divsubcategoria').hide();
+                jQuery('#fotosprofissionais').hide();
             }
         });
     </script>

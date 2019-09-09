@@ -45,10 +45,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('anuncio/{id}/pagar', ['as' => 'advertisement.plan.pay','uses' => 'AdvertisementController@pagar']);
     Route::get('checkout/sucesso', ['as' => 'checkout.sucess','uses' => 'PagseguroController@checkoutSuccess']);
 
-    Route::get('mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);        //falta
-    Route::get('mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);     //falta
-    Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);   //falta
-    Route::get('mensagens/{id}/excluir', ['as' => 'conversation.delete','uses' => 'MessagesController@delete']);
+    Route::get('minha-conta/mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);        //falta
+    Route::get('minha-conta/mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);     //falta
+    Route::post('minha-conta/mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);   //falta
+    Route::get('minha-conta/mensagens/{id}/excluir', ['as' => 'conversation.delete','uses' => 'MessagesController@delete']);
 
     Route::post('avaliar/artista/{id}', ['as' => 'review.artist.store','uses' => 'AdvertisementController@storeReviewArtista']);
     Route::post('avaliar/profissional/{id}', ['as' => 'review.professional.store','uses' => 'AdvertisementController@storeReviewProfessional']);

@@ -74,7 +74,7 @@
             </header>
         </div>
         @yield('titulo-interno')
-        <div id="Content">
+        <div id="Content" class="@yield('ajuste-content')">
             <div class="content_wrapper clearfix">
                 <div class="">
                     @yield('content')
