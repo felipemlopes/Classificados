@@ -37,14 +37,26 @@
                                 <div class="item active">
                                     <img src="{{asset('uploads/'.$professional->embedded->imagepath)}}" class="img-anuncio">
                                 </div>
-
+                                @if($professional->embedded->imagepath2)
                                 <div class="item">
                                     <img src="{{asset('uploads/'.$professional->embedded->imagepath2)}}" class="img-anuncio">
                                 </div>
-
+                                @endif
+                                @if($professional->embedded->imagepath3)
                                 <div class="item">
                                     <img src="{{asset('uploads/'.$professional->embedded->imagepath3)}}" class="img-anuncio">
                                 </div>
+                                @endif
+                                @if($professional->embedded->imagepath4)
+                                <div class="item">
+                                    <img src="{{asset('uploads/'.$professional->embedded->imagepath4)}}" class="img-anuncio">
+                                </div>
+                                @endif
+                                @if($professional->embedded->imagepath5)
+                                <div class="item">
+                                    <img src="{{asset('uploads/'.$professional->embedded->imagepath5)}}" class="img-anuncio">
+                                </div>
+                                @endif
                             </div>
 
                             <!-- Left and right controls -->

@@ -3,31 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f21354b8-a69e-4d97-af8c-2d6ac01a14ef" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdvertisementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdvertisementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Frontend/Anuncio/CreateAnuncioRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Frontend/Anuncio/CreateAnuncioRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Frontend/myaccount/UpdateAdvertisementImageRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Frontend/myaccount/UpdateAdvertisementImageRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/autoptimize_88267f2a88436fcef2673ce9ff68668d.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/autoptimize_88267f2a88436fcef2673ce9ff68668d.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/advertisement/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/advertisement/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/advertisement/pagar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/advertisement/pagar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/advertisement/plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/advertisement/plan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/artists/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/artists/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/artists/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/artists/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/checkout/success.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/checkout/success.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/layouts/masterteste.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/layouts/masterteste.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/message/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/message/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/message/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/message/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/myaccount/advertisement.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/myaccount/advertisement.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/myaccount/advertisementedit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/myaccount/advertisementedit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/myaccount/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/myaccount/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/myaccount/plan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/myaccount/plan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/myaccount/plansubscribe.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/myaccount/plansubscribe.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/myaccount/settings.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/myaccount/settings.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/professionals/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/professionals/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/ExampleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/ExampleTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,22 +18,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/advertisementedit.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="285" column="54" selection-start-line="285" selection-start-column="54" selection-end-line="285" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#26579#0#Blade" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/advertisement.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="67" column="49" lean-forward="true" selection-start-line="67" selection-start-column="49" selection-end-line="67" selection-end-column="49" />
+            <state relative-caret-position="574">
+              <caret line="58" column="38" selection-start-line="58" selection-start-column="38" selection-end-line="58" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -159,10 +123,10 @@
         <option value="$PROJECT_DIR$/app/Http/Requests/Frontend/myaccount/UpdateAdvertisementImageRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" />
         <option value="$PROJECT_DIR$/public/assets/css/style.css" />
-        <option value="$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/frontend/professionals/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/frontend/advertisement/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/frontend/myaccount/advertisementedit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php" />
       </list>
     </option>
   </component>
@@ -260,7 +224,7 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="46" />
     <option name="y" value="10" />
     <option name="width" value="1058" />
@@ -278,6 +242,32 @@
             <path>
               <item name="classificadosartistas" type="b2602c69:ProjectViewProjectNode" />
               <item name="classificadosartistas" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="classificadosartistas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="classificadosartistas" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="classificadosartistas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="classificadosartistas" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="classificadosartistas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="classificadosartistas" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="classificadosartistas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="classificadosartistas" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="professionals" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -468,12 +458,12 @@
       <workItem from="1567776798570" duration="6816000" />
       <workItem from="1567785875182" duration="2210000" />
       <workItem from="1567877011405" duration="22000" />
-      <workItem from="1568030943590" duration="9698000" />
+      <workItem from="1568030943590" duration="10002000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="595261000" />
+    <option name="totallyTimeSpent" value="595565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1168" height="840" extended-state="6" />
@@ -542,11 +532,6 @@
           <url>file://$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php</url>
           <line>16</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/frontend/myaccount/advertisementedit.blade.php</url>
-          <line>304</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/database/seeds/PlansTableSeeder.php</url>
@@ -885,17 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="30" column="81" lean-forward="true" selection-start-line="30" selection-start-column="81" selection-end-line="30" selection-end-column="81" />
-          <folding>
-            <element signature="e#2718#2753#0#HTML" expanded="true" />
-            <element signature="e#3030#3065#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
@@ -924,13 +898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/advertisement.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="67" column="49" lean-forward="true" selection-start-line="67" selection-start-column="49" selection-end-line="67" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/advertisementedit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -938,6 +905,20 @@
           <folding>
             <element signature="e#0#26579#0#Blade" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/frontend/myaccount/advertisement.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="67" column="49" lean-forward="true" selection-start-line="67" selection-start-column="49" selection-end-line="67" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/frontend/professionals/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="58" column="38" selection-start-line="58" selection-start-column="38" selection-end-line="58" selection-end-column="38" />
         </state>
       </provider>
     </entry>
