@@ -28,8 +28,18 @@
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                @if($professional->embedded->imagepath2)
                                 <li data-target="#myCarousel" data-slide-to="1"></li>
+                                @endif
+                                @if($professional->embedded->imagepath3)
                                 <li data-target="#myCarousel" data-slide-to="2"></li>
+                                @endif
+                                @if($professional->embedded->imagepath4)
+                                <li data-target="#myCarousel" data-slide-to="3"></li>
+                                @endif
+                                @if($professional->embedded->imagepath5)
+                                <li data-target="#myCarousel" data-slide-to="4"></li>
+                                @endif
                             </ol>
 
                             <!-- Wrapper for slides -->
