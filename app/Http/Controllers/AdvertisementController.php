@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PagSeguro;
 use Illuminate\Http\Request;
+use Trexology\ReviewRateable\Models\Rating;
 
 class AdvertisementController extends Controller
 {
@@ -46,7 +47,7 @@ class AdvertisementController extends Controller
      */
     public function store(CreateAnuncioRequest $request)
     {
-        /*if($request->type==1){
+        if($request->type==1){
             if(!Auth::User()->canCreateAdvertisementArtist()){
                 if(Auth::User()->hasActiveSubscription()){
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos.');
@@ -62,7 +63,7 @@ class AdvertisementController extends Controller
                     return redirect()->back()->withErrors('Você atingiu o limite de anúncios ativos, assine o plano empresarial para aumentar o limite');
                 }
             }
-        }*/
+        }
 
         $type = $request->type;
         $file = Input::file('foto');
@@ -477,5 +478,17 @@ class AdvertisementController extends Controller
         ], $user);
 
         return redirect()->route('professional.show',$professional->id)->withSuccess('Avaliação feita com sucesso!');
+    }
+
+    public function deleteReview($id)
+    {
+        $rating = Rating::find($id);
+        $anuncio = Advertisement::find($rating->reviewrateable->id);
+        $rating->delete();
+        if($anuncio->embedded_type=='App\Models\Artist'){
+            return redirect()->route('artist.show',$anuncio->id)->withSuccess('Avaliação excluida com sucesso!');
+        }else{
+            return redirect()->route('professional.show',$anuncio->id)->withSuccess('Avaliação excluida com sucesso!');
+        }
     }
 }

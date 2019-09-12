@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('anuncio/{id}/pagar', ['as' => 'advertisement.plan.pay','uses' => 'AdvertisementController@pagar']);
     Route::get('checkout/sucesso', ['as' => 'checkout.sucess','uses' => 'PagseguroController@checkoutSuccess']);
+    Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);
 
     Route::get('minha-conta/mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);        //falta
     Route::get('minha-conta/mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);     //falta
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('avaliar/artista/{id}', ['as' => 'review.artist.store','uses' => 'AdvertisementController@storeReviewArtista']);
     Route::post('avaliar/profissional/{id}', ['as' => 'review.professional.store','uses' => 'AdvertisementController@storeReviewProfessional']);
+    Route::get('avaliacao/{id}/excluir', ['as' => 'review.delete','uses' => 'AdvertisementController@deleteReview']);
 
     Route::get('minha-conta', ['as' => 'myaccount.index','uses' => 'MyAccountController@index']);
     Route::get('minha-conta/anuncios', ['as' => 'myaccount.advertisement','uses' => 'MyAccountController@advertisement']);  //falta

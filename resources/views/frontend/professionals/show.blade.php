@@ -202,12 +202,15 @@
                     <p> {{$professional->countRating()}} avaliações <span class="rating">{!! $professional->getRating() !!}</span></p>
 
                     @foreach($professional->ratings as $review)
-                        <div class="col-md-9" style="background-color: #cfcfcf; margin-bottom: 15px;">
+                        <div class="" style="background-color: #cfcfcf; margin-bottom: 15px; position: relative; padding: 10px;">
                             <h4>{{$review->title}}</h4>
-                            <div class="">
-                            </div>
                             <p class="review-text">{{$review->body}}</p>
                             <small class="review-date">{{ date('d/m/Y', strtotime($review->created_at)) }} Por {{$review->author->first_name.' '.$review->author->last_name}}</small>
+                            @hasanyrole('Administrador|Gerente|Proprietário')
+                            <div>
+                                <a href="{{route('review.delete',$review->id)}}" class="btn btn-secondary">Excluir</a>
+                            </div>
+                            @endhasanyrole
                         </div>
                     @endforeach
                 </div>

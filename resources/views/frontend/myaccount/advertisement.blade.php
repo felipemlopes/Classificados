@@ -78,7 +78,9 @@
                         @if (count($advertisements))
                             @foreach ($advertisements as $advertisement)
                                 <tr>
-                                    <td width="20%"><img class="thumbnail" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}"style="width: 100px; height: auto;"></td>
+                                    <td width="20%" >
+                                        <img class="thumbnail text-center" src="{{asset('uploads/'.$advertisement->embedded->imagepath)}}"style="width: 100px; height: auto; display: block; margin-left: auto; margin-right: auto;">
+                                    </td>
                                     <td width="50%">
                                         @if($advertisement->embedded_type=='App\Models\Artist')
                                             <a href="{{ route('artist.show',$advertisement->id) }}" target="_blank">
