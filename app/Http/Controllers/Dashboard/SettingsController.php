@@ -41,9 +41,9 @@ class SettingsController extends Controller
         }
         $email = env('PAGSEGURO_EMAIL');
         $token = env('PAGSEGURO_TOKEN');
-        //dd($email,$token);
+        $sandbox = env('PAGSEGURO_SANDBOX');
 
-        return view('dashboard.settings.pagseguro', compact('email', 'token'));
+        return view('dashboard.settings.pagseguro', compact('email', 'token','sandbox'));
     }
 
     /**
@@ -87,12 +87,16 @@ class SettingsController extends Controller
 
         $email = $request->email;
         $token = $request->token;
+        $sandbox = $request->sanbox;
 
         if($email!=""){
             $this->updateDotEnv('PAGSEGURO_EMAIL', $email, $delim='');
         }
         if($token!=""){
             $this->updateDotEnv('PAGSEGURO_TOKEN', $token, $delim='');
+        }
+        if($sandbox!=""){
+            $this->updateDotEnv('PAGSEGURO_SANDBOX', $sandbox, $delim='');
         }
 
         return back()->withSuccess('Configurações atualizadas com sucesso');

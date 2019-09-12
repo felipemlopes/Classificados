@@ -35,6 +35,11 @@
                             <input type="text" class="form-control" id="token"
                                    name="token" value="{{ $token }}">
                         </div>
+                        <div class="form-group">
+                            <label for="sandbox">Sandbox</label>
+                            <input type="text" class="form-control" id="sandbox"
+                                   name="sandbox" value="{{ $sandbox }}">
+                        </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-refresh"></i>
                             Atualizar configurações
