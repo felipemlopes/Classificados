@@ -41,7 +41,7 @@ class SettingsController extends Controller
         }
         $email = env('PAGSEGURO_EMAIL');
         $token = env('PAGSEGURO_TOKEN');
-        dd($email,$token);
+        //dd($email,$token);
 
         return view('dashboard.settings.pagseguro', compact('email', 'token'));
     }
