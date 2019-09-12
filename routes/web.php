@@ -44,11 +44,11 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('anuncio/{id}/pagar', ['as' => 'advertisement.plan.pay','uses' => 'AdvertisementController@pagar']);
     Route::get('checkout/sucesso', ['as' => 'checkout.sucess','uses' => 'PagseguroController@checkoutSuccess']);
-    Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);
+    //Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);
 
     Route::get('minha-conta/mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);        //falta
     Route::get('minha-conta/mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);     //falta
-    Route::post('minha-conta/mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);   //falta
+    Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);   //falta
     Route::get('minha-conta/mensagens/{id}/excluir', ['as' => 'conversation.delete','uses' => 'MessagesController@delete']);
 
     Route::post('avaliar/artista/{id}', ['as' => 'review.artist.store','uses' => 'AdvertisementController@storeReviewArtista']);
