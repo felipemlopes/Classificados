@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Configurações gerais</div>
+                    <div class="panel-heading">Configurações do pagseguro</div>
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -34,11 +34,6 @@
                             <label for="token">Token</label>
                             <input type="text" class="form-control" id="token"
                                    name="token" value="{{ $token }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="sandbox">Sandbox</label>
-                            <input type="text" class="form-control" id="sandbox"
-                                   name="sandbox" value="{{ $sandbox }}">
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-refresh"></i>
