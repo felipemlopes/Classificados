@@ -44,11 +44,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('anuncio/{id}/pagar', ['as' => 'advertisement.plan.pay','uses' => 'AdvertisementController@pagar']);
     Route::get('checkout/sucesso', ['as' => 'checkout.sucess','uses' => 'PagseguroController@checkoutSuccess']);
-    //Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);
 
-    Route::get('minha-conta/mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);        //falta
-    Route::get('minha-conta/mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);     //falta
-    Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);   //falta
+    Route::get('minha-conta/mensagens', ['as' => 'message.index','uses' => 'MessagesController@index']);
+    Route::get('minha-conta/mensagens/{id}', ['as' => 'message.show','uses' => 'MessagesController@show']);
+    Route::post('mensagens/{id}/send', ['as' => 'message.send','uses' => 'MessagesController@send']);
     Route::get('minha-conta/mensagens/{id}/excluir', ['as' => 'conversation.delete','uses' => 'MessagesController@delete']);
 
     Route::post('avaliar/artista/{id}', ['as' => 'review.artist.store','uses' => 'AdvertisementController@storeReviewArtista']);
@@ -56,19 +55,19 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('avaliacao/{id}/excluir', ['as' => 'review.delete','uses' => 'AdvertisementController@deleteReview']);
 
     Route::get('minha-conta', ['as' => 'myaccount.index','uses' => 'MyAccountController@index']);
-    Route::get('minha-conta/anuncios', ['as' => 'myaccount.advertisement','uses' => 'MyAccountController@advertisement']);  //falta
-    Route::get('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.edit','uses' => 'MyAccountController@advertisementEdit']); //falta
-    Route::post('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.update','uses' => 'MyAccountController@advertisementUpdate']);    //falta
-    Route::post('minha-conta/anuncios/{anuncio_id}/editar/imagem', ['as' => 'myaccount.advertisement.update.image','uses' => 'MyAccountController@advertisementUpdateImage']);  //falta
-    Route::get('minha-conta/anuncios/{anuncio_id}/pagar', ['as' => 'myaccount.advertisement.pay','uses' => 'MyAccountController@advertisementPay']);    //falta
-    Route::get('minha-conta/anuncios/{anuncio_id}/excluir', ['as' => 'myaccount.advertisement.delete','uses' => 'MyAccountController@advertisementDelete']);    //falta
+    Route::get('minha-conta/anuncios', ['as' => 'myaccount.advertisement','uses' => 'MyAccountController@advertisement']);
+    Route::get('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.edit','uses' => 'MyAccountController@advertisementEdit']);
+    Route::post('minha-conta/anuncios/{anuncio_id}/editar', ['as' => 'myaccount.advertisement.update','uses' => 'MyAccountController@advertisementUpdate']);
+    Route::post('minha-conta/anuncios/{anuncio_id}/editar/imagem', ['as' => 'myaccount.advertisement.update.image','uses' => 'MyAccountController@advertisementUpdateImage']);
+    Route::get('minha-conta/anuncios/{anuncio_id}/pagar', ['as' => 'myaccount.advertisement.pay','uses' => 'MyAccountController@advertisementPay']);
+    Route::get('minha-conta/anuncios/{anuncio_id}/excluir', ['as' => 'myaccount.advertisement.delete','uses' => 'MyAccountController@advertisementDelete']);
     Route::get('minha-conta/configuracoes', ['as' => 'myaccount.settings','uses' => 'MyAccountController@settings']);
     Route::post('minha-conta/configuracoes/editar', ['as' => 'myaccount.settings.update.details','uses' => 'MyAccountController@settingsupdate']);
     Route::post('minha-conta/configuracoes/editar/senha', ['as' => 'myaccount.settings.update.password','uses' => 'MyAccountController@settingsupdatepassword']);
-    Route::get('minha-conta/plano', ['as' => 'myaccount.plan','uses' => 'MyAccountController@plan']);   //falta
-    Route::get('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe','uses' => 'MyAccountController@planSubscribe']);   //falta
-    Route::post('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe.post','uses' => 'MyAccountController@planSubscribePost']); //falta
-    Route::get('minha-conta/plano/cancelar', ['as' => 'myaccount.plan.cancel','uses' => 'MyAccountController@planCancel']); //falta
+    Route::get('minha-conta/plano', ['as' => 'myaccount.plan','uses' => 'MyAccountController@plan']);
+    Route::get('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe','uses' => 'MyAccountController@planSubscribe']);
+    Route::post('minha-conta/plano/{id}/assinar', ['as' => 'myaccount.plan.subscribe.post','uses' => 'MyAccountController@planSubscribePost']);
+    Route::get('minha-conta/plano/cancelar', ['as' => 'myaccount.plan.cancel','uses' => 'MyAccountController@planCancel']);
 });
 
 Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'],'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
@@ -139,6 +138,8 @@ Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'
 
     Route::get('settings', ['as' => 'settings.general','uses' => 'Dashboard\SettingsController@general']);
     Route::post('settings/general', ['as' => 'settings.general.update','uses' => 'Dashboard\SettingsController@updategeneral']);
+    Route::get('settings/pagseguro', ['as' => 'settings.pagseguro','uses' => 'Dashboard\SettingsController@pagseguro']);
+    Route::post('settings/pagseguro', ['as' => 'settings.pagseguro.update','uses' => 'Dashboard\SettingsController@updatepagseguro']);
     Route::get('settings/auth', ['as' => 'settings.auth','uses' => 'Dashboard\SettingsController@auth']);
     Route::post('settings/auth', ['as' => 'settings.auth.update','uses' => 'Dashboard\SettingsController@updateauth']);
 });

@@ -95,6 +95,12 @@
                         </a>
                     </li>
                     <li class="">
+                        <a href="{{ route('dashboard.settings.pagseguro') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Pagseguro
+                        </a>
+                    </li>
+                    <li class="">
                         <a href="{{ route('dashboard.settings.auth') }}">
                             <i class="fa fa-circle-o"></i>
                             Autenticação e registro
