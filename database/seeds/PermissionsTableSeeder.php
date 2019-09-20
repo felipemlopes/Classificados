@@ -13,8 +13,6 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('permissions')->truncate();
-
         $admin = \Spatie\Permission\Models\Role::where('name','Administrador')->get();
 
         $permission1 = Permission::create(['name' => 'Criar cidade']);
