@@ -128,6 +128,7 @@
                                             <i class=" icon-mail-2"></i>
                                             Envie uma menssagem
                                         </button>
+                                        <p style="margin-top: 5px;">Faça <a href="{{route('login')}}">Login</a> para enviar mensagens</p>
                                     @endif
 
                                     {{--<a href="{{route('message.create',$artist->id)}}" class="btn btn-default btn-block">

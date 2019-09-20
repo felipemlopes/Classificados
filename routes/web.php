@@ -115,6 +115,12 @@ Route::group(['middleware' => ['auth','role:Administrador|Gerente|Proprietário'
     Route::post('category/{category_id}/update', ['as' => 'category.update','uses' => 'Dashboard\CategoriesController@update']);
     Route::delete('category/{category_id}/delete', ['as' => 'category.destroy','uses' => 'Dashboard\CategoriesController@destroy']);
 
+    Route::get('review', ['as' => 'review.list','uses' => 'Dashboard\ReviewsController@index']);
+    Route::get('review/{review_id}/edit', ['as' => 'review.edit','uses' => 'Dashboard\ReviewsController@edit']);
+    Route::post('review/{review_id}/update', ['as' => 'review.update','uses' => 'Dashboard\ReviewsController@update']);
+    Route::delete('review/{review_id}/delete', ['as' => 'review.destroy','uses' => 'Dashboard\ReviewsController@destroy']);
+
+
     Route::get('plan', ['as' => 'plan.list','uses' => 'Dashboard\PlansController@index']);
     Route::get('plan/create', ['as' => 'plan.create','uses' => 'Dashboard\PlansController@create']);
     Route::post('plan/store', ['as' => 'plan.store','uses' => 'Dashboard\PlansController@store']);

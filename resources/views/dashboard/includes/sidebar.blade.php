@@ -59,6 +59,13 @@
                     </a>
                 </li>
             @endcan
+            @can('Visualizar reviews')
+                <li class="">
+                    <a href="{{ route('dashboard.review.list') }}">
+                        <i class="fa fa-comments"></i> <span>Avaliações</span>
+                    </a>
+                </li>
+            @endcan
             @can('Visualizar planos')
                 <li class="">
                     <a href="{{ route('dashboard.plan.list') }}">

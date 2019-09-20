@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 
 class PermissionsTableSeeder extends Seeder
@@ -12,6 +13,7 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+
         $admin = \Spatie\Permission\Models\Role::where('name','Administrador')->get();
 
         $permission1 = Permission::create(['name' => 'Criar cidade']);
@@ -105,5 +107,14 @@ class PermissionsTableSeeder extends Seeder
         $permission40 = Permission::create(['name' => 'Excluir planos']);
         $permission39->syncRoles($admin);
         $permission40->syncRoles($admin);
+
+        $permission41 = Permission::create(['name' => 'Criar reviews']);
+        $permission42 = Permission::create(['name' => 'Excluir reviews']);
+        $permission43 = Permission::create(['name' => 'Editar reviews']);
+        $permission44 = Permission::create(['name' => 'Visualizar reviews']);
+        $permission41->syncRoles($admin);
+        $permission42->syncRoles($admin);
+        $permission43->syncRoles($admin);
+        $permission44->syncRoles($admin);
     }
 }
