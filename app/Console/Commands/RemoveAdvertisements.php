@@ -43,13 +43,13 @@ class RemoveAdvertisements extends Command
         $datefree = \Carbon\Carbon::today()->subDays(setting('days_ads_free'));
 
         //sempre foi free
-        Advertisement::where('is_featured',false)->where('created_at','<',date($datefree))->delete();
+        Advertisement::where('is_featured',false)->where('created_at','<',date($datefree))->update(['suspended' => true]);
 
         //é featured mas featured until é nulo segue o caso anterior
-        Advertisement::where('is_featured',true)->where('featured_until',null)->where('created_at','<',date($datefree))->delete();
+        Advertisement::where('is_featured',true)->where('featured_until',null)->where('created_at','<',date($datefree))->update(['suspended' => true]);
 
         //premium
-        Advertisement::where('is_featured',true)->where('featured_until','>',\Carbon\Carbon::now())->delete();
+        Advertisement::where('is_featured',true)->where('featured_until','>',\Carbon\Carbon::now())->update(['suspended' => true]);
 
     }
 }

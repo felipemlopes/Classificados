@@ -18,7 +18,7 @@ class Advertisement extends Model implements ReviewRateable
      * @var array
      */
     protected $fillable = [
-        'id','user_id','embedded_type','embedded_id','estado_id','cidade_id'
+        'id','user_id','embedded_type','embedded_id','estado_id','cidade_id', 'suspended'
     ];
 
     /**
@@ -160,6 +160,16 @@ class Advertisement extends Model implements ReviewRateable
     public function scopeUnpaid($query)
     {
         return $query->where('is_paid', false);
+    }
+
+    public function scopeSuspended($query)
+    {
+        return $query->where('suspended', true);
+    }
+
+    public function scopeNotSuspended($query)
+    {
+        return $query->where('suspended', false);
     }
     /*
    |--------------------------------------------------------------------------

@@ -55,7 +55,10 @@
                         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
                             <div class="form-group">
                                 <div class="checkbox">
-                                    <label><input type="checkbox" value="1" name="tos">Aceitar termos de uso</label>
+                                    <label>
+                                        <input type="checkbox" value="1" name="tos">Aceitar
+                                        <a href="https://contratabanda.com.br/termos-de-uso/" target="_blank">termos de uso</a>
+                                    </label>
                                 </div>
                             </div>
                         </div>

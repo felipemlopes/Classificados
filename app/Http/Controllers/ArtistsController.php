@@ -30,10 +30,10 @@ class ArtistsController extends Controller
         $city= Input::get('cidade');
         $qtd_destaque = setting('qtd_ads_destaque');
 
-        $destaques = Advertisement::Artist()->Published()->Featured()->Paid();
+        $destaques = Advertisement::Artist()->Published()->Featured()->Paid()->NotSuspended();
 
 
-        $artists = Advertisement::query()->Published();
+        $artists = Advertisement::query()->Published()->NotSuspended();
         $artists = $artists->select('advertisements.*','artists.*','advertisements.id as ads_id')
             ->join('artists', function ($join) {
                 $join->on('artists.id', '=', 'advertisements.embedded_id');

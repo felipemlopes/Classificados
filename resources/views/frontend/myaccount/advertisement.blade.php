@@ -29,6 +29,10 @@
                                 <i class="fa fa-credit-card"></i> Plano</a>
                         </li>
                         <li class="li-menuminhaconta">
+                            <a href="{{ route('myaccount.payments') }}" class="link-myaccount">
+                                <i class="fa fa-usd"></i> Pagamentos</a>
+                        </li>
+                        <li class="li-menuminhaconta">
                             <a href="{{ route('myaccount.settings') }}" class="link-myaccount">
                                 <i class="fa fa-cog"></i> Configurações</a>
                         </li>
@@ -120,10 +124,17 @@
                                             <i class="fa fa-certificate"></i> Destaque
                                         </a>
                                         @endif
+                                        @if($advertisement->suspended)
+                                        <a href="{{ route('myaccount.advertisement.publish', $advertisement->id) }}" class="btn btn-primary btn-circle edit" style="margin-top: 10px;" title="Editar anúncio"
+                                           data-toggle="tooltip" data-placement="top">
+                                            <i class="fa fa-edit"></i> Publicar
+                                        </a>
+                                        @else
                                         <a href="{{ route('myaccount.advertisement.edit', $advertisement->id) }}" class="btn btn-primary btn-circle edit" style="margin-top: 10px;" title="Editar anúncio"
                                            data-toggle="tooltip" data-placement="top">
                                             <i class="fa fa-edit"></i> Editar
                                         </a>
+                                        @endif
                                         <a id="deletebtn{{$advertisement->id}}" href="{{route('myaccount.advertisement.delete',$advertisement->id)}}" onclick="deleteads({{$advertisement->id}})"  class="btn btn-secondary btn-circle excluir" style="margin-top: 10px;" title="Excluir anúncio"
                                            data-toggle="tooltip" data-placement="top">
                                             <i class="fa fa-trash"></i> Excluir

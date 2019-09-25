@@ -28,8 +28,8 @@ class ProfessionalsController extends Controller
         $city= Input::get('cidade');
         $qtd_destaque = setting('qtd_ads_destaque');
 
-        $professionals = Advertisement::Professional()->Published();
-        $destaques = Advertisement::Professional()->Published()->Featured()->Paid();
+        $professionals = Advertisement::Professional()->Published()->NotSuspended();
+        $destaques = Advertisement::Professional()->Published()->Featured()->Paid()->NotSuspended();
         /*$destaques = $destaques->whereHas('user', function (Builder $query) {
             $query->whereHas('subscriptions', function (Builder $query) {
                 $query->where('starts_on', '<', Carbon::now());

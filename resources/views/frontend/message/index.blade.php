@@ -34,6 +34,10 @@
                                 <i class="fa fa-credit-card"></i> Plano</a>
                         </li>
                         <li class="li-menuminhaconta">
+                            <a href="{{ route('myaccount.payments') }}" class="link-myaccount">
+                                <i class="fa fa-usd"></i> Pagamentos</a>
+                        </li>
+                        <li class="li-menuminhaconta">
                             <a href="{{ route('myaccount.settings') }}" class="link-myaccount">
                                 <i class="fa fa-cog"></i> Configurações</a>
                         </li>

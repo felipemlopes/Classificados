@@ -138,6 +138,7 @@ class MyAccountController extends Controller
     public function advertisementEdit($id)
     {
         $edit = true;
+        $publish = false;
         $advertisement = Advertisement::find($id);
         if($advertisement->user_id!=Auth::User()->id){
             return redirect()->back();
@@ -148,14 +149,14 @@ class MyAccountController extends Controller
             $estados = Estado::all();
             $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
             return view('frontend.myaccount.advertisementedit',compact('edit', 'advertisement','estilos',
-                'estados','cidades'));
+                'estados','cidades','publish'));
         }else{
             $categorias = Category::where('parent_id','=',null)->get();
             $subcategorias = Category::where('parent_id','=',$advertisement->embedded->category_id)->get();
             $estados = Estado::all();
             $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
             return view('frontend.myaccount.advertisementedit',compact('edit', 'advertisement',
-                'estados','cidades','categorias','subcategorias'));
+                'estados','cidades','categorias','subcategorias','publish'));
         }
     }
 
@@ -175,6 +176,7 @@ class MyAccountController extends Controller
 
         $advertisement->estado_id = $request->estado;
         $advertisement->cidade_id = $request->cidade;
+        $advertisement->suspended = false;
         $advertisement->save();
 
         if($advertisement->embedded_type=="App\Models\Artist"){
@@ -384,5 +386,55 @@ class MyAccountController extends Controller
         return redirect()->route('myaccount.advertisement')->withSuccess('Anúncio excluido com sucesso!');
     }
 
+    public function payments()
+    {
+        $setting_peerpage = setting('peer_page');
+        $peer_page = $setting_peerpage == 0?12:$setting_peerpage;
+        $type = Input::get('tipo');
 
+        $payments = Payment::whereHasMorph('paymentable',
+            ['App\Models\Advertisement', 'App\Models\PlanSubscription'],
+            function (Builder $query) {
+            $query->where('user_id', Auth::User()->id);
+        });
+        if($type <> ""){
+            if($type==1){
+                $payments->where('paymentable_type','App\Models\Advertisement');
+            }elseif($type==2){
+                $payments->where('paymentable_type','App\Models\PlanSubscription');
+            }
+
+        }
+        $payments = $payments->orderBy('created_at', 'desc')->paginate($peer_page);
+        if ($type) {
+            $payments->appends(['tipo' => $type]);
+        }
+
+        return view('frontend.myaccount.payments', compact('payments'));
+    }
+
+    public function advertisementPublish($id)
+    {
+        $edit = true;
+        $publish = true;
+        $advertisement = Advertisement::find($id);
+        if($advertisement->user_id!=Auth::User()->id){
+            return redirect()->back();
+        }
+
+        if($advertisement->embedded_type=="App\Models\Artist"){
+            $estilos=MusicStyle::all();
+            $estados = Estado::all();
+            $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
+            return view('frontend.myaccount.advertisementedit',compact('edit', 'advertisement','estilos',
+                'estados','cidades','publish'));
+        }else{
+            $categorias = Category::where('parent_id','=',null)->get();
+            $subcategorias = Category::where('parent_id','=',$advertisement->embedded->category_id)->get();
+            $estados = Estado::all();
+            $cidades=Cidade::where('estado_id','=',$advertisement->estado_id)->get();
+            return view('frontend.myaccount.advertisementedit',compact('edit', 'advertisement',
+                'estados','cidades','categorias','subcategorias','publish'));
+        }
+    }
 }

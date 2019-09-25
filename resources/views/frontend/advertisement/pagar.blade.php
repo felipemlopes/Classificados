@@ -27,6 +27,10 @@
 
 
                 <div class="col-md-offset-2 col-md-8">
+                    <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
+                        <h3 class="col-xs-12 col-sm-12 col-md-12">Preço: R${{ $valor }}</h3>
+                    </div>
+
                     <h4 class="text-center">
                         <p>
                             <b>Preencha suas informações</b>

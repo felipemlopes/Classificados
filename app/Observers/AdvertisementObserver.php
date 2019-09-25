@@ -6,6 +6,8 @@ use App\Models\Advertisement;
 use App\Models\Artist;
 use App\Models\ArtistMusicalStyle;
 use App\Models\Professional;
+use App\Models\User;
+use App\Notifications\AdvertisementSuspended;
 
 class AdvertisementObserver
 {
@@ -28,7 +30,10 @@ class AdvertisementObserver
      */
     public function updated(Advertisement $advertisement)
     {
-        //
+        $user = User::find($advertisement->user_id);
+        if($advertisement->suspended==true){
+            $user->notify(new AdvertisementSuspended($advertisement));
+        }
     }
 
     /**
